@@ -1,0 +1,10 @@
+.form-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
