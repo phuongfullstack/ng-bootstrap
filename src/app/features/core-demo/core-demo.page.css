@@ -1,0 +1,27 @@
+.core-demo__layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.core-demo__sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.core-demo__stage {
+  flex: 1;
+  min-height: 320px;
+}
+
+@media (max-width: 1024px) {
+  .core-demo__layout {
+    flex-direction: column;
+  }
+
+  .core-demo__sidebar {
+    width: 100%;
+  }
+}
+
