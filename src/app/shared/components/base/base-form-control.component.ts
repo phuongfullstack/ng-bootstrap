@@ -1,67 +1,35 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  OnInit,
-  Optional,
-  Output,
-  Self
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Directive, Input, OnInit, Optional, Self } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  ReactiveFormsModule
+  NgControl
 } from '@angular/forms';
 import {
   ValidationMessageResolver,
   defaultValidationMessages
 } from '@shared/validation';
 
-let uniqueId = 0;
-
-@Component({
-  selector: 'app-input',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './input.component.html',
-  styleUrl: './input.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class InputComponent implements OnInit, ControlValueAccessor {
+/**
+ * Base class for form control components
+ * Provides common functionality for reactive forms integration and validation
+ */
+@Directive()
+export abstract class BaseFormControlComponent implements OnInit, ControlValueAccessor {
   @Input() label?: string;
-  @Input() placeholder?: string;
   @Input() hint?: string;
-  @Input() type: string = 'text';
   @Input() id?: string;
-  @Input() autocomplete?: string;
   @Input() required = false;
-  @Input() readonly = false;
   @Input() showValidationState = true;
-  @Input() minlength?: number;
-  @Input() maxlength?: number;
-  @Input() min?: number;
-  @Input() max?: number;
-  @Input() step?: number;
-  @Input() pattern?: string;
   @Input() errorMessages: Record<string, ValidationMessageResolver> = {};
 
-  @Output() valueChange = new EventEmitter<string>();
-  @Output() focused = new EventEmitter<FocusEvent>();
-  @Output() blurred = new EventEmitter<FocusEvent>();
-
-  protected value: string | number | null = '';
+  protected value: any = null;
   protected disabled = false;
-  protected generatedId = `app-input-${uniqueId++}`;
+  protected abstract generatedId: string;
 
-  private onChange = (value: string | number | null): void => { };
-  private onTouched = (): void => { };
+  protected onChange = (value: any): void => { };
+  protected onTouched = (): void => { };
 
-  constructor(@Optional() @Self() private ngControl: NgControl | null = null) {
+  constructor(@Optional() @Self() protected ngControl: NgControl | null = null) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -80,7 +48,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     return (this.ngControl?.control as FormControl) ?? null;
   }
 
-  protected get inputId(): string {
+  protected get controlId(): string {
     return this.id ?? this.generatedId;
   }
 
@@ -126,36 +94,12 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-  protected onInput(event: Event): void {
-    const inputValue = (event.target as HTMLInputElement).value;
-    const processedValue =
-      this.type === 'number' && inputValue !== ''
-        ? Number(inputValue)
-        : inputValue;
-
-    this.value = processedValue;
-    this.onChange(processedValue);
-    this.valueChange.emit(String(inputValue));
-  }
-
-  protected onFocus(event: FocusEvent): void {
-    this.focused.emit(event);
-  }
-
-  protected onBlur(event: FocusEvent): void {
-    this.onTouched();
-    if (this.control) {
-      this.control.markAsTouched();
-    }
-    this.blurred.emit(event);
-  }
-
   // ControlValueAccessor implementation
-  writeValue(value: string | number | null): void {
-    this.value = value ?? '';
+  writeValue(value: any): void {
+    this.value = value ?? this.getDefaultValue();
   }
 
-  registerOnChange(fn: (value: string | number | null) => void): void {
+  registerOnChange(fn: (value: any) => void): void {
     this.onChange = fn;
   }
 
@@ -166,6 +110,15 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
+
+  protected handleBlur(): void {
+    this.onTouched();
+    if (this.control) {
+      this.control.markAsTouched();
+    }
+  }
+
+  protected abstract getDefaultValue(): any;
 
   private buildDefaultErrorMessage(
     errorKey: string,
@@ -180,8 +133,10 @@ export class InputComponent implements OnInit, ControlValueAccessor {
       return defaultMessage;
     }
 
-    return 'Invalid value.';
+    return this.getDefaultErrorMessage();
   }
+
+  protected abstract getDefaultErrorMessage(): string;
 
   private resolveMessage(
     resolver: ValidationMessageResolver | undefined,
@@ -202,4 +157,3 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     return resolver;
   }
 }
-

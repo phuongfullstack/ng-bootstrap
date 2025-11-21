@@ -1,0 +1,212 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">Core Dropdown Component Demo</h2>
+      <p class="text-muted mb-4">
+        Component dropdown tùy chỉnh với Bootstrap 5.3, hỗ trợ Reactive Forms, validation và nhiều tính năng khác.
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="demoForm">
+    <div class="row">
+      <!-- Basic Dropdown -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">1. Basic Dropdown (Required)</h5>
+          </div>
+          <div class="card-body">
+            <app-core-dropdown
+              [label]="'Quốc gia'"
+              [placeholder]="'Chọn quốc gia'"
+              [options]="countryOptions"
+              [required]="true"
+              formControlName="country"
+              (valueChange)="onCountryChange($event)"
+              (focused)="onFocus($event, 'country')"
+              (blurred)="onBlur($event, 'country')">
+            </app-core-dropdown>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Required validation</li>
+                <li>Dynamic placeholder</li>
+                <li>Value change event</li>
+                <li>Focus/Blur events</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown with Hint -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">2. Dropdown with Hint</h5>
+          </div>
+          <div class="card-body">
+            <app-core-dropdown
+              [label]="'Thành phố'"
+              [placeholder]="'Chọn thành phố'"
+              [hint]="'Chọn thành phố bạn đang sinh sống'"
+              [options]="cityOptions"
+              formControlName="city"
+              (selectionChange)="onCityChange($event)">
+            </app-core-dropdown>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Optional field</li>
+                <li>Hint text hỗ trợ</li>
+                <li>Selection change event</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multiple Selection -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">3. Multiple Selection</h5>
+          </div>
+          <div class="card-body">
+            <app-core-dropdown
+              [label]="'Kỹ năng'"
+              [options]="skillOptions"
+              [multiple]="true"
+              formControlName="skills"
+              (valueChange)="onSkillsChange($event)">
+            </app-core-dropdown>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Multiple selection</li>
+                <li>Array value binding</li>
+                <li>Ctrl+Click để chọn nhiều</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown with Disabled Options -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">4. Disabled Options</h5>
+          </div>
+          <div class="card-body">
+            <app-core-dropdown
+              [label]="'Trạng thái'"
+              [placeholder]="'Chọn trạng thái'"
+              [options]="statusOptions"
+              formControlName="status">
+            </app-core-dropdown>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Disabled options trong list</li>
+                <li>Pre-selected value</li>
+                <li>Option "Không hoạt động" bị disabled</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Size Dropdown -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">5. Dynamic Size</h5>
+          </div>
+          <div class="card-body">
+            <app-core-dropdown
+              [label]="'Chọn kích thước dropdown'"
+              [options]="sizeOptions"
+              [size]="currentSize"
+              formControlName="size"
+              (valueChange)="onSizeChange($event)">
+            </app-core-dropdown>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Size tự động thay đổi theo giá trị chọn</li>
+                <li>xs, s → sm size</li>
+                <li>m → normal size</li>
+                <li>l, xl → lg size</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disabled Dropdown -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">6. Disabled Dropdown</h5>
+          </div>
+          <div class="card-body">
+            <app-core-dropdown
+              [label]="'Field bị vô hiệu hóa'"
+              [options]="statusOptions"
+              formControlName="disabledField">
+            </app-core-dropdown>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Disabled state</li>
+                <li>Form control disabled</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Status -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Form Status</h5>
+          </div>
+          <div class="card-body">
+            <div class="d-flex gap-2 mb-3">
+              <button type="button" class="btn btn-secondary" (click)="resetForm()">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset Form
+              </button>
+            </div>
+
+            <div class="alert alert-secondary mb-0">
+              <h6 class="alert-heading">Form Status:</h6>
+              <p class="mb-1">
+                <strong>Valid:</strong> {{ demoForm.valid ? 'Yes ✓' : 'No ✗' }}
+              </p>
+              <p class="mb-1">
+                <strong>Dirty:</strong> {{ demoForm.dirty ? 'Yes' : 'No' }}
+              </p>
+              <p class="mb-3">
+                <strong>Touched:</strong> {{ demoForm.touched ? 'Yes' : 'No' }}
+              </p>
+              
+              <h6 class="alert-heading">Form Value:</h6>
+              <pre class="mb-0 bg-light p-2 rounded"><code>{{ formValue }}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

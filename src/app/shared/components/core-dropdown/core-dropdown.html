@@ -1,0 +1,40 @@
+<div class="mb-3">
+  <label *ngIf="label" class="form-label fw-medium" [for]="selectId">
+    {{ label }}
+    <span *ngIf="required" class="text-danger">*</span>
+  </label>
+
+  <select 
+    class="form-select" 
+    [class.is-invalid]="isInvalid" 
+    [class.is-valid]="isValid"
+    [class]="sizeClass"
+    [id]="selectId"
+    [disabled]="isDisabled || disabled"
+    [required]="required"
+    [multiple]="multiple"
+    [attr.aria-describedby]="hint ? selectId + '-hint' : null"
+    [attr.aria-invalid]="isInvalid ? 'true' : null"
+    (change)="onChangeEvent($event)"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)">
+    
+    <option *ngIf="!multiple && placeholder" value="" disabled [selected]="!value">
+      {{ placeholder }}
+    </option>
+    
+    <option 
+      *ngFor="let option of options" 
+      [value]="option.value"
+      [disabled]="option.disabled || false"
+      [selected]="multiple ? (value && value.includes(option.value)) : (value === option.value)">
+      {{ option.label }}
+    </option>
+  </select>
+
+  <div class="form-text" *ngIf="hint" [id]="selectId + '-hint'">{{ hint }}</div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
