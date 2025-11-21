@@ -2,3 +2,9 @@
   min-height: 120px;
 }
 
+.input-demo .event-log {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+

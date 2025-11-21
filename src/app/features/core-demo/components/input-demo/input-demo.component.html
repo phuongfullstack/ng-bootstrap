@@ -1,15 +1,17 @@
 <div class="input-demo">
   <form class="card shadow-sm mb-4" [formGroup]="demoForm" (ngSubmit)="submit()">
     <div class="card-body">
-      <app-input label="Họ và tên" placeholder="Nhập họ tên..." controlName="fullName" [formGroup]="demoForm"
-        [required]="true" [minlength]="3" autocomplete="name" hint="Tối thiểu 3 ký tự"
-        (valueChange)="onValueChange($event)" (focused)="onFocus()" (blurred)="onBlur()"></app-input>
+      <app-input label="Họ và tên" placeholder="Nhập họ tên..." formControlName="fullName" [required]="true"
+        [minlength]="3" autocomplete="name" (valueChange)="onValueChange('fullName', $event)"
+        (focused)="onFocus('fullName')" (blurred)="onBlur('fullName')"></app-input>
 
-      <app-input label="Email" placeholder="name@company.com" controlName="email" type="email" [formGroup]="demoForm"
-        [required]="true" autocomplete="email"></app-input>
+      <app-input label="Email" placeholder="name@company.com" formControlName="email" type="email" [required]="true"
+        autocomplete="email" (valueChange)="onValueChange('email', $event)" (focused)="onFocus('email')"
+        (blurred)="onBlur('email')"></app-input>
 
-      <app-input label="Tuổi" placeholder="12 - 65" controlName="age" type="number" [formGroup]="demoForm" [min]="12"
-        [max]="65" [step]="1" hint="Độ tuổi hợp lệ từ 12 đến 65"></app-input>
+      <app-input label="Tuổi" placeholder="12 - 65" formControlName="age" type="number" [min]="12" [max]="65" [step]="1"
+        hint="Độ tuổi hợp lệ từ 12 đến 65" (valueChange)="onValueChange('age', $event)" (focused)="onFocus('age')"
+        (blurred)="onBlur('age')"></app-input>
     </div>
     <div class="card-footer d-flex justify-content-end gap-2">
       <button type="reset" class="btn btn-outline-secondary">Reset</button>
@@ -32,22 +34,27 @@
     </div>
     <div class="col-md-6">
       <div class="card h-100">
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
           <h2 class="h6 text-uppercase text-muted">Event Log</h2>
-          <ul class="list-unstyled mb-0 small">
-            <li>
-              <strong>Value change:</strong>
-              {{ lastValueChange || 'Chưa có giá trị' }}
-            </li>
-            <li>
-              <strong>Focus:</strong>
-              {{ lastFocus?.toLocaleTimeString() || 'Chưa có' }}
-            </li>
-            <li>
-              <strong>Blur:</strong>
-              {{ lastBlur?.toLocaleTimeString() || 'Chưa có' }}
-            </li>
-          </ul>
+          <div class="event-log flex-grow-1">
+            <div *ngIf="!eventLog.length" class="text-muted small">
+              Chưa có sự kiện nào.
+            </div>
+            <ul *ngIf="eventLog.length" class="list-unstyled mb-0 small">
+              <li *ngFor="let entry of eventLog">
+                <div class="fw-semibold">
+                  {{ eventTypeLabel[entry.type] }}
+                  <span class="text-muted">• {{ entry.control }}</span>
+                </div>
+                <div class="text-body-secondary">
+                  {{ entry.timestamp | date: 'mediumTime' }}
+                  <ng-container *ngIf="entry.value !== undefined">
+                    — <code>{{ entry.value }}</code>
+                  </ng-container>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

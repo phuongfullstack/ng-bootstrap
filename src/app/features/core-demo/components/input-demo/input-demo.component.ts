@@ -13,6 +13,15 @@ import {
   textLengthValidator
 } from '@shared/validation';
 
+type DemoEventType = 'valueChange' | 'focus' | 'blur';
+
+interface DemoEventLogEntry {
+  control: string;
+  type: DemoEventType;
+  value?: string;
+  timestamp: Date;
+}
+
 @Component({
   selector: 'app-input-demo',
   standalone: true,
@@ -24,9 +33,13 @@ import {
 export class InputDemoComponent {
   readonly demoForm: FormGroup;
 
-  protected lastValueChange?: string;
-  protected lastBlur?: Date;
-  protected lastFocus?: Date;
+  protected readonly eventTypeLabel: Record<DemoEventType, string> = {
+    valueChange: 'Value change',
+    focus: 'Focus',
+    blur: 'Blur'
+  };
+
+  protected eventLog: DemoEventLogEntry[] = [];
 
   constructor(private readonly fb: FormBuilder) {
     this.demoForm = this.fb.group({
@@ -42,16 +55,29 @@ export class InputDemoComponent {
     });
   }
 
-  protected onValueChange(value: string): void {
-    this.lastValueChange = value;
+  protected onValueChange(control: string, value: string): void {
+    this.pushEvent({
+      control,
+      type: 'valueChange',
+      value,
+      timestamp: new Date()
+    });
   }
 
-  protected onFocus(): void {
-    this.lastFocus = new Date();
+  protected onFocus(control: string): void {
+    this.pushEvent({
+      control,
+      type: 'focus',
+      timestamp: new Date()
+    });
   }
 
-  protected onBlur(): void {
-    this.lastBlur = new Date();
+  protected onBlur(control: string): void {
+    this.pushEvent({
+      control,
+      type: 'blur',
+      timestamp: new Date()
+    });
   }
 
   protected submit(): void {
@@ -61,6 +87,10 @@ export class InputDemoComponent {
     }
 
     console.table(this.demoForm.value);
+  }
+
+  private pushEvent(entry: DemoEventLogEntry): void {
+    this.eventLog = [entry, ...this.eventLog].slice(0, 10);
   }
 }
 
