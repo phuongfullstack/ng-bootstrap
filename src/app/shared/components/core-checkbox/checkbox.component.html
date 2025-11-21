@@ -1,0 +1,51 @@
+<div class="mb-3" *ngIf="!isGroupMode">
+  <div [class]="containerClass + ' ' + sizeClass">
+    <input class="form-check-input" [class.is-invalid]="isInvalid" [class.is-valid]="isValid" type="checkbox"
+      [id]="checkboxId" [checked]="checkboxValue" [indeterminate]="indeterminate" [disabled]="isDisabled"
+      [required]="required" [attr.aria-describedby]="hint ? checkboxId + '-hint' : null"
+      [attr.aria-invalid]="isInvalid ? 'true' : null" (change)="onCheckboxChange($event)" (focus)="onFocus($event)"
+      (blur)="onBlur($event)" />
+    <label class="form-check-label" [for]="checkboxId">
+      <ng-container *ngIf="label">{{ label }}</ng-container>
+      <ng-container *ngIf="!label">
+        <ng-content></ng-content>
+      </ng-container>
+      <span *ngIf="required" class="text-danger">*</span>
+    </label>
+  </div>
+
+  <div class="form-text" *ngIf="hint" [id]="checkboxId + '-hint'">
+    {{ hint }}
+  </div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
+
+<!-- Checkbox Group -->
+<div class="mb-3" *ngIf="isGroupMode">
+  <label *ngIf="label" class="form-label fw-medium">
+    {{ label }}
+    <span *ngIf="required" class="text-danger">*</span>
+  </label>
+
+  <div *ngFor="let option of options; let i = index" [class]="containerClass + ' ' + sizeClass">
+    <input class="form-check-input" [class.is-invalid]="isInvalid" [class.is-valid]="isValid" type="checkbox"
+      [id]="checkboxId + '-' + i" [checked]="isOptionChecked(option.value)" [disabled]="isDisabled || option.disabled"
+      [required]="required && i === 0" [attr.aria-describedby]="hint ? checkboxId + '-hint' : null"
+      [attr.aria-invalid]="isInvalid ? 'true' : null" (change)="onGroupCheckboxChange($event, option.value)"
+      (focus)="onFocus($event)" (blur)="onBlur($event)" />
+    <label class="form-check-label" [for]="checkboxId + '-' + i">
+      {{ option.label }}
+    </label>
+  </div>
+
+  <div class="form-text" *ngIf="hint" [id]="checkboxId + '-hint'">
+    {{ hint }}
+  </div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
