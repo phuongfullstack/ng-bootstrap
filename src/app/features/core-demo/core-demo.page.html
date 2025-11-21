@@ -1,0 +1,37 @@
+<section class="core-demo container py-4">
+  <header class="core-demo__header mb-4">
+    <div>
+      <p class="text-uppercase fw-semibold text-primary mb-1">Core Library</p>
+      <h1 class="h3 mb-1">UI Component Playground</h1>
+      <p class="text-muted mb-0">
+        Chọn component ở sidebar để kiểm thử thuộc tính, validation và events.
+      </p>
+    </div>
+  </header>
+
+  <div class="core-demo__layout">
+    <app-demo-sidebar class="core-demo__sidebar" [items]="demos" [activeId]="activeComponentId"
+      (itemSelected)="handleSidebarSelect($event)"></app-demo-sidebar>
+
+    <section class="core-demo__stage">
+      <ng-container *ngIf="activeDemo as demo; else emptyState">
+        <ng-container *ngIf="demo.component === placeholderComponent; else concrete">
+          <app-demo-placeholder [title]="demo.title" [message]="demo.placeholderMessage || defaultPlaceholderMessage">
+          </app-demo-placeholder>
+        </ng-container>
+        <ng-template #concrete>
+          <ng-container *ngComponentOutlet="demo.component"></ng-container>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #emptyState>
+        <div class="card shadow-sm">
+          <div class="card-body text-center py-5">
+            <h2 class="h5 mb-2">Chưa có component nào được chọn</h2>
+            <p class="text-muted mb-0">Vui lòng chọn một component ở sidebar bên trái.</p>
+          </div>
+        </div>
+      </ng-template>
+    </section>
+  </div>
+</section>

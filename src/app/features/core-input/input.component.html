@@ -1,0 +1,19 @@
+<div class="mb-3">
+  <label *ngIf="label" class="form-label fw-medium" [for]="inputId">
+    {{ label }}
+    <span *ngIf="required" class="text-danger">*</span>
+  </label>
+
+  <input class="form-control" [class.is-invalid]="isInvalid" [class.is-valid]="isValid" [type]="type" [id]="inputId"
+    [value]="value" [attr.placeholder]="placeholder" [attr.autocomplete]="autocomplete"
+    [attr.minlength]="minlength ?? null" [attr.maxlength]="maxlength ?? null" [attr.min]="min ?? null"
+    [attr.max]="max ?? null" [attr.step]="step ?? null" [attr.pattern]="pattern ?? null" [readonly]="readonly"
+    [disabled]="disabled" [required]="required" (input)="onInput($event)" (focus)="onFocus($event)"
+    (blur)="onBlur($event)" />
+
+  <div class="form-text" *ngIf="hint">{{ hint }}</div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
