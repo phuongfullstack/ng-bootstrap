@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { InputComponent } from '@features/core-input/input.component';
+import { InputComponent } from '@shared/components/core-input/input.component';
 import {
   ageRangeValidator,
   emailDomainValidator,
