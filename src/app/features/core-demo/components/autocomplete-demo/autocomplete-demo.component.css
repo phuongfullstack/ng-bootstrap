@@ -1,0 +1,53 @@
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.card-header h5 {
+  color: #495057;
+  font-weight: 600;
+}
+
+pre {
+  font-size: 0.875rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.alert-info {
+  font-size: 0.875rem;
+}
+
+.alert-info ul {
+  margin-top: 0.5rem;
+}
+
+.btn {
+  font-weight: 500;
+}
+
+.btn i {
+  margin-right: 0.25rem;
+}
+
+kbd {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.875rem;
+  color: #fff;
+  background-color: #212529;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
+
+.table td {
+  padding: 0.5rem;
+}

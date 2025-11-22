@@ -3,6 +3,7 @@ import { DemoSidebarItem } from '@shared/components/sidebar/sidebar.component';
 import { InputDemoComponent } from './components/input-demo/input-demo.component';
 import { DropdownDemoComponent } from './components/dropdown-demo/dropdown-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
+import { AutocompleteDemoComponent } from './components/autocomplete-demo/autocomplete-demo.component';
 import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-placeholder.component';
 
 export interface DemoComponentMeta extends DemoSidebarItem {
@@ -35,8 +36,7 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
   {
     id: 'autocomplete',
     title: 'AutoComplete Box',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'AutoComplete với debounce & custom template đang phát triển.'
+    component: AutocompleteDemoComponent
   },
   {
     id: 'modal',
