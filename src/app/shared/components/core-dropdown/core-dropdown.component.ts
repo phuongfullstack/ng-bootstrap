@@ -27,11 +27,11 @@ export interface DropdownOption {
  * Supports reactive forms, validation, multiple selection, and accessibility
  */
 @Component({
-  selector: 'app-core-dropdown',
+  selector: 'core-dropdown',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './core-dropdown.html',
-  styleUrl: './core-dropdown.css',
+  templateUrl: './core-dropdown.component.html',
+  styleUrls: ['./core-dropdown.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreDropdownComponent extends BaseFormControlComponent {

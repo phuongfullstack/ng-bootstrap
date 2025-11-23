@@ -17,7 +17,7 @@
             <h5 class="mb-0">1. Basic AutoComplete (Required)</h5>
           </div>
           <div class="card-body">
-            <app-core-autocomplete
+            <core-autocomplete
               [label]="'Quốc gia'"
               [placeholder]="'Nhập tên quốc gia...'"
               [options]="countryOptions"
@@ -27,7 +27,7 @@
               formControlName="country"
               (search)="onCountrySearch($event)"
               (selected)="onCountrySelected($event)">
-            </app-core-autocomplete>
+            </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
               <strong>Tính năng:</strong>
@@ -49,7 +49,7 @@
             <h5 class="mb-0">2. AutoComplete with Hint</h5>
           </div>
           <div class="card-body">
-            <app-core-autocomplete
+            <core-autocomplete
               [label]="'Thành phố'"
               [placeholder]="'Gõ tên thành phố...'"
               [hint]="'Nhập ít nhất 2 ký tự để tìm kiếm'"
@@ -58,7 +58,7 @@
               [maxResults]="5"
               formControlName="city"
               (search)="onCitySearch($event)">
-            </app-core-autocomplete>
+            </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
               <strong>Tính năng:</strong>
@@ -79,14 +79,14 @@
             <h5 class="mb-0">3. Grouped Options</h5>
           </div>
           <div class="card-body">
-            <app-core-autocomplete
+            <core-autocomplete
               [label]="'Ngôn ngữ lập trình'"
               [placeholder]="'Tìm ngôn ngữ...'"
               [options]="programmingLanguages"
               [minChars]="1"
               formControlName="language"
               (selected)="onLanguageSelected($event)">
-            </app-core-autocomplete>
+            </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
               <strong>Tính năng:</strong>
@@ -107,7 +107,7 @@
             <h5 class="mb-0">4. Email với Validation</h5>
           </div>
           <div class="card-body">
-            <app-core-autocomplete
+            <core-autocomplete
               [label]="'Email'"
               [placeholder]="'Nhập email...'"
               [options]="emailOptions"
@@ -115,7 +115,7 @@
               [showClearButton]="true"
               formControlName="email"
               (cleared)="onEmailCleared()">
-            </app-core-autocomplete>
+            </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
               <strong>Tính năng:</strong>
@@ -136,14 +136,14 @@
             <h5 class="mb-0">5. Allow Free Text</h5>
           </div>
           <div class="card-body">
-            <app-core-autocomplete
+            <core-autocomplete
               [label]="'Nhập tự do'"
               [placeholder]="'Gõ bất kỳ text nào...'"
               [options]="cityOptions"
               [allowFreeText]="true"
               [showClearButton]="true"
               formControlName="freeText">
-            </app-core-autocomplete>
+            </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
               <strong>Tính năng:</strong>

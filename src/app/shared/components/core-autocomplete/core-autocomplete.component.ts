@@ -19,9 +19,6 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 
 let uniqueId = 0;
 
-/**
- * Represents an option in the autocomplete list
- */
 export interface AutoCompleteOption {
   value: any;
   label: string;
@@ -29,16 +26,12 @@ export interface AutoCompleteOption {
   group?: string;
 }
 
-/**
- * Core autocomplete component with Bootstrap 5.3 styling
- * Supports reactive forms, validation, async data loading, and keyboard navigation
- */
 @Component({
-  selector: 'app-core-autocomplete',
+  selector: 'core-autocomplete',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './core-autocomplete.html',
-  styleUrl: './core-autocomplete.css',
+  templateUrl: './core-autocomplete.component.html',
+  styleUrls: ['./core-autocomplete.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreAutocompleteComponent extends BaseFormControlComponent implements OnDestroy {
@@ -231,7 +224,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
       if (dropdown && highlighted) {
         const dropdownRect = dropdown.getBoundingClientRect();
         const highlightedRect = highlighted.getBoundingClientRect();
-        
+
         if (highlightedRect.bottom > dropdownRect.bottom) {
           highlighted.scrollIntoView({ block: 'end', behavior: 'smooth' });
         } else if (highlightedRect.top < dropdownRect.top) {
@@ -288,13 +281,13 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
 
   protected highlightMatch(text: string, query: string): string {
     if (!query || query.length < this.minChars) return text;
-    
+
     const searchTerm = this.caseSensitive ? query : query.toLowerCase();
     const textToSearch = this.caseSensitive ? text : text.toLowerCase();
     const index = textToSearch.indexOf(searchTerm);
-    
+
     if (index === -1) return text;
-    
+
     return (
       text.substring(0, index) +
       '<strong>' +
@@ -306,7 +299,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
 
   override writeValue(value: any): void {
     super.writeValue(value);
-    
+
     if (value) {
       const option = this.options.find(opt => opt.value === value);
       if (option) {
@@ -319,7 +312,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
       this.displayValue = '';
       this.selectedOption = null;
     }
-    
+
     this.cdr.markForCheck();
   }
 

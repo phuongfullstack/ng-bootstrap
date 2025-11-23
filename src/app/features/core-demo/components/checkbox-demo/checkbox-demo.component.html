@@ -6,23 +6,23 @@
     </div>
     <div class="card-body">
       <form [formGroup]="demoForm" (ngSubmit)="submit()">
-        <app-checkbox label="Tôi đồng ý với điều khoản sử dụng" formControlName="acceptTerms" [required]="true"
+        <core-checkbox label="Tôi đồng ý với điều khoản sử dụng" formControlName="acceptTerms" [required]="true"
           hint="Bạn phải đồng ý với điều khoản để tiếp tục" (valueChange)="onValueChange('acceptTerms', $event)"
           (checkedChange)="onCheckedChange('acceptTerms', $event)" (focused)="onFocus('acceptTerms')"
           (blurred)="onBlur('acceptTerms')">
-        </app-checkbox>
+        </core-checkbox>
 
-        <app-checkbox label="Đăng ký nhận bản tin" formControlName="subscribeNewsletter"
+        <core-checkbox label="Đăng ký nhận bản tin" formControlName="subscribeNewsletter"
           hint="Nhận thông tin về sản phẩm và khuyến mãi mới nhất"
           (valueChange)="onValueChange('subscribeNewsletter', $event)"
           (checkedChange)="onCheckedChange('subscribeNewsletter', $event)" (focused)="onFocus('subscribeNewsletter')"
           (blurred)="onBlur('subscribeNewsletter')">
-        </app-checkbox>
+        </core-checkbox>
 
-        <app-checkbox label="Ghi nhớ đăng nhập" formControlName="rememberMe"
+        <core-checkbox label="Ghi nhớ đăng nhập" formControlName="rememberMe"
           (valueChange)="onValueChange('rememberMe', $event)" (checkedChange)="onCheckedChange('rememberMe', $event)"
           (focused)="onFocus('rememberMe')" (blurred)="onBlur('rememberMe')">
-        </app-checkbox>
+        </core-checkbox>
 
         <div class="mt-3">
           <button type="submit" class="btn btn-primary" [disabled]="demoForm.invalid">
@@ -43,15 +43,15 @@
     </div>
     <div class="card-body">
       <form [formGroup]="groupForm" (ngSubmit)="submitGroup()">
-        <app-checkbox label="Sở thích của bạn" formControlName="hobbies" [options]="hobbyOptions" [required]="true"
+        <core-checkbox label="Sở thích của bạn" formControlName="hobbies" [options]="hobbyOptions" [required]="true"
           hint="Chọn ít nhất 2 sở thích" (valueChange)="onValueChange('hobbies', $event)" (focused)="onFocus('hobbies')"
           (blurred)="onBlur('hobbies')">
-        </app-checkbox>
+        </core-checkbox>
 
-        <app-checkbox label="Kỹ năng lập trình" formControlName="skills" [options]="skillOptions" [required]="true"
+        <core-checkbox label="Kỹ năng lập trình" formControlName="skills" [options]="skillOptions" [required]="true"
           hint="Chọn các kỹ năng bạn thành thạo" (valueChange)="onValueChange('skills', $event)"
           (focused)="onFocus('skills')" (blurred)="onBlur('skills')">
-        </app-checkbox>
+        </core-checkbox>
 
         <div class="mt-3">
           <button type="submit" class="btn btn-primary" [disabled]="groupForm.invalid">
@@ -73,29 +73,29 @@
     <div class="card-body">
       <div class="mb-3">
         <h3 class="h6">Inline Checkbox</h3>
-        <app-checkbox label="Option 1" [inline]="true" (valueChange)="onValueChange('inline1', $event)">
-        </app-checkbox>
-        <app-checkbox label="Option 2" [inline]="true" (valueChange)="onValueChange('inline2', $event)">
-        </app-checkbox>
-        <app-checkbox label="Option 3" [inline]="true" (valueChange)="onValueChange('inline3', $event)">
-        </app-checkbox>
+        <core-checkbox label="Option 1" [inline]="true" (valueChange)="onValueChange('inline1', $event)">
+        </core-checkbox>
+        <core-checkbox label="Option 2" [inline]="true" (valueChange)="onValueChange('inline2', $event)">
+        </core-checkbox>
+        <core-checkbox label="Option 3" [inline]="true" (valueChange)="onValueChange('inline3', $event)">
+        </core-checkbox>
       </div>
 
       <div class="mb-3">
         <h3 class="h6">Different Sizes</h3>
-        <app-checkbox label="Small checkbox" size="sm" (valueChange)="onValueChange('sizeSm', $event)">
-        </app-checkbox>
-        <app-checkbox label="Medium checkbox (default)" size="md" (valueChange)="onValueChange('sizeMd', $event)">
-        </app-checkbox>
-        <app-checkbox label="Large checkbox" size="lg" (valueChange)="onValueChange('sizeLg', $event)">
-        </app-checkbox>
+        <core-checkbox label="Small checkbox" size="sm" (valueChange)="onValueChange('sizeSm', $event)">
+        </core-checkbox>
+        <core-checkbox label="Medium checkbox (default)" size="md" (valueChange)="onValueChange('sizeMd', $event)">
+        </core-checkbox>
+        <core-checkbox label="Large checkbox" size="lg" (valueChange)="onValueChange('sizeLg', $event)">
+        </core-checkbox>
       </div>
 
       <div class="mb-3">
         <h3 class="h6">Tri-state Checkbox (Indeterminate)</h3>
-        <app-checkbox label="Select all" [indeterminate]="indeterminateState"
+        <core-checkbox label="Select all" [indeterminate]="indeterminateState"
           (indeterminateChange)="onIndeterminateChange($event)" (valueChange)="onValueChange('triState', $event)">
-        </app-checkbox>
+        </core-checkbox>
         <button type="button" class="btn btn-sm btn-outline-primary mt-2" (click)="toggleIndeterminate()">
           Toggle Indeterminate State
         </button>
@@ -103,10 +103,10 @@
 
       <div class="mb-3">
         <h3 class="h6">Disabled Checkbox</h3>
-        <app-checkbox label="Disabled checkbox" [standaloneDisabled]="true" [standaloneValue]="true">
-        </app-checkbox>
-        <app-checkbox label="Disabled unchecked" [standaloneDisabled]="true" [standaloneValue]="false">
-        </app-checkbox>
+        <core-checkbox label="Disabled checkbox" [standaloneDisabled]="true" [standaloneValue]="true">
+        </core-checkbox>
+        <core-checkbox label="Disabled unchecked" [standaloneDisabled]="true" [standaloneValue]="false">
+        </core-checkbox>
       </div>
     </div>
   </div>

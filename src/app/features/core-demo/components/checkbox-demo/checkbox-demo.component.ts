@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { CheckboxComponent, CheckboxOption } from '@shared/components/core-checkbox/checkbox.component';
+import { CoreCheckboxComponent, CheckboxOption } from '@shared/components/core-checkbox/core-checkbox.component';
 
 type DemoEventType = 'valueChange' | 'checkedChange' | 'focus' | 'blur' | 'indeterminateChange';
 
@@ -20,7 +20,7 @@ interface DemoEventLogEntry {
 @Component({
   selector: 'app-checkbox-demo',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CheckboxComponent],
+  imports: [CommonModule, ReactiveFormsModule, CoreCheckboxComponent],
   templateUrl: './checkbox-demo.component.html',
   styleUrl: './checkbox-demo.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -21,14 +21,14 @@ export interface CheckboxOption {
 }
 
 @Component({
-  selector: 'app-checkbox',
+  selector: 'core-checkbox',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './checkbox.component.html',
-  styleUrl: './checkbox.component.css',
+  templateUrl: './core-checkbox.component.html',
+  styleUrls: ['./core-checkbox.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent extends BaseFormControlComponent {
+export class CoreCheckboxComponent extends BaseFormControlComponent {
   @Input() inline = false;
   @Input() size?: 'sm' | 'md' | 'lg';
   @Input() indeterminate?: boolean;
@@ -42,7 +42,7 @@ export class CheckboxComponent extends BaseFormControlComponent {
   @Output() blurred = new EventEmitter<FocusEvent>();
   @Output() indeterminateChange = new EventEmitter<boolean>();
 
-  protected override generatedId = `app-checkbox-${uniqueId++}`;
+  protected override generatedId = `core-checkbox-${uniqueId++}`;
 
   constructor(
     @Optional() @Self() ngControl: NgControl | null = null,
