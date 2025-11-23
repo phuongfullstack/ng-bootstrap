@@ -1,17 +1,17 @@
 <div class="input-demo">
   <form class="card shadow-sm mb-4" [formGroup]="demoForm" (ngSubmit)="submit()">
     <div class="card-body">
-      <app-input label="Họ và tên" placeholder="Nhập họ tên..." formControlName="fullName" [required]="true"
+      <core-input label="Họ và tên" placeholder="Nhập họ tên..." formControlName="fullName" [required]="true"
         [minlength]="3" autocomplete="name" (valueChange)="onValueChange('fullName', $event)"
-        (focused)="onFocus('fullName')" (blurred)="onBlur('fullName')"></app-input>
+        (focused)="onFocus('fullName')" (blurred)="onBlur('fullName')"></core-input>
 
-      <app-input label="Email" placeholder="name@company.com" formControlName="email" type="email" [required]="true"
+      <core-input label="Email" placeholder="name@company.com" formControlName="email" type="email" [required]="true"
         autocomplete="email" (valueChange)="onValueChange('email', $event)" (focused)="onFocus('email')"
-        (blurred)="onBlur('email')"></app-input>
+        (blurred)="onBlur('email')"></core-input>
 
-      <app-input label="Tuổi" placeholder="12 - 65" formControlName="age" type="number" [min]="12" [max]="65" [step]="1"
+      <core-input label="Tuổi" placeholder="12 - 65" formControlName="age" type="number" [min]="12" [max]="65" [step]="1"
         hint="Độ tuổi hợp lệ từ 12 đến 65" (valueChange)="onValueChange('age', $event)" (focused)="onFocus('age')"
-        (blurred)="onBlur('age')"></app-input>
+        (blurred)="onBlur('age')"></core-input>
     </div>
     <div class="card-footer d-flex justify-content-end gap-2">
       <button type="reset" class="btn btn-outline-secondary">Reset</button>

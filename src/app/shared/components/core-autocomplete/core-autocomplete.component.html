@@ -1,0 +1,87 @@
+<div class="mb-3 autocomplete-container">
+  <label *ngIf="label" class="form-label fw-medium" [for]="inputId">
+    {{ label }}
+    <span *ngIf="required" class="text-danger">*</span>
+  </label>
+
+  <div class="position-relative">
+    <input
+      #inputElement
+      type="text"
+      class="form-control"
+      [class.is-invalid]="isInvalid"
+      [class.is-valid]="isValid"
+      [id]="inputId"
+      [value]="displayValue"
+      [attr.placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      [attr.aria-autocomplete]="'list'"
+      [attr.aria-expanded]="isDropdownOpen"
+      [attr.aria-controls]="inputId + '-dropdown'"
+      [attr.aria-activedescendant]="highlightedIndex >= 0 ? inputId + '-option-' + highlightedIndex : null"
+      autocomplete="off"
+      role="combobox"
+      (input)="onInputChange($event)"
+      (keydown)="onKeyDown($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    />
+
+    <!-- Clear Button -->
+    <button
+      *ngIf="showClearButton && displayValue && !disabled"
+      type="button"
+      class="btn-clear"
+      [attr.aria-label]="'Xóa'"
+      (mousedown)="$event.preventDefault()"
+      (click)="clearInput()">
+      <i class="bi bi-x-circle-fill"></i>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div
+      *ngIf="showDropdown || showNoResults"
+      class="autocomplete-dropdown"
+      [id]="inputId + '-dropdown'"
+      role="listbox">
+      
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="autocomplete-loading">
+        <div class="spinner-border spinner-border-sm me-2" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        {{ loadingText }}
+      </div>
+
+      <!-- Options List -->
+      <ng-container *ngIf="!isLoading && filteredOptions.length > 0">
+        <div
+          *ngFor="let option of filteredOptions; let i = index"
+          class="autocomplete-item"
+          [class.highlighted]="i === highlightedIndex"
+          [class.disabled]="option.disabled"
+          [id]="inputId + '-option-' + i"
+          [attr.aria-selected]="i === highlightedIndex"
+          role="option"
+          (mousedown)="$event.preventDefault()"
+          (click)="selectOption(option, $event)"
+          (mouseenter)="highlightedIndex = i">
+          <span [innerHTML]="highlightMatch(option.label, displayValue)"></span>
+          <small *ngIf="option.group" class="text-muted ms-2">({{ option.group }})</small>
+        </div>
+      </ng-container>
+
+      <!-- No Results -->
+      <div *ngIf="showNoResults" class="autocomplete-no-results">
+        {{ noResultsText }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-text" *ngIf="hint">{{ hint }}</div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
