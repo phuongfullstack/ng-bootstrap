@@ -1,0 +1,230 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">Core AutoComplete Component Demo</h2>
+      <p class="text-muted mb-4">
+        Component autocomplete với debounce, keyboard navigation, highlight match và nhiều tính năng khác.
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="demoForm">
+    <div class="row">
+      <!-- Basic AutoComplete with Required -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">1. Basic AutoComplete (Required)</h5>
+          </div>
+          <div class="card-body">
+            <core-autocomplete
+              [label]="'Quốc gia'"
+              [placeholder]="'Nhập tên quốc gia...'"
+              [options]="countryOptions"
+              [required]="true"
+              [minChars]="1"
+              [debounceTime]="300"
+              formControlName="country"
+              (search)="onCountrySearch($event)"
+              (selected)="onCountrySelected($event)">
+            </core-autocomplete>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Required validation</li>
+                <li>Debounce 300ms</li>
+                <li>Highlight matched text</li>
+                <li>Show group labels</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AutoComplete with Hint -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">2. AutoComplete with Hint</h5>
+          </div>
+          <div class="card-body">
+            <core-autocomplete
+              [label]="'Thành phố'"
+              [placeholder]="'Gõ tên thành phố...'"
+              [hint]="'Nhập ít nhất 2 ký tự để tìm kiếm'"
+              [options]="cityOptions"
+              [minChars]="2"
+              [maxResults]="5"
+              formControlName="city"
+              (search)="onCitySearch($event)">
+            </core-autocomplete>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Min 2 characters để search</li>
+                <li>Giới hạn 5 kết quả</li>
+                <li>Hint text hướng dẫn</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AutoComplete with Groups -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">3. Grouped Options</h5>
+          </div>
+          <div class="card-body">
+            <core-autocomplete
+              [label]="'Ngôn ngữ lập trình'"
+              [placeholder]="'Tìm ngôn ngữ...'"
+              [options]="programmingLanguages"
+              [minChars]="1"
+              formControlName="language"
+              (selected)="onLanguageSelected($event)">
+            </core-autocomplete>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Options được group theo category</li>
+                <li>Search qua nhiều groups</li>
+                <li>Hiển thị group name</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AutoComplete with Email Validation -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">4. Email với Validation</h5>
+          </div>
+          <div class="card-body">
+            <core-autocomplete
+              [label]="'Email'"
+              [placeholder]="'Nhập email...'"
+              [options]="emailOptions"
+              [required]="true"
+              [showClearButton]="true"
+              formControlName="email"
+              (cleared)="onEmailCleared()">
+            </core-autocomplete>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Email validation</li>
+                <li>Clear button</li>
+                <li>Suggestions từ danh sách</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AutoComplete with Free Text -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">5. Allow Free Text</h5>
+          </div>
+          <div class="card-body">
+            <core-autocomplete
+              [label]="'Nhập tự do'"
+              [placeholder]="'Gõ bất kỳ text nào...'"
+              [options]="cityOptions"
+              [allowFreeText]="true"
+              [showClearButton]="true"
+              formControlName="freeText">
+            </core-autocomplete>
+            
+            <div class="alert alert-info mb-0" role="alert">
+              <strong>Tính năng:</strong>
+              <ul class="mb-0 ps-3">
+                <li>Cho phép nhập text không có trong list</li>
+                <li>Vẫn có suggestions nếu match</li>
+                <li>Giá trị là text đã nhập</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keyboard Navigation Guide -->
+      <div class="col-md-6">
+        <div class="card mb-4 border-primary">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">⌨️ Keyboard Navigation</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm mb-0">
+              <tbody>
+                <tr>
+                  <td><kbd>↓</kbd> Arrow Down</td>
+                  <td>Di chuyển xuống</td>
+                </tr>
+                <tr>
+                  <td><kbd>↑</kbd> Arrow Up</td>
+                  <td>Di chuyển lên</td>
+                </tr>
+                <tr>
+                  <td><kbd>Enter</kbd></td>
+                  <td>Chọn item</td>
+                </tr>
+                <tr>
+                  <td><kbd>Esc</kbd></td>
+                  <td>Đóng dropdown</td>
+                </tr>
+                <tr>
+                  <td><kbd>Tab</kbd></td>
+                  <td>Blur & close</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Status -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Form Status</h5>
+          </div>
+          <div class="card-body">
+            <div class="d-flex gap-2 mb-3">
+              <button type="button" class="btn btn-secondary" (click)="resetForm()">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset Form
+              </button>
+            </div>
+
+            <div class="alert alert-secondary mb-0">
+              <h6 class="alert-heading">Form Status:</h6>
+              <p class="mb-1">
+                <strong>Valid:</strong> {{ demoForm.valid ? 'Yes ✓' : 'No ✗' }}
+              </p>
+              <p class="mb-1">
+                <strong>Dirty:</strong> {{ demoForm.dirty ? 'Yes' : 'No' }}
+              </p>
+              <p class="mb-3">
+                <strong>Touched:</strong> {{ demoForm.touched ? 'Yes' : 'No' }}
+              </p>
+              
+              <h6 class="alert-heading">Form Value:</h6>
+              <pre class="mb-0 bg-light p-2 rounded"><code>{{ formValue }}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

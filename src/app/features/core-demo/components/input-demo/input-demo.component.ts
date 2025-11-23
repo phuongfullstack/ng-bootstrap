@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { InputComponent } from '@shared/components/core-input/input.component';
+import { CoreInputComponent } from '@shared/components/core-input/core-input.component';
 import {
   ageRangeValidator,
   emailDomainValidator,
@@ -25,7 +25,7 @@ interface DemoEventLogEntry {
 @Component({
   selector: 'app-input-demo',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputComponent],
+  imports: [CommonModule, ReactiveFormsModule, CoreInputComponent],
   templateUrl: './input-demo.component.html',
   styleUrl: './input-demo.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

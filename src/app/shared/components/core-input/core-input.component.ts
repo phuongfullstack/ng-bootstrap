@@ -18,14 +18,14 @@ let uniqueId = 0;
  * Supports reactive forms, validation, and various input types
  */
 @Component({
-  selector: 'app-input',
+  selector: 'core-input',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './input.component.html',
-  styleUrl: './input.component.css',
+  templateUrl: './core-input.component.html',
+  styleUrls: ['./core-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputComponent extends BaseFormControlComponent {
+export class CoreInputComponent extends BaseFormControlComponent {
   @Input() placeholder?: string;
   @Input() type: string = 'text';
   @Input() autocomplete?: string;
@@ -41,7 +41,7 @@ export class InputComponent extends BaseFormControlComponent {
   @Output() focused = new EventEmitter<FocusEvent>();
   @Output() blurred = new EventEmitter<FocusEvent>();
 
-  protected override generatedId = `app-input-${uniqueId++}`;
+  protected override generatedId = `core-input-${uniqueId++}`;
 
   constructor(@Optional() @Self() ngControl: NgControl | null = null) {
     super(ngControl);
