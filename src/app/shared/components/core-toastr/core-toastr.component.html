@@ -1,0 +1,44 @@
+<section class="core-toastr" [ngClass]="positionClass()" [style.--core-toastr-gap]="stackGapPx()">
+  <article
+    class="core-toast"
+    *ngFor="let toast of toasts(); trackBy: trackToast"
+    [ngClass]="'core-toast--' + toast.variant"
+  >
+    <div class="core-toast__icon" aria-hidden="true">
+      {{ iconFor(toast) }}
+    </div>
+
+    <div class="core-toast__body">
+      <p class="core-toast__title" *ngIf="toast.title">{{ toast.title }}</p>
+      <div class="core-toast__message">
+        {{ toast.message }}
+      </div>
+
+      <div class="core-toast__actions" *ngIf="toast.actions.length">
+        <button
+          type="button"
+          class="core-toast__action"
+          *ngFor="let action of toast.actions"
+          [ngClass]="{
+            'core-toast__action--primary': action.variant === 'primary',
+            'core-toast__action--link': action.variant === 'link'
+          }"
+          (click)="handleAction(toast, action)"
+        >
+          {{ action.label }}
+        </button>
+      </div>
+    </div>
+
+    <button
+      *ngIf="toast.dismissible"
+      class="core-toast__close"
+      type="button"
+      aria-label="Đóng thông báo"
+      (click)="dismissToast(toast.id)"
+    >
+      ×
+    </button>
+  </article>
+</section>
+

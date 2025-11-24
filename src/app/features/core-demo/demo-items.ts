@@ -6,6 +6,7 @@ import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.
 import { AutocompleteDemoComponent } from './components/autocomplete-demo/autocomplete-demo.component';
 import { ModalDemoComponent } from './components/modal-demo/modal-demo.component';
 import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-placeholder.component';
+import { ToastrDemoComponent } from './components/toastr-demo/toastr-demo.component';
 
 export interface DemoComponentMeta extends DemoSidebarItem {
   component: Type<unknown>;
@@ -45,16 +46,9 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
     component: ModalDemoComponent
   },
   {
-    id: 'dialog',
-    title: 'Dialog',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Dialog confirm/alert/prompt đang trong kế hoạch.'
-  },
-  {
     id: 'toastr',
     title: 'Toastr',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Toastr queue & progression sẽ được hoàn thiện tiếp.'
+    component: ToastrDemoComponent
   },
   {
     id: 'custom-dialog',
