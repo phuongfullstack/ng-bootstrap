@@ -1,0 +1,120 @@
+<div class="core-datetimepicker" [class.core-datetimepicker--inline]="inline">
+  <label *ngIf="label" class="form-label fw-medium" [for]="controlId">
+    {{ label }}
+    <span *ngIf="required" class="text-danger">*</span>
+  </label>
+
+  <div class="core-datetimepicker__input" *ngIf="!inline">
+    <button
+      #toggleButton
+      type="button"
+      class="core-datetimepicker__trigger"
+      [class.core-datetimepicker__trigger--empty]="!displayValue"
+      [disabled]="disabled"
+      (click)="togglePanel()"
+    >
+      <span class="core-datetimepicker__value">
+        {{ displayValue || placeholder }}
+      </span>
+      <i class="bi bi-calendar3"></i>
+    </button>
+  </div>
+
+  <div class="core-datetimepicker__panel" *ngIf="shouldRenderPanel">
+    <ng-container *ngIf="mode !== 'time'">
+      <header class="core-datetimepicker__header">
+        <button type="button" class="btn-icon" (click)="goToPrevMonth()">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <div class="core-datetimepicker__label">{{ monthLabel }}</div>
+        <button type="button" class="btn-icon" (click)="goToNextMonth()">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </header>
+
+      <div class="core-datetimepicker__weekdays">
+        <span *ngFor="let day of weekdayHeaders">{{ day }}</span>
+      </div>
+
+      <div class="core-datetimepicker__weeks">
+        <div
+          class="core-datetimepicker__week"
+          *ngFor="let week of calendarWeeks; trackBy: trackByWeek"
+        >
+          <button
+            type="button"
+            class="core-datetimepicker__day"
+            *ngFor="let day of week; trackBy: trackByDay"
+            [class.core-datetimepicker__day--muted]="!day.isCurrentMonth"
+            [class.core-datetimepicker__day--today]="day.isToday"
+            [class.core-datetimepicker__day--selected]="day.isSelected"
+            [class.core-datetimepicker__day--range-edge]="day.isRangeEdge"
+            [class.core-datetimepicker__day--in-range]="day.isInRange"
+            [disabled]="day.isDisabled"
+            (click)="selectDay(day)"
+          >
+            {{ day.label }}
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="core-datetimepicker__time" *ngIf="hasTimePicker">
+      <div class="core-datetimepicker__time-select">
+        <label>Giờ</label>
+        <select
+          class="form-select form-select-sm"
+          [value]="tempTime.hour"
+          (change)="changeHour(+$any($event.target).value)"
+        >
+          <option *ngFor="let hour of hoursList" [value]="hour">
+            {{ hour | number: '2.0' }}
+          </option>
+        </select>
+      </div>
+      <div class="core-datetimepicker__time-select">
+        <label>Phút</label>
+        <select
+          class="form-select form-select-sm"
+          [value]="tempTime.minute"
+          (change)="changeMinute(+$any($event.target).value)"
+        >
+          <option *ngFor="let minute of minuteOptions" [value]="minute">
+            {{ minute | number: '2.0' }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <footer class="core-datetimepicker__footer" *ngIf="showFooter">
+      <div class="core-datetimepicker__footer-left">
+        <button
+          type="button"
+          class="btn btn-link p-0 me-3"
+          (click)="clearSelection()"
+        >
+          Xoá
+        </button>
+        <button
+          type="button"
+          class="btn btn-link p-0"
+          *ngIf="showTodayShortcut && mode !== 'time'"
+          (click)="goToToday()"
+        >
+          Hôm nay
+        </button>
+      </div>
+      <div class="core-datetimepicker__footer-right" *ngIf="isRangeSelection()">
+        <small class="text-muted">
+          Chọn 2 ngày để tạo khoảng
+        </small>
+      </div>
+    </footer>
+  </div>
+
+  <div class="form-text" *ngIf="hint">{{ hint }}</div>
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
+

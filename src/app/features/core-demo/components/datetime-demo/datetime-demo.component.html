@@ -1,0 +1,57 @@
+<div class="datetime-demo container-fluid">
+  <h2 class="mb-3">DateTime Picker Demo</h2>
+  <p class="text-muted mb-4">
+    Các ví dụ dưới đây minh hoạ những tuỳ chọn chính của <code>core-datetimepicker</code>:
+    mode, selection, inline, min/max, disabled date và time picker.
+  </p>
+
+  <form [formGroup]="demoForm" class="row g-4">
+    <div class="col-md-6">
+      <core-datetimepicker
+        label="Ngày cơ bản"
+        formControlName="basicDate"
+        [placeholder]="'Chọn ngày'"
+        [minDate]="minBoundary"
+        [maxDate]="maxBoundary"
+      ></core-datetimepicker>
+    </div>
+
+    <div class="col-md-6">
+      <core-datetimepicker
+        label="DateTime"
+        formControlName="datetime"
+        mode="datetime"
+        [timeStepMinutes]="5"
+        [disabledDates]="disabledDates"
+      ></core-datetimepicker>
+    </div>
+
+    <div class="col-md-6">
+      <core-datetimepicker
+        label="Khoảng thời gian"
+        formControlName="range"
+        selectionMode="range"
+        [showTodayShortcut]="false"
+        [autoClose]="false"
+      ></core-datetimepicker>
+    </div>
+
+    <div class="col-md-6">
+      <core-datetimepicker
+        label="Inline"
+        formControlName="inline"
+        [inline]="true"
+        [mode]="'date'"
+        [disableWeekends]="true"
+      ></core-datetimepicker>
+    </div>
+  </form>
+
+  <div class="card mt-4">
+    <div class="card-header">Form value</div>
+    <div class="card-body">
+      <pre class="mb-0">{{ formValue }}</pre>
+    </div>
+  </div>
+</div>
+
