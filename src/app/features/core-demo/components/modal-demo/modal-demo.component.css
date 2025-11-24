@@ -1,0 +1,18 @@
+/* Styles for modal demo component */
+
+.container-fluid {
+  padding: 2rem;
+}
+
+.btn {
+  margin-bottom: 0.5rem;
+}
+
+.custom-modal .modal-content {
+  background-color: #f8f9fa;
+  border-color: #6c757d;
+}
+
+.custom-modal .modal-header {
+  background-color: #e9ecef;
+}
