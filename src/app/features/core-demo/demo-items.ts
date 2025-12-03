@@ -4,7 +4,10 @@ import { InputDemoComponent } from './components/input-demo/input-demo.component
 import { DropdownDemoComponent } from './components/dropdown-demo/dropdown-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
 import { AutocompleteDemoComponent } from './components/autocomplete-demo/autocomplete-demo.component';
+import { ModalDemoComponent } from './components/modal-demo/modal-demo.component';
 import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-placeholder.component';
+import { ToastrDemoComponent } from './components/toastr-demo/toastr-demo.component';
+import { DatetimeDemoComponent } from './components/datetime-demo/datetime-demo.component';
 
 export interface DemoComponentMeta extends DemoSidebarItem {
   component: Type<unknown>;
@@ -20,8 +23,7 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
   {
     id: 'datetime',
     title: 'DateTime Picker',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Các dạng date/time picker sẽ được bổ sung trong giai đoạn tiếp theo.'
+    component: DatetimeDemoComponent
   },
   {
     id: 'dropdown',
@@ -41,32 +43,12 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
   {
     id: 'modal',
     title: 'Modal',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Modal chuẩn Bootstrap với API service sẽ được bổ sung sớm.'
-  },
-  {
-    id: 'dialog',
-    title: 'Dialog',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Dialog confirm/alert/prompt đang trong kế hoạch.'
+    component: ModalDemoComponent
   },
   {
     id: 'toastr',
     title: 'Toastr',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Toastr queue & progression sẽ được hoàn thiện tiếp.'
+    component: ToastrDemoComponent
   },
-  {
-    id: 'custom-dialog',
-    title: 'Custom Dialog',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Custom dialog hỗ trợ dynamic component sẽ xuất hiện sớm.'
-  },
-  {
-    id: 'error-message',
-    title: 'Error Message',
-    component: DemoPlaceholderComponent,
-    placeholderMessage: 'Thư viện error message linh hoạt đang phát triển.'
-  }
 ];
 
