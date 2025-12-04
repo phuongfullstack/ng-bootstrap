@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <h2>Table Demo</h2>
+  <p>Demo các behavior chính của core-table: sorting, paging, selection, v.v.</p>
+
+  <section class="mb-4">
+    <h3>Basic Table</h3>
+    <core-table [data]="viewUsers" [columns]="columns" [striped]="true" [hover]="true" [bordered]="true" size="md"
+      [pageable]="true" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+      [totalItems]="totalItems" [sortable]="true" [selectable]="true" selectionMode="single" rowKey="id"
+      [globalFilter]="true" (sortChange)="onSort($event)" (pageChange)="onPage($event)" (rowClick)="onRowClick($event)"
+      (rowDblClick)="onRowDblClick($event)" (selectionChange)="onSelectionChange($event)">
+    </core-table>
+  </section>
+</div>
