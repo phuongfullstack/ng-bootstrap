@@ -3,6 +3,7 @@ import { DemoSidebarItem } from '@shared/components/sidebar/sidebar.component';
 import { InputDemoComponent } from './components/input-demo/input-demo.component';
 import { DropdownDemoComponent } from './components/dropdown-demo/dropdown-demo.component';
 import { CheckboxDemoComponent } from './components/checkbox-demo/checkbox-demo.component';
+import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 import { AutocompleteDemoComponent } from './components/autocomplete-demo/autocomplete-demo.component';
 import { ModalDemoComponent } from './components/modal-demo/modal-demo.component';
 import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-placeholder.component';
@@ -34,6 +35,11 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
     id: 'checkbox',
     title: 'Checkbox',
     component: CheckboxDemoComponent
+  },
+  {
+    id: 'radio',
+    title: 'Radio Button',
+    component: RadioDemoComponent
   },
   {
     id: 'autocomplete',

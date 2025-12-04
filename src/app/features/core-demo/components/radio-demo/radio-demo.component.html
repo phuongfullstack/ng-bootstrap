@@ -1,0 +1,177 @@
+<div class="container-fluid">
+  <h2>Radio Button Demo</h2>
+  <p class="text-muted mb-4">Demonstrates radio button component with various configurations and form integration.</p>
+
+  <!-- Single Radio Examples -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h4>Basic Radio Group</h4>
+      <form [formGroup]="demoForm" (ngSubmit)="submit()">
+        <core-radio
+          label="Gender"
+          formControlName="gender"
+          [options]="genderOptions"
+          hint="Please select your gender"
+          [required]="true"
+          (valueChange)="onValueChange('gender', $event)"
+          (focused)="onFocus('gender')"
+          (blurred)="onBlur('gender')"
+        ></core-radio>
+
+        <core-radio
+          label="Payment Method"
+          formControlName="paymentMethod"
+          [options]="paymentOptions"
+          hint="Choose your preferred payment method"
+          [required]="true"
+          (valueChange)="onValueChange('paymentMethod', $event)"
+          (focused)="onFocus('paymentMethod')"
+          (blurred)="onBlur('paymentMethod')"
+        ></core-radio>
+
+        <core-radio
+          label="Size"
+          formControlName="size"
+          [options]="sizeOptions"
+          [inline]="true"
+          (valueChange)="onValueChange('size', $event)"
+        ></core-radio>
+
+        <core-radio
+          label="Priority"
+          formControlName="priority"
+          [options]="priorityOptions"
+          hint="Select task priority level"
+          [required]="true"
+          (valueChange)="onValueChange('priority', $event)"
+        ></core-radio>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary me-2">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h4>Form Value</h4>
+      <pre class="bg-light p-3 rounded"><code>{{ formValue }}</code></pre>
+
+      <h4 class="mt-4">Event Log</h4>
+      <div class="event-log bg-light p-3 rounded" style="max-height: 300px; overflow-y: auto;">
+        <div *ngFor="let event of eventLog" class="mb-2 small">
+          <span class="badge bg-secondary">{{ eventTypeLabel[event.type] }}</span>
+          <strong>{{ event.control }}</strong>
+          <span *ngIf="event.value">: {{ event.value }}</span>
+          <span class="text-muted ms-2">{{ event.timestamp | date: 'HH:mm:ss' }}</span>
+        </div>
+        <div *ngIf="eventLog.length === 0" class="text-muted">No events yet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline Radio Group -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h4>Inline Radio Group</h4>
+      <form [formGroup]="groupForm" (ngSubmit)="submitGroup()">
+        <core-radio
+          label="Notification Preference"
+          formControlName="notification"
+          [options]="[
+            { value: 'email', label: 'Email' },
+            { value: 'sms', label: 'SMS' },
+            { value: 'push', label: 'Push Notification' }
+          ]"
+          [inline]="true"
+          [required]="true"
+          (valueChange)="onValueChange('notification', $event)"
+        ></core-radio>
+
+        <core-radio
+          label="Theme"
+          formControlName="theme"
+          [options]="[
+            { value: 'light', label: 'Light' },
+            { value: 'dark', label: 'Dark' },
+            { value: 'auto', label: 'Auto' }
+          ]"
+          [inline]="true"
+          (valueChange)="onValueChange('theme', $event)"
+        ></core-radio>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary me-2">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="resetGroupForm()">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h4>Group Form Value</h4>
+      <pre class="bg-light p-3 rounded"><code>{{ groupFormValue }}</code></pre>
+    </div>
+  </div>
+
+  <!-- Size Variants -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h4>Size Variants</h4>
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Small</h5>
+          <core-radio
+            label="Small Size"
+            [options]="sizeOptions"
+            size="sm"
+            standaloneValue="sm"
+          ></core-radio>
+        </div>
+        <div class="col-md-4">
+          <h5>Medium (Default)</h5>
+          <core-radio
+            label="Medium Size"
+            [options]="sizeOptions"
+            standaloneValue="md"
+          ></core-radio>
+        </div>
+        <div class="col-md-4">
+          <h5>Large</h5>
+          <core-radio
+            label="Large Size"
+            [options]="sizeOptions"
+            size="lg"
+            standaloneValue="lg"
+          ></core-radio>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standalone Usage -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h4>Standalone Usage (Without FormControl)</h4>
+      <core-radio
+        label="Standalone Radio"
+        [options]="genderOptions"
+        standaloneValue="male"
+        (valueChange)="onValueChange('standalone', $event)"
+      ></core-radio>
+    </div>
+  </div>
+
+  <!-- Disabled State -->
+  <div class="row">
+    <div class="col-12">
+      <h4>Disabled State</h4>
+      <core-radio
+        label="Disabled Radio Group"
+        [options]="paymentOptions"
+        [standaloneDisabled]="true"
+        standaloneValue="credit"
+      ></core-radio>
+    </div>
+  </div>
+</div>
+
