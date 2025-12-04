@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
-import { BaseFormControlComponent } from '../base/base-form-control.component';
+import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 
 let uniqueId = 0;
 
@@ -37,10 +37,10 @@ export interface RadioOption {
 export class CoreRadioComponent extends BaseFormControlComponent {
   @Input() inline = false;
   @Input() size?: 'sm' | 'md' | 'lg';
-  @Input() options?: RadioOption[]; 
-  @Input() standaloneDisabled = false; 
-  @Input() standaloneValue?: string | number; 
-  @Input() name?: string; 
+  @Input() options?: RadioOption[];
+  @Input() standaloneDisabled = false;
+  @Input() standaloneValue?: string | number;
+  @Input() name?: string;
 
   @Output() valueChange = new EventEmitter<string | number>();
   @Output() focused = new EventEmitter<FocusEvent>();
