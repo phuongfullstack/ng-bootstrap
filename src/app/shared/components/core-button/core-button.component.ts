@@ -6,19 +6,9 @@ import {
   Output
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BootstrapVariant } from '@shared/types/bootstrap-variant.types';
 
-/**
- * Button variant types matching Bootstrap button styles
- */
-export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'danger'
-  | 'warning'
-  | 'info'
-  | 'light'
-  | 'dark';
+export type ButtonVariant = BootstrapVariant;
 
 /**
  * Button size types
