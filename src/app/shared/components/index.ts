@@ -15,5 +15,6 @@ export type {
   CoreToastVariant
 } from './core-toastr/core-toastr.types';
 export { CoreDatetimepickerComponent } from './core-datetimepicker/core-datetimepicker.component';
+export { CoreTableComponent } from './core-table/core-table.component';
 export { BaseFormControlComponent } from './base/base-form-control.component';
 

@@ -9,6 +9,7 @@ import { ModalDemoComponent } from './components/modal-demo/modal-demo.component
 import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-placeholder.component';
 import { ToastrDemoComponent } from './components/toastr-demo/toastr-demo.component';
 import { DatetimeDemoComponent } from './components/datetime-demo/datetime-demo.component';
+import { TableDemoComponent } from './components/table-demo/table-demo.component';
 
 export interface DemoComponentMeta extends DemoSidebarItem {
   component: Type<unknown>;
@@ -55,6 +56,11 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
     id: 'toastr',
     title: 'Toastr',
     component: ToastrDemoComponent
+  },
+  {
+    id: 'table',
+    title: 'Table',
+    component: TableDemoComponent
   },
 ];
 

@@ -22,7 +22,7 @@ import { CoreToastrService } from '@shared/services/core-toastr.service';
   `
 })
 export class ToastrDemoComponent {
-  constructor(private readonly toastr: CoreToastrService) {}
+  constructor(private readonly toastr: CoreToastrService) { }
 
   showSuccess(): void {
     this.toastr.success('Đã lưu thành công', 'Thành công');
