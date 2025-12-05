@@ -1,0 +1,71 @@
+/* Radio button validation states */
+.form-check-input[type='radio'].is-valid {
+  border-color: var(--bs-success);
+}
+
+.form-check-input[type='radio'].is-valid:checked {
+  background-color: var(--bs-success);
+  border-color: var(--bs-success);
+}
+
+.form-check-input[type='radio'].is-invalid {
+  border-color: var(--bs-danger);
+}
+
+.form-check-input[type='radio'].is-invalid:checked {
+  background-color: var(--bs-danger);
+  border-color: var(--bs-danger);
+}
+
+/* Size variants */
+.form-check-sm .form-check-input[type='radio'] {
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.form-check-sm .form-check-label {
+  font-size: 0.875rem;
+  padding-left: 0.5rem;
+}
+
+.form-check-md .form-check-input[type='radio'] {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.25rem;
+}
+
+.form-check-md .form-check-label {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+}
+
+.form-check-lg .form-check-input[type='radio'] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.3125rem;
+}
+
+.form-check-lg .form-check-label {
+  font-size: 1.125rem;
+  padding-left: 0.75rem;
+}
+
+/* Focus states */
+.form-check-input[type='radio']:focus {
+  border-color: var(--bs-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Disabled state */
+.form-check-input[type='radio']:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.form-check-input[type='radio']:disabled + .form-check-label {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+

@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
-import { BaseFormControlComponent } from '../base/base-form-control.component';
+import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 
 let uniqueId = 0;

@@ -1,0 +1,43 @@
+.core-table-wrapper {
+  width: 100%;
+}
+
+.core-table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.core-table-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 2;
+}
+
+.core-table-select-col {
+  width: 2.5rem;
+}
+
+.core-table-sort-btn {
+  color: inherit;
+}
+
+.core-table-sort-btn:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.core-table-expanded-row td {
+  background-color: #f8f9fa;
+}
+
+.core-table-pagination {
+  gap: 1rem;
+}
+
+.core-table-pagination .form-select {
+  width: auto;
+}

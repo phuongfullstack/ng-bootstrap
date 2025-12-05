@@ -1,0 +1,118 @@
+<div class="core-table-wrapper">
+  <!-- Global filter -->
+  <div *ngIf="globalFilter" class="core-table-toolbar mb-2">
+    <input type="text" class="form-control form-control-sm" [placeholder]="filterPlaceholder"
+      (input)="onGlobalFilterChange(($any($event.target)).value)" />
+  </div>
+
+  <div class="table-responsive position-relative">
+    <!-- Loading overlay -->
+    <div *ngIf="loading" class="core-table-loading-overlay">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <table [ngClass]="tableClasses">
+      <!-- Header -->
+      <thead *ngIf="showHeader">
+        <tr>
+          <th *ngIf="selectable && selectionMode === 'multiple'" scope="col" class="core-table-select-col">
+            <!-- Placeholder for select-all checkbox if needed -->
+          </th>
+
+          <th *ngFor="let column of columns" [ngClass]="getColumnAlignClass(column)" scope="col">
+            <div class="d-flex align-items-center gap-1">
+              <span>{{ column.header }}</span>
+
+              <button *ngIf="isColumnSortable(column)" type="button" class="btn btn-link btn-sm p-0 core-table-sort-btn"
+                (click)="onSort(column)">
+                <i [class]="getSortIcon(column)"></i>
+              </button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody>
+        <tr *ngIf="!loading && (!data || data.length === 0)">
+          <td [attr.colspan]="columns.length + (selectable && selectionMode === 'multiple' ? 1 : 0)"
+            class="text-center text-muted py-3">
+            {{ emptyMessage }}
+          </td>
+        </tr>
+
+        <ng-container *ngFor="let row of data; trackBy: trackByRow">
+          <tr (click)="onRowClick(row)" (dblclick)="onRowDblClick(row)" [class.table-active]="isRowSelected(row)">
+            <td *ngIf="selectable && selectionMode === 'multiple'" class="core-table-select-col">
+              <input type="checkbox" class="form-check-input" [checked]="isRowSelected(row)"
+                (click)="$event.stopPropagation()" (change)="toggleRowSelection(row)" />
+            </td>
+
+            <td *ngFor="let column of columns" [ngClass]="getColumnAlignClass(column)">
+              <ng-container [ngSwitch]="column.type">
+                <span *ngSwitchCase="'date'">
+                  {{ $any(row)[column.field] | date: 'mediumDate' }}
+                </span>
+                <span *ngSwitchCase="'number'">
+                  {{ $any(row)[column.field] | number }}
+                </span>
+                <span *ngSwitchCase="'badge'" class="badge bg-secondary">
+                  {{ $any(row)[column.field] }}
+                </span>
+                <span *ngSwitchDefault>
+                  {{ $any(row)[column.field] }}
+                </span>
+              </ng-container>
+            </td>
+          </tr>
+
+          <tr *ngIf="expandable && isRowExpanded(row)" class="core-table-expanded-row">
+            <td [attr.colspan]="columns.length + (selectable && selectionMode === 'multiple' ? 1 : 0)">
+              <ng-container *ngIf="$any(row).__expandedContent as expandedContent">
+                {{ expandedContent }}
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+      <!-- Footer -->
+      <tfoot *ngIf="showFooter">
+        <tr>
+          <td [attr.colspan]="columns.length + (selectable && selectionMode === 'multiple' ? 1 : 0)"
+            class="text-muted small">
+            Showing <strong>{{ data.length }}</strong> row(s)
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="pageable" class="core-table-pagination d-flex justify-content-between align-items-center mt-2">
+    <div class="d-flex align-items-center gap-2">
+      <span class="text-muted small">Rows per page</span>
+      <select class="form-select form-select-sm" [ngModel]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+        <option *ngFor="let sizeOption of pageSizeOptions" [value]="sizeOption">
+          {{ sizeOption }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <button type="button" class="btn btn-sm btn-outline-secondary" [disabled]="pageIndex <= 1"
+        (click)="onPageChange(pageIndex - 1)">
+        Prev
+      </button>
+      <span class="small">
+        Page {{ pageIndex }}
+      </span>
+      <button type="button" class="btn btn-sm btn-outline-secondary"
+        [disabled]="totalItems !== undefined && pageIndex >= lastPage" (click)="onPageChange(pageIndex + 1)">
+        Next
+      </button>
+    </div>
+  </div>
+</div>

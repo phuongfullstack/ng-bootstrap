@@ -15,7 +15,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseFormControlComponent } from '../base/base-form-control.component';
+import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { NgControl } from '@angular/forms';
 
 type PickerMode = 'date' | 'time' | 'datetime';

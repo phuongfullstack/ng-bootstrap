@@ -1,0 +1,83 @@
+<!-- Single Radio Button -->
+<div class="mb-3" *ngIf="!isGroupMode">
+  <div [class]="containerClass + ' ' + sizeClass">
+    <input
+      class="form-check-input"
+      [class.is-invalid]="isInvalid"
+      [class.is-valid]="isValid"
+      type="radio"
+      [id]="radioId"
+      [name]="groupName"
+      [value]="standaloneValue"
+      [checked]="radioValue === standaloneValue"
+      [disabled]="isDisabled"
+      [required]="required"
+      [attr.aria-describedby]="hint ? radioId + '-hint' : null"
+      [attr.aria-invalid]="isInvalid ? 'true' : null"
+      (change)="onRadioChange($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    />
+    <label class="form-check-label" [for]="radioId">
+      <ng-container *ngIf="label">{{ label }}</ng-container>
+      <ng-container *ngIf="!label">
+        <ng-content></ng-content>
+      </ng-container>
+      <span *ngIf="required" class="text-danger">*</span>
+    </label>
+  </div>
+
+  <div class="form-text" *ngIf="hint" [id]="radioId + '-hint'">
+    {{ hint }}
+  </div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
+
+<!-- Radio Group -->
+<div class="mb-3" *ngIf="isGroupMode">
+  <label *ngIf="label" class="form-label fw-medium">
+    {{ label }}
+    <span *ngIf="required" class="text-danger">*</span>
+  </label>
+
+  <div
+    *ngFor="let option of options; let i = index; trackBy: trackByOption"
+    [class]="containerClass + ' ' + sizeClass"
+  >
+    <input
+      class="form-check-input"
+      [class.is-invalid]="isInvalid"
+      [class.is-valid]="isValid"
+      type="radio"
+      [id]="getOptionId(i)"
+      [name]="groupName"
+      [value]="option.value"
+      [checked]="isOptionSelected(option.value)"
+      [disabled]="isDisabled || option.disabled"
+      [required]="required"
+      [attr.aria-describedby]="option.hint ? getOptionId(i) + '-hint' : null"
+      [attr.aria-invalid]="isInvalid ? 'true' : null"
+      (change)="onRadioChange($event, option.value)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    />
+    <label class="form-check-label" [for]="getOptionId(i)">
+      {{ option.label }}
+    </label>
+    <div class="form-text small" *ngIf="option.hint" [id]="getOptionId(i) + '-hint'">
+      {{ option.hint }}
+    </div>
+  </div>
+
+  <div class="form-text" *ngIf="hint" [id]="radioId + '-hint'">
+    {{ hint }}
+  </div>
+
+  <div class="invalid-feedback" *ngIf="shouldShowErrors && errorList.length">
+    <div *ngFor="let error of errorList">{{ error }}</div>
+  </div>
+</div>
+
