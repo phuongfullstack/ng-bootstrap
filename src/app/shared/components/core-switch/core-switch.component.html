@@ -1,0 +1,52 @@
+<div [class]="switchClasses">
+  @if (labelPosition === 'left' && label) {
+    <label [for]="switchId" class="form-check-label">
+      @if (required) {
+        <span class="text-danger">*</span>
+      }
+      {{ label }}
+    </label>
+  }
+
+  <input
+    type="checkbox"
+    class="form-check-input"
+    [class]="'form-check-input-' + variant"
+    [id]="switchId"
+    [checked]="switchValue"
+    [disabled]="isDisabled"
+    [required]="required"
+    [indeterminate]="indeterminate"
+    [attr.aria-describedby]="hint ? switchId + '-hint' : null"
+    [attr.aria-invalid]="isInvalid"
+    (change)="onSwitchChange($event)"
+    (click)="onSwitchClick($event)"
+    (focus)="onSwitchFocus($event)"
+    (blur)="onSwitchBlur($event)">
+
+  @if (labelPosition === 'right' && label) {
+    <label [for]="switchId" class="form-check-label">
+      @if (required) {
+        <span class="text-danger">*</span>
+      }
+      {{ label }}
+    </label>
+  }
+
+  @if (hint) {
+    <div [id]="switchId + '-hint'" class="form-text">{{ hint }}</div>
+  }
+
+  @if (shouldShowErrors && showValidationState) {
+    <div class="invalid-feedback d-block">
+      @for (error of errorList; track $index) {
+        <div>{{ error }}</div>
+      }
+    </div>
+  }
+
+  @if (isValid && showValidationState) {
+    <div class="valid-feedback d-block">Looks good!</div>
+  }
+</div>
+
