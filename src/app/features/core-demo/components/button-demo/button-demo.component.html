@@ -1,0 +1,151 @@
+<div class="button-demo">
+    <div class="demo-section">
+        <h3>1. Variants</h3>
+        <p>Different color variants</p>
+        <div class="button-group">
+            <core-button variant="primary">Primary</core-button>
+            <core-button variant="secondary">Secondary</core-button>
+            <core-button variant="success">Success</core-button>
+            <core-button variant="danger">Danger</core-button>
+            <core-button variant="warning">Warning</core-button>
+            <core-button variant="info">Info</core-button>
+            <core-button variant="light">Light</core-button>
+            <core-button variant="dark">Dark</core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>2. Outline Variants</h3>
+        <p>Buttons with outline style</p>
+        <div class="button-group">
+            <core-button variant="primary" [outline]="true">Primary</core-button>
+            <core-button variant="secondary" [outline]="true">Secondary</core-button>
+            <core-button variant="success" [outline]="true">Success</core-button>
+            <core-button variant="danger" [outline]="true">Danger</core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>3. Sizes</h3>
+        <p>Different button sizes</p>
+        <div class="button-group">
+            <core-button variant="primary" size="sm">Small</core-button>
+            <core-button variant="primary" size="md">Medium</core-button>
+            <core-button variant="primary" size="lg">Large</core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>4. States</h3>
+        <p>Disabled and loading states</p>
+        <div class="button-group">
+            <core-button variant="primary" [disabled]="true">Disabled</core-button>
+            <core-button variant="primary" [loading]="true">Loading</core-button>
+            <core-button variant="success" [loading]="true">Processing...</core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>5. Block Button</h3>
+        <p>Full width button</p>
+        <core-button variant="primary" [block]="true">Block Button</core-button>
+    </div>
+
+    <div class="demo-section">
+        <h3>6. Rounded Styles</h3>
+        <p>Rounded and circle buttons</p>
+        <div class="button-group">
+            <core-button variant="primary" [rounded]="true">Rounded</core-button>
+            <core-button variant="success" [roundedCircle]="true">Circle</core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>7. Icons</h3>
+        <p>Buttons with icons</p>
+        <div class="button-group">
+            <core-button variant="primary" icon="bi bi-star" iconPosition="left">Left Icon</core-button>
+            <core-button variant="success" icon="bi bi-check-circle" iconPosition="right">Right Icon</core-button>
+            <core-button variant="info" icon="bi bi-info-circle" [roundedCircle]="true"></core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>8. Button Types</h3>
+        <p>Different button types</p>
+        <div class="button-group">
+            <core-button type="button" variant="primary">Button</core-button>
+            <core-button type="submit" variant="success">Submit</core-button>
+            <core-button type="reset" variant="secondary">Reset</core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>9. Drag & Drop</h3>
+        <p>Draggable buttons with drag events</p>
+        <div class="drag-demo-container">
+            <core-button variant="primary" [draggable]="true" (dragStarted)="onDragStart('Draggable Button', $event)"
+                (dragged)="onDrag('Draggable Button', $event)" (dragEnded)="onDragEnd('Draggable Button', $event)">
+                Drag Me
+            </core-button>
+            <div class="drop-zone" (dragenter)="onDragEnter('Drop Zone', $any($event))"
+                (dragover)="onDragOver('Drop Zone', $any($event))" (dragleave)="onDragLeave('Drop Zone', $any($event))"
+                (drop)="onDrop('Drop Zone', $any($event))">
+                Drop Zone
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>10. Events</h3>
+        <p>Buttons with all event handlers</p>
+        <div class="button-group">
+            <core-button variant="primary" (clicked)="onButtonClick('Event Button', $event)"
+                (focused)="onFocus('Event Button', $event)" (blurred)="onBlur('Event Button', $event)"
+                (mouseEntered)="onMouseEnter('Event Button', $event)" (mouseLeft)="onMouseLeave('Event Button', $event)"
+                (doubleClicked)="onDoubleClick('Event Button', $event)"
+                (keyPressed)="onKeyPress('Event Button', $event)">
+                Event Button
+            </core-button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>11. Custom Class</h3>
+        <p>Button with custom CSS class</p>
+        <core-button variant="primary" customClass="shadow-lg">Custom Styled</core-button>
+    </div>
+
+    <div class="row g-3 mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h2 class="h6 text-uppercase text-muted mb-3">Event Log</h2>
+                    <div class="event-log flex-grow-1">
+                        @if (!eventLog.length) {
+                        <div class="text-muted small">No events yet. Interact with buttons to see events here.</div>
+                        }
+                        @if (eventLog.length) {
+                        <ul class="list-unstyled mb-0 small">
+                            @for (entry of eventLog; track entry.timestamp.getTime()) {
+                            <li class="mb-2 pb-2 border-bottom">
+                                <div class="fw-semibold">
+                                    {{ eventTypeLabel[entry.type] }}
+                                    <span class="text-muted">• {{ entry.button }}</span>
+                                </div>
+                                <div class="text-body-secondary">
+                                    {{ entry.timestamp | date: 'mediumTime' }}
+                                    @if (entry.details) {
+                                    — <span>{{ entry.details }}</span>
+                                    }
+                                </div>
+                            </li>
+                            }
+                        </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

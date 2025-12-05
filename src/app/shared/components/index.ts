@@ -19,5 +19,7 @@ export { CoreDatetimepickerComponent } from './core-datetimepicker/core-datetime
 export { CoreTableComponent } from './core-table/core-table.component';
 export { CoreProgressComponent } from './core-progress/core-progress.component';
 export type { CoreProgressVariant, CoreProgressItem } from './core-progress/core-progress.types';
+export { CoreButtonComponent } from './core-button/core-button.component';
+export type { ButtonVariant, ButtonSize, ButtonType } from './core-button/core-button.component';
 export { BaseFormControlComponent } from './base/base-form-control.component';
 

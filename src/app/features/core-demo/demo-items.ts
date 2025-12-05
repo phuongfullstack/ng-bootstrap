@@ -11,6 +11,7 @@ import { ToastrDemoComponent } from './components/toastr-demo/toastr-demo.compon
 import { DatetimeDemoComponent } from './components/datetime-demo/datetime-demo.component';
 import { TableDemoComponent } from './components/table-demo/table-demo.component';
 import { ProgressDemoComponent } from './components/progress-demo/progress-demo.component';
+import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
 
 export interface DemoComponentMeta extends DemoSidebarItem {
   component: Type<unknown>;
@@ -57,6 +58,11 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
     id: 'toastr',
     title: 'Toastr',
     component: ToastrDemoComponent
+  },
+  {
+    id: 'button',
+    title: 'Button',
+    component: ButtonDemoComponent
   },
   {
     id: 'table',
