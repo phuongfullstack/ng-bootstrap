@@ -1,0 +1,141 @@
+/**
+ * Core Progress Component Styles
+ * Follows Bootstrap progress bar patterns with custom enhancements
+ */
+
+.progress {
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  background-color: var(--bs-secondary-bg, #e9ecef);
+  border-radius: var(--bs-border-radius, 0.375rem);
+}
+
+.progress-stacked {
+  display: flex;
+  overflow: hidden;
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--bs-progress-bar-color, #fff);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--bs-primary, #0d6efd);
+  transition: width 0.6s ease;
+}
+
+.progress-bar-striped {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.progress-bar-animated {
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+.progress-bar-indeterminate {
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    currentColor 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes progress-bar-stripes {
+  0% {
+    background-position: 1rem 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0 0.5rem;
+  color: inherit;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Variant colors */
+.progress-bar.bg-primary {
+  background-color: var(--bs-primary, #0d6efd);
+}
+
+.progress-bar.bg-secondary {
+  background-color: var(--bs-secondary, #6c757d);
+}
+
+.progress-bar.bg-success {
+  background-color: var(--bs-success, #198754);
+}
+
+.progress-bar.bg-danger {
+  background-color: var(--bs-danger, #dc3545);
+}
+
+.progress-bar.bg-warning {
+  background-color: var(--bs-warning, #ffc107);
+  color: var(--bs-dark, #212529);
+}
+
+.progress-bar.bg-info {
+  background-color: var(--bs-info, #0dcaf0);
+  color: var(--bs-dark, #212529);
+}
+
+.progress-bar.bg-light {
+  background-color: var(--bs-light, #f8f9fa);
+  color: var(--bs-dark, #212529);
+}
+
+.progress-bar.bg-dark {
+  background-color: var(--bs-dark, #212529);
+}
+
+/* Rounded corners */
+.progress.rounded,
+.progress-bar.rounded {
+  border-radius: var(--bs-border-radius, 0.375rem);
+}
+
+/* Accessibility: Focus styles */
+.progress:focus-visible {
+  outline: 2px solid var(--bs-primary, #0d6efd);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .progress-label {
+    font-size: 0.65rem;
+    padding: 0 0.25rem;
+  }
+}
+

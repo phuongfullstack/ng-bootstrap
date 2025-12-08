@@ -10,6 +10,9 @@ import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-pla
 import { ToastrDemoComponent } from './components/toastr-demo/toastr-demo.component';
 import { DatetimeDemoComponent } from './components/datetime-demo/datetime-demo.component';
 import { TableDemoComponent } from './components/table-demo/table-demo.component';
+import { ProgressDemoComponent } from './components/progress-demo/progress-demo.component';
+import { ButtonDemoComponent } from './components/button-demo/button-demo.component';
+import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
 
 export interface DemoComponentMeta extends DemoSidebarItem {
   component: Type<unknown>;
@@ -58,9 +61,24 @@ export const CORE_DEMO_COMPONENTS: DemoComponentMeta[] = [
     component: ToastrDemoComponent
   },
   {
+    id: 'button',
+    title: 'Button',
+    component: ButtonDemoComponent
+  },
+  {
     id: 'table',
     title: 'Table',
     component: TableDemoComponent
+  },
+  {
+    id: 'progress',
+    title: 'Progress',
+    component: ProgressDemoComponent
+  },
+  {
+    id: 'switch',
+    title: 'Switch',
+    component: SwitchDemoComponent
   },
 ];
 

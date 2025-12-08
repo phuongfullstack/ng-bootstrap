@@ -1,1 +1,17 @@
-<p>core-button works!</p>
+<button [type]="type" [class]="buttonClasses" [disabled]="isDisabled" [draggable]="draggable"
+  (click)="onButtonClick($event)" (focus)="onFocus($event)" (blur)="onBlur($event)" (mouseenter)="onMouseEnter($event)"
+  (mouseleave)="onMouseLeave($event)" (dblclick)="onDoubleClick($event)" (keydown)="onKeyDown($event)"
+  (dragstart)="onDragStart($event)" (drag)="onDrag($event)" (dragend)="onDragEnd($event)"
+  (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)">
+  @if (loading) {
+  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+  }
+  @if (hasLeftIcon && !loading) {
+  <i [class]="icon" aria-hidden="true"></i>
+  }
+  <ng-content></ng-content>
+  @if (hasRightIcon && !loading) {
+  <i [class]="icon" aria-hidden="true"></i>
+  }
+</button>

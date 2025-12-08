@@ -1,0 +1,97 @@
+.button-demo {
+  padding: 1.5rem;
+}
+
+.demo-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.demo-section h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #212529;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.demo-section p {
+  margin-bottom: 1rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.event-log {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.event-log ul li {
+  transition: background-color 0.2s;
+}
+
+.event-log ul li:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin: -0.25rem;
+}
+
+.drag-demo-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.drop-zone {
+  min-width: 200px;
+  min-height: 60px;
+  border: 2px dashed #dee2e6;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  color: #6c757d;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.drop-zone:hover {
+  border-color: #0d6efd;
+  background: #e7f1ff;
+  color: #0d6efd;
+}
+
+@media (max-width: 768px) {
+  .button-demo {
+    padding: 1rem;
+  }
+
+  .demo-section {
+    padding: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button-group core-button {
+    width: 100%;
+  }
+}
+
