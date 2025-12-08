@@ -1,0 +1,62 @@
+@if (isMultiMode) {
+<!-- Multi-progress mode: Multiple progress bars -->
+<div [class]="progressContainerClasses" [ngStyle]="containerStyles" [attr.aria-label]="ariaLabel"
+  (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" (click)="onClick($event)">
+
+  @if (stacked) {
+  <!-- Stacked: Multiple bars in one container -->
+  @for (item of multi; track $index) {
+  <div [class]="getItemClasses(item)" [style.width.%]="getItemPercentage(item, max)" role="progressbar"
+    [attr.aria-valuenow]="item.value" [attr.aria-valuemin]="0" [attr.aria-valuemax]="max">
+    @if (item.label || showLabel) {
+    <span class="progress-label">
+      {{ item.label || getItemPercentage(item, max) + '%' }}
+    </span>
+    }
+  </div>
+  }
+  } @else {
+  <!-- Multi: Separate progress containers -->
+  @for (item of multi; track $index) {
+  <div [class]="progressContainerClasses" [ngStyle]="containerStyles">
+    <div [class]="getItemClasses(item)" [style.width.%]="getItemPercentage(item, max)" role="progressbar"
+      [attr.aria-valuenow]="item.value" [attr.aria-valuemin]="0" [attr.aria-valuemax]="max">
+      @if (item.label || showLabel) {
+      <span class="progress-label">
+        {{ item.label || getItemPercentage(item, max) + '%' }}
+      </span>
+      }
+    </div>
+  </div>
+  }
+  }
+</div>
+} @else {
+<!-- Single progress bar mode -->
+<div [class]="progressContainerClasses" [ngStyle]="containerStyles" [attr.aria-label]="ariaLabel || displayLabel"
+  (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" (click)="onClick($event)">
+
+  @if (buffer) {
+  <!-- Buffer mode: Shows buffer as background -->
+  <div class="progress-bar bg-secondary" [style.width.%]="bufferPercentage" role="progressbar"
+    [attr.aria-valuenow]="bufferValue" [attr.aria-valuemin]="0" [attr.aria-valuemax]="max">
+  </div>
+  <div [class]="progressBarClasses" [style.width.%]="percentage" role="progressbar"
+    [attr.aria-valuenow]="indeterminate ? null : value" [attr.aria-valuemin]="0" [attr.aria-valuemax]="max"
+    [attr.aria-label]="displayLabel">
+    @if (displayLabel) {
+    <span class="progress-label">{{ displayLabel }}</span>
+    }
+  </div>
+  } @else {
+  <!-- Standard mode: Single progress bar -->
+  <div [class]="progressBarClasses" [style.width.%]="indeterminate ? 100 : percentage" role="progressbar"
+    [attr.aria-valuenow]="indeterminate ? null : value" [attr.aria-valuemin]="0" [attr.aria-valuemax]="max"
+    [attr.aria-label]="displayLabel">
+    @if (displayLabel) {
+    <span class="progress-label">{{ displayLabel }}</span>
+    }
+  </div>
+  }
+</div>
+}

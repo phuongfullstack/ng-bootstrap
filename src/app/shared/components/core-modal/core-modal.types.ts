@@ -1,16 +1,9 @@
 import { Type } from '@angular/core';
+import { BootstrapVariant } from '@shared/types/bootstrap-variant.types';
 
 export interface ModalButton {
   label: string;
-  style?:
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark';
+  style?: BootstrapVariant;
   icon?: string;
   disabled?: boolean;
   // Use `any` for the modal instance type to avoid circular runtime imports

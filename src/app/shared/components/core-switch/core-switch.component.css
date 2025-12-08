@@ -1,0 +1,82 @@
+.form-switch {
+  padding-left: 2.5em;
+}
+
+.form-switch .form-check-input {
+  width: 2em;
+  margin-left: -2.5em;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
+  background-position: left center;
+  border-radius: 2em;
+  transition: background-position 0.15s ease-in-out;
+}
+
+.form-switch .form-check-input:checked {
+  background-position: right center;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.form-switch-sm {
+  padding-left: 2em;
+}
+
+.form-switch-sm .form-check-input {
+  width: 1.5em;
+  margin-left: -2em;
+}
+
+.form-switch-lg {
+  padding-left: 3em;
+}
+
+.form-switch-lg .form-check-input {
+  width: 2.5em;
+  margin-left: -3em;
+}
+
+.form-check-input-primary:checked {
+  background-color: var(--bs-primary, #0d6efd);
+  border-color: var(--bs-primary, #0d6efd);
+}
+
+.form-check-input-secondary:checked {
+  background-color: var(--bs-secondary, #6c757d);
+  border-color: var(--bs-secondary, #6c757d);
+}
+
+.form-check-input-success:checked {
+  background-color: var(--bs-success, #198754);
+  border-color: var(--bs-success, #198754);
+}
+
+.form-check-input-danger:checked {
+  background-color: var(--bs-danger, #dc3545);
+  border-color: var(--bs-danger, #dc3545);
+}
+
+.form-check-input-warning:checked {
+  background-color: var(--bs-warning, #ffc107);
+  border-color: var(--bs-warning, #ffc107);
+}
+
+.form-check-input-info:checked {
+  background-color: var(--bs-info, #0dcaf0);
+  border-color: var(--bs-info, #0dcaf0);
+}
+
+.form-check-input-light:checked {
+  background-color: var(--bs-light, #f8f9fa);
+  border-color: var(--bs-light, #f8f9fa);
+}
+
+.form-check-input-dark:checked {
+  background-color: var(--bs-dark, #212529);
+  border-color: var(--bs-dark, #212529);
+}
+
+.form-check-input:indeterminate {
+  background-color: var(--bs-secondary, #6c757d);
+  border-color: var(--bs-secondary, #6c757d);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+}
+
