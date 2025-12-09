@@ -7,6 +7,7 @@ import {
   HostListener,
   Input,
   OnDestroy,
+  OnInit,
   Optional,
   Output,
   Self,
@@ -15,7 +16,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
-import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { Subject, Subscription, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 
 let uniqueId = 0;
 
@@ -34,7 +35,7 @@ export interface AutoCompleteOption {
   styleUrls: ['./core-autocomplete.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoreAutocompleteComponent extends BaseFormControlComponent implements OnDestroy {
+export class CoreAutocompleteComponent extends BaseFormControlComponent implements OnInit, OnDestroy {
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef<HTMLInputElement>;
 
   @Input() placeholder: string = 'Nhập để tìm kiếm...';
@@ -55,7 +56,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   @Output() focused = new EventEmitter<FocusEvent>();
   @Output() blurred = new EventEmitter<FocusEvent>();
 
-  protected override generatedId = `app-autocomplete-${uniqueId++}`;
+  protected override generatedId = `core-autocomplete-${uniqueId++}`;
   protected displayValue: string = '';
   protected isDropdownOpen: boolean = false;
   protected filteredOptions: AutoCompleteOption[] = [];
@@ -65,17 +66,33 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
   private selectedOption: AutoCompleteOption | null = null;
+  private statusChangesSubscription?: Subscription;
+  private valueChangesSubscription?: Subscription;
 
   constructor(
     @Optional() @Self() ngControl: NgControl | null,
-    private cdr: ChangeDetectorRef,
-    private elementRef: ElementRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly elementRef: ElementRef
   ) {
     super(ngControl);
     this.setupSearchSubscription();
   }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+    if (this.control) {
+      this.statusChangesSubscription = this.control.statusChanges.subscribe(() => {
+        this.cdr.markForCheck();
+      });
+      this.valueChangesSubscription = this.control.valueChanges.subscribe(() => {
+        this.cdr.markForCheck();
+      });
+    }
+  }
+
   ngOnDestroy(): void {
+    this.statusChangesSubscription?.unsubscribe();
+    this.valueChangesSubscription?.unsubscribe();
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -118,6 +135,10 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
       this.value = inputValue;
       this.onChange(inputValue);
       this.valueChange.emit(inputValue);
+    } else {
+      // Clear previously selected value when user types new text
+      this.value = null;
+      this.onChange(null);
     }
 
     if (inputValue.length >= this.minChars) {
@@ -269,6 +290,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   private closeDropdown(): void {
     this.isDropdownOpen = false;
     this.highlightedIndex = -1;
+    this.cdr.markForCheck();
   }
 
   @HostListener('document:click', ['$event'])
@@ -313,6 +335,11 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
       this.selectedOption = null;
     }
 
+    this.cdr.markForCheck();
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
+    super.setDisabledState(isDisabled);
     this.cdr.markForCheck();
   }
 
