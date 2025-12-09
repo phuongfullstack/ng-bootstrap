@@ -4,6 +4,8 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
+  OnInit,
   Optional,
   Output,
   Self
@@ -11,6 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
+import { Subscription } from 'rxjs';
 
 let uniqueId = 0;
 
@@ -28,7 +31,7 @@ export interface CheckboxOption {
   styleUrls: ['./core-checkbox.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoreCheckboxComponent extends BaseFormControlComponent {
+export class CoreCheckboxComponent extends BaseFormControlComponent implements OnInit, OnDestroy {
   @Input() inline = false;
   @Input() size?: 'sm' | 'md' | 'lg';
   @Input() indeterminate?: boolean;
@@ -44,11 +47,33 @@ export class CoreCheckboxComponent extends BaseFormControlComponent {
 
   protected override generatedId = `core-checkbox-${uniqueId++}`;
 
+  private statusChangesSubscription?: Subscription;
+  private valueChangesSubscription?: Subscription;
+
   constructor(
     @Optional() @Self() ngControl: NgControl | null = null,
-    private changeDetectorRef: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef
   ) {
     super(ngControl);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    if (this.control) {
+      this.statusChangesSubscription = this.control.statusChanges.subscribe(() => {
+        this.cdr.markForCheck();
+      });
+
+      this.valueChangesSubscription = this.control.valueChanges.subscribe(() => {
+        this.cdr.markForCheck();
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.statusChangesSubscription?.unsubscribe();
+    this.valueChangesSubscription?.unsubscribe();
   }
 
   protected get checkboxId(): string {
@@ -102,11 +127,13 @@ export class CoreCheckboxComponent extends BaseFormControlComponent {
       this.value = isChecked;
       this.onChange(isChecked);
     } else {
+      this.value = isChecked;
       this.standaloneValue = isChecked;
     }
 
     this.valueChange.emit(isChecked);
     this.checkedChange.emit(isChecked);
+    this.cdr.markForCheck();
   }
 
   protected onGroupCheckboxChange(
@@ -138,10 +165,12 @@ export class CoreCheckboxComponent extends BaseFormControlComponent {
       this.value = updatedSelectedValues;
       this.onChange(updatedSelectedValues);
     } else {
+      this.value = updatedSelectedValues;
       this.standaloneValue = updatedSelectedValues;
     }
 
     this.valueChange.emit(updatedSelectedValues);
+    this.cdr.markForCheck();
   }
 
   protected onIndeterminateChange(event: Event): void {
@@ -153,11 +182,13 @@ export class CoreCheckboxComponent extends BaseFormControlComponent {
 
   protected onFocus(event: FocusEvent): void {
     this.focused.emit(event);
+    this.cdr.markForCheck();
   }
 
   protected onBlur(event: FocusEvent): void {
     this.handleBlur();
     this.blurred.emit(event);
+    this.cdr.markForCheck();
   }
 
   override writeValue(value: any): void {
@@ -166,7 +197,12 @@ export class CoreCheckboxComponent extends BaseFormControlComponent {
     } else {
       this.value = value === true || value === 'true' || value === 1;
     }
-    this.changeDetectorRef.markForCheck();
+    this.cdr.markForCheck();
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
+    super.setDisabledState(isDisabled);
+    this.cdr.markForCheck();
   }
 
   protected get effectiveValue(): any {
