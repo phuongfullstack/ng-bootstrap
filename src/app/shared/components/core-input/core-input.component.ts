@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
+  OnInit,
   Optional,
   Output,
   Self
@@ -10,6 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
+import { Subscription } from 'rxjs';
 
 let uniqueId = 0;
 
@@ -25,7 +29,7 @@ let uniqueId = 0;
   styleUrls: ['./core-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoreInputComponent extends BaseFormControlComponent {
+export class CoreInputComponent extends BaseFormControlComponent implements OnInit, OnDestroy {
   @Input() placeholder?: string;
   @Input() type: string = 'text';
   @Input() autocomplete?: string;
@@ -42,9 +46,37 @@ export class CoreInputComponent extends BaseFormControlComponent {
   @Output() blurred = new EventEmitter<FocusEvent>();
 
   protected override generatedId = `core-input-${uniqueId++}`;
+  private statusChangesSubscription?: Subscription;
+  private valueChangesSubscription?: Subscription;
 
-  constructor(@Optional() @Self() ngControl: NgControl | null = null) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl | null = null,
+    private readonly changeDetectorRef: ChangeDetectorRef
+  ) {
     super(ngControl);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    // Subscribe to control changes to trigger change detection with OnPush
+    // This ensures validation states update when control state changes externally
+    if (this.control) {
+      // Subscribe to status changes (VALID, INVALID, PENDING, DISABLED)
+      this.statusChangesSubscription = this.control.statusChanges.subscribe(() => {
+        this.changeDetectorRef.markForCheck();
+      });
+
+      // Subscribe to value changes to catch state changes (touched/dirty can change with value)
+      this.valueChangesSubscription = this.control.valueChanges.subscribe(() => {
+        this.changeDetectorRef.markForCheck();
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.statusChangesSubscription?.unsubscribe();
+    this.valueChangesSubscription?.unsubscribe();
   }
 
   protected get inputId(): string {
@@ -61,6 +93,7 @@ export class CoreInputComponent extends BaseFormControlComponent {
     this.value = processedValue;
     this.onChange(processedValue);
     this.valueChange.emit(String(inputValue));
+    this.changeDetectorRef.markForCheck();
   }
 
   protected onFocus(event: FocusEvent): void {
@@ -70,6 +103,12 @@ export class CoreInputComponent extends BaseFormControlComponent {
   protected onBlur(event: FocusEvent): void {
     this.handleBlur();
     this.blurred.emit(event);
+    this.changeDetectorRef.markForCheck();
+  }
+
+  override writeValue(value: any): void {
+    super.writeValue(value);
+    this.changeDetectorRef.markForCheck();
   }
 
   protected override getDefaultValue(): any {

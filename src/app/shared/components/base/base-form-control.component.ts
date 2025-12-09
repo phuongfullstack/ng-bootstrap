@@ -36,6 +36,11 @@ export abstract class BaseFormControlComponent implements OnInit, ControlValueAc
   }
 
   ngOnInit(): void {
+    // Set valueAccessor if ngControl is available but wasn't set in constructor
+    if (this.ngControl && !this.ngControl.valueAccessor) {
+      this.ngControl.valueAccessor = this;
+    }
+
     // Sync disabled state from NgControl if available
     if (this.ngControl?.control) {
       this.setDisabledState = (isDisabled: boolean): void => {
