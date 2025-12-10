@@ -6,8 +6,12 @@ export interface ModalButton {
   style?: BootstrapVariant;
   icon?: string;
   disabled?: boolean;
-  // Use `any` for the modal instance type to avoid circular runtime imports
-  handler?: (modal?: any, dynamicInstance?: any) => void;
+
+  // Handler can return:
+  // - void/undefined: close modal if closeOnClick !== false
+  // - boolean: false prevents closing, true allows closing
+  // - Promise<boolean>: async handler, resolves to boolean to control closing
+  handler?: (modal?: any, dynamicInstance?: any) => void | boolean | Promise<boolean>;
   closeOnClick?: boolean;
 }
 
@@ -20,7 +24,6 @@ export interface ModalConfig {
   buttons?: ModalButton[];
   customClass?: string;
   data?: any;
-  // dynamic component to render in body
   content?: Type<any>;
   contentProps?: Record<string, any>;
 }
