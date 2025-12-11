@@ -49,6 +49,9 @@ export class CoreModalComponent implements OnInit, OnDestroy {
   isOpen = false;
   private previousFocus?: HTMLElement;
   hasProjectedContent = false;
+  private focusableElements: HTMLElement[] = [];
+  private firstFocusableElement?: HTMLElement;
+  private lastFocusableElement?: HTMLElement;
 
   @ViewChild('dynamicContent', { read: ViewContainerRef, static: true })
   dynamicHost!: ViewContainerRef;
@@ -64,46 +67,63 @@ export class CoreModalComponent implements OnInit, OnDestroy {
   ngOnInit(): void { }
 
   ngOnDestroy(): void {
-    if (this.document) {
+    if (this.document.body) {
       this.renderer.removeStyle(this.document.body, 'overflow');
     }
+    this.removeFocusTrap();
     this.destroyDynamicContent();
   }
 
   open(): void {
+    if (this.isOpen) {
+      return;
+    }
+
     this.isOpen = true;
-    if (this.document) {
-      this.previousFocus = this.document.activeElement as HTMLElement;
+    this.previousFocus = this.document.activeElement as HTMLElement;
+
+    if (this.document.body) {
       this.renderer.setStyle(this.document.body, 'overflow', 'hidden');
     }
 
     this.opened.emit();
-    this.cdr.detectChanges();
 
-    setTimeout(() => {
-      // detect if host has projected [modal-body] content
+    Promise.resolve().then(() => {
+      this.cdr.detectChanges();
+
       this.hasProjectedContent = !!this.elementRef.nativeElement.querySelector('[modal-body]');
-      const focusable = this.elementRef.nativeElement.querySelector(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusable) {
-        (focusable as HTMLElement).focus();
+
+      this.setupFocusTrap();
+
+      if (this.firstFocusableElement) {
+        this.firstFocusableElement.focus();
       }
+
       // if no projected content and a dynamic content component is provided, load it
       if (!this.hasProjectedContent && this.content) {
         this.loadDynamicContent(this.content, this.contentProps);
+        Promise.resolve().then(() => {
+          this.setupFocusTrap();
+          if (this.firstFocusableElement) {
+            this.firstFocusableElement.focus();
+          }
+        });
       }
     });
   }
 
   close(result?: any): void {
-    if (this.backdrop === 'static') return;
+    if (!this.isOpen || this.backdrop === 'static') {
+      return;
+    }
+
     this.isOpen = false;
     this.closed.emit(result);
+    this.removeFocusTrap();
     if (this.previousFocus) {
       this.previousFocus.focus();
     }
-    if (this.document) {
+    if (this.document.body) {
       this.renderer.removeStyle(this.document.body, 'overflow');
     }
     this.cdr.detectChanges();
@@ -118,31 +138,83 @@ export class CoreModalComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown.escape', ['$event'])
   onEscapeKey(_event: Event): void {
-    if (this.closable) {
+    if (this.closable && this.backdrop !== 'static') {
       this.close();
     }
   }
 
-  onButtonClick(button: ModalButton): void {
-    if (button.handler) {
-      try {
-        button.handler(this, this.dynamicComponentRef?.instance);
-      } catch (err) {
-        console.error(err);
+  @HostListener('keydown.tab', ['$event'])
+  onTabKey(event: Event): void {
+    if (!this.isOpen) return;
+
+    const keyboardEvent = event as KeyboardEvent;
+
+    // Only trap focus if modal is open
+    const modalElement = this.elementRef.nativeElement.querySelector('.modal');
+    if (!modalElement || !modalElement.contains(keyboardEvent.target as Node)) {
+      return;
+    }
+
+    this.updateFocusableElements();
+
+    if (this.focusableElements.length === 0) {
+      keyboardEvent.preventDefault();
+      return;
+    }
+
+    if (keyboardEvent.shiftKey) {
+      // Shift + Tab: move backwards
+      if (this.document.activeElement === this.firstFocusableElement) {
+        keyboardEvent.preventDefault();
+        this.lastFocusableElement?.focus();
+      }
+    } else {
+      // Tab: move forwards
+      if (this.document.activeElement === this.lastFocusableElement) {
+        keyboardEvent.preventDefault();
+        this.firstFocusableElement?.focus();
       }
     }
-    if (button.closeOnClick !== false) {
-      this.close(button);
+  }
+
+  async onButtonClick(button: ModalButton): Promise<void> {
+    if (button.handler) {
+      try {
+        const result = button.handler(this, this.dynamicComponentRef?.instance);
+
+        if (result instanceof Promise) {
+          const promiseResult = await result;
+          if (button.closeOnClick !== false && promiseResult !== false) {
+            this.close(button);
+          }
+        } else {
+          if (button.closeOnClick !== false && result !== false) {
+            this.close(button);
+          }
+        }
+      } catch (err) {
+        if (button.closeOnClick === true) {
+          this.close(button);
+        }
+      }
+    } else {
+      if (button.closeOnClick !== false) {
+        this.close(button);
+      }
     }
   }
 
   private loadDynamicContent(component: Type<any>, props?: Record<string, any>): void {
     if (!this.dynamicHost) return;
-    this.dynamicHost.clear();
-    const compRef = this.dynamicHost.createComponent(component);
-    this.dynamicComponentRef = compRef;
-    if (props) {
-      Object.assign(compRef.instance, props);
+    try {
+      this.dynamicHost.clear();
+      const compRef = this.dynamicHost.createComponent(component);
+      this.dynamicComponentRef = compRef;
+      if (props) {
+        Object.assign(compRef.instance, props);
+      }
+    } catch (error) {
+      // Ignore errors if injector is already destroyed (e.g., in tests)
     }
   }
 
@@ -156,15 +228,41 @@ export class CoreModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  get modalClasses(): string {
-    const classes = ['modal', 'fade'];
-    if (this.customClass) {
-      classes.push(this.customClass);
-    }
-    if (this.isOpen) {
-      classes.push('show');
-    }
-    return classes.join(' ');
+  private setupFocusTrap(): void {
+    this.updateFocusableElements();
+  }
+
+  private updateFocusableElements(): void {
+    const modalElement = this.elementRef.nativeElement.querySelector('.modal') as HTMLElement;
+    if (!modalElement) return;
+
+    const focusableSelectors = [
+      'button:not([disabled])',
+      '[href]',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(', ');
+
+    const nodeList = modalElement.querySelectorAll(focusableSelectors);
+    const elements = Array.from(nodeList)
+      .filter((el): el is HTMLElement => el instanceof HTMLElement)
+      .filter(el => {
+        // Filter out elements that are not visible
+        const style = window.getComputedStyle(el);
+        return style.display !== 'none' && style.visibility !== 'hidden';
+      });
+
+    this.focusableElements = elements;
+    this.firstFocusableElement = elements[0];
+    this.lastFocusableElement = elements[elements.length - 1];
+  }
+
+  private removeFocusTrap(): void {
+    this.focusableElements = [];
+    this.firstFocusableElement = undefined;
+    this.lastFocusableElement = undefined;
   }
 
   get dialogClasses(): string {
