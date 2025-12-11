@@ -1,54 +1,29 @@
-<div class="modal-backdrop fade show" *ngIf="isOpen" (click)="onBackdropClick($event)"></div>
+<div class="modal-backdrop fade" [class.show]="isOpen" (click)="onBackdropClick($event)"></div>
 
-<div
-  [ngClass]="modalClasses"
-  [attr.aria-hidden]="!isOpen"
-  role="dialog"
-  aria-modal="true"
-  [attr.aria-labelledby]="title ? 'modal-title' : null"
-  tabindex="-1"
->
+<div class="modal fade" [class.show]="isOpen" [ngClass]="customClass" tabindex="-1" [attr.aria-hidden]="!isOpen"
+  role="dialog" aria-modal="true" [attr.aria-labelledby]="title ? 'modal-title' : null">
   <div [ngClass]="dialogClasses">
-    <div class="modal-content">
-      <!-- Header -->
+    <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header" *ngIf="title || closable">
         <h5 class="modal-title" id="modal-title" *ngIf="title">{{ title }}</h5>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          *ngIf="closable"
-          (click)="close()"
-        ></button>
+        <button type="button" class="btn-close" *ngIf="closable" (click)="close()" aria-label="Close"></button>
       </div>
 
-      <!-- Body -->
       <div class="modal-body">
         <ng-content select="[modal-body]" *ngIf="hasProjectedContent"></ng-content>
         <div *ngIf="!hasProjectedContent && data?.contentHtml" [innerHTML]="data.contentHtml"></div>
         <ng-template #dynamicContent></ng-template>
       </div>
 
-      <!-- Footer -->
       <div class="modal-footer" *ngIf="buttons.length > 0 || showCloseButton">
         <ng-content select="[modal-footer]"></ng-content>
-        <button
-          *ngFor="let button of buttons"
-          type="button"
-          class="btn"
-          [ngClass]="'btn-' + (button.style || 'secondary')"
-          [disabled]="button.disabled"
-          (click)="onButtonClick(button)"
-        >
-          <i *ngIf="button.icon" [ngClass]="button.icon" aria-hidden="true"></i>
+        <button *ngFor="let button of buttons" type="button" class="btn"
+          [ngClass]="'btn-' + (button.style || 'secondary')" [disabled]="button.disabled"
+          (click)="onButtonClick(button)">
+          <i *ngIf="button.icon" [ngClass]="button.icon"></i>
           {{ button.label }}
         </button>
-        <button
-          *ngIf="showCloseButton"
-          type="button"
-          class="btn btn-secondary"
-          (click)="close()"
-        >
+        <button *ngIf="showCloseButton" type="button" class="btn btn-secondary" (click)="close()">
           Close
         </button>
       </div>

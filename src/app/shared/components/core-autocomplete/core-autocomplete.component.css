@@ -9,6 +9,12 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.autocomplete-container .form-control.is-valid,
+.autocomplete-container .form-control.is-invalid {
+  /* Remove Bootstrap's default validation background icons to avoid overlay */
+  background-image: none;
+}
+
 .autocomplete-container .form-control:focus {
   border-color: #86b7fe;
   outline: 0;

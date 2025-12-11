@@ -30,7 +30,7 @@ describe('CoreInputComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('sholud have default type as text', () => {
+    it('should have default type as text', () => {
       createComponent();
       expect(component.type).toBe('text');
     });
