@@ -46,15 +46,17 @@ export class CoreRadioComponent extends BaseFormControlComponent {
   @Output() focused = new EventEmitter<FocusEvent>();
   @Output() blurred = new EventEmitter<FocusEvent>();
 
-  protected override generatedId = `core-radio-${uniqueId++}`;
-  protected readonly groupName: string;
+  protected override readonly generatedId = `core-radio-${uniqueId++}`;
 
   constructor(
     @Optional() @Self() ngControl: NgControl | null = null,
     private readonly changeDetectorRef: ChangeDetectorRef
   ) {
     super(ngControl);
-    this.groupName = this.name || `radio-group-${this.generatedId}`;
+  }
+
+  protected get groupName(): string {
+    return this.name ?? `radio-group-${this.generatedId}`;
   }
 
   protected get radioId(): string {
@@ -73,13 +75,14 @@ export class CoreRadioComponent extends BaseFormControlComponent {
     return this.standaloneDisabled || this.disabled;
   }
 
-  protected get sizeClass(): string {
-    if (!this.size) return '';
-    return `form-check-${this.size}`;
-  }
-
-  protected get containerClass(): string {
-    return this.inline ? 'form-check-inline' : 'form-check';
+  protected get containerClasses(): Record<string, boolean> {
+    return {
+      'form-check-inline': this.inline,
+      'form-check': !this.inline,
+      'form-check-sm': this.size === 'sm',
+      'form-check-md': this.size === 'md',
+      'form-check-lg': this.size === 'lg'
+    };
   }
 
   protected isOptionSelected(optionValue: string | number): boolean {
@@ -92,8 +95,8 @@ export class CoreRadioComponent extends BaseFormControlComponent {
     return `${this.radioId}-${index}`;
   }
 
-  protected trackByOption(_: number, option: RadioOption): string | number {
-    return option.value;
+  protected trackByOption(index: number, option: RadioOption): string {
+    return `${option.value}-${index}`;
   }
 
   protected onRadioChange(event: Event, optionValue?: string | number): void {
@@ -106,6 +109,7 @@ export class CoreRadioComponent extends BaseFormControlComponent {
       this.onChange(normalizedValue);
     } else {
       this.standaloneValue = normalizedValue;
+      this.changeDetectorRef.markForCheck();
     }
 
     this.valueChange.emit(normalizedValue);
@@ -133,26 +137,21 @@ export class CoreRadioComponent extends BaseFormControlComponent {
   }
 
   /**
-   * Normalize value to string or number based on input type
-   * Maintains type consistency for comparison
+   * Normalize value - preserve original type from option value
+   * Radio buttons should maintain the type as provided in options
    */
   private normalizeValue(value: any): string | number {
     if (typeof value === 'number') {
       return value;
     }
     if (typeof value === 'string') {
-      // Try to convert to number if it's a numeric string
-      const numValue = Number(value);
-      if (!Number.isNaN(numValue) && value.trim() !== '') {
-        return numValue;
-      }
       return value;
     }
     return String(value);
   }
 
   protected override getDefaultValue(): any {
-    return this.isGroupMode ? null : null;
+    return null;
   }
 
   protected override getDefaultErrorMessage(): string {
