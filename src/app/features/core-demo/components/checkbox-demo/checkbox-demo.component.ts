@@ -22,7 +22,7 @@ interface DemoEventLogEntry {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CoreCheckboxComponent],
   templateUrl: './checkbox-demo.component.html',
-  styleUrl: './checkbox-demo.component.css',
+  styleUrl: './checkbox-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxDemoComponent {

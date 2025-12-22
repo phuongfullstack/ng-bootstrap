@@ -27,7 +27,7 @@ import type { ModalButton, ModalConfig } from './core-modal.types';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './core-modal.component.html',
-  styleUrls: ['./core-modal.component.css'],
+  styleUrls: ['./core-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreModalComponent implements OnInit, OnDestroy {

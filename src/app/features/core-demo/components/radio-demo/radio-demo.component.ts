@@ -22,7 +22,7 @@ interface DemoEventLogEntry {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CoreRadioComponent],
   templateUrl: './radio-demo.component.html',
-  styleUrl: './radio-demo.component.css',
+  styleUrl: './radio-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioDemoComponent {

@@ -11,7 +11,7 @@ export interface DemoSidebarItem {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  styleUrl: './sidebar.component.scss'
 })
 export class DemoSidebarComponent {
   @Input({ required: true }) items: DemoSidebarItem[] = [];

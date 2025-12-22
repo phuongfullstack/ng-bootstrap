@@ -31,7 +31,7 @@ interface ButtonEventLogEntry {
     standalone: true,
     imports: [CommonModule, CoreButtonComponent],
     templateUrl: './button-demo.component.html',
-    styleUrl: './button-demo.component.css'
+    styleUrl: './button-demo.component.scss'
 })
 export class ButtonDemoComponent {
     protected readonly eventTypeLabel: Record<ButtonEventType, string> = {

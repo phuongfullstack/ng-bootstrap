@@ -28,7 +28,7 @@ export interface CheckboxOption {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './core-checkbox.component.html',
-  styleUrls: ['./core-checkbox.component.css'],
+  styleUrls: ['./core-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreCheckboxComponent extends BaseFormControlComponent implements OnInit, OnDestroy {

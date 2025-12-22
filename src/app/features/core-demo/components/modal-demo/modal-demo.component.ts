@@ -9,7 +9,7 @@ import { CustomModalContentComponent } from '../custom-modal-content.component';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './modal-demo.component.html',
-  styleUrls: ['./modal-demo.component.css']
+  styleUrls: ['./modal-demo.component.scss']
 })
 export class ModalDemoComponent implements OnInit {
 

@@ -44,7 +44,7 @@ let uniqueId = 0;
   standalone: true,
   imports: [CommonModule],
   templateUrl: './core-datetimepicker.component.html',
-  styleUrl: './core-datetimepicker.component.css',
+  styleUrl: './core-datetimepicker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreDatetimepickerComponent

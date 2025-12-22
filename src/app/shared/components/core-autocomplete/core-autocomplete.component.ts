@@ -32,7 +32,7 @@ export interface AutoCompleteOption {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './core-autocomplete.component.html',
-  styleUrls: ['./core-autocomplete.component.css'],
+  styleUrls: ['./core-autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreAutocompleteComponent extends BaseFormControlComponent implements OnInit, OnDestroy {

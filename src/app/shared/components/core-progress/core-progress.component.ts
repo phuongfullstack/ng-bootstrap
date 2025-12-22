@@ -17,7 +17,7 @@ import { CoreProgressVariant, CoreProgressItem } from './core-progress.types';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './core-progress.component.html',
-  styleUrls: ['./core-progress.component.css'],
+  styleUrls: ['./core-progress.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreProgressComponent implements OnChanges {

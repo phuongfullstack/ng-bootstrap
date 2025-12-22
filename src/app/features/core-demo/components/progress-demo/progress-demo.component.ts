@@ -19,7 +19,7 @@ interface ProgressEventLogEntry {
   standalone: true,
   imports: [CommonModule, CoreProgressComponent, CoreButtonComponent],
   templateUrl: './progress-demo.component.html',
-  styleUrl: './progress-demo.component.css'
+  styleUrl: './progress-demo.component.scss'
 })
 export class ProgressDemoComponent implements OnDestroy {
   basicProgress = signal(0);

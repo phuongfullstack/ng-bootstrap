@@ -8,7 +8,7 @@ import { CoreDatetimepickerComponent } from '@shared/components';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CoreDatetimepickerComponent],
   templateUrl: './datetime-demo.component.html',
-  styleUrl: './datetime-demo.component.css',
+  styleUrl: './datetime-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatetimeDemoComponent {
