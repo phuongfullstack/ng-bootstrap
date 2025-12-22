@@ -8,7 +8,7 @@ import { CoreDropdownComponent, type DropdownOption } from '@shared/components';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CoreDropdownComponent],
   templateUrl: './dropdown-demo.component.html',
-  styleUrl: './dropdown-demo.component.css',
+  styleUrl: './dropdown-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownDemoComponent {

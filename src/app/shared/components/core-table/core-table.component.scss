@@ -1,0 +1,117 @@
+/* Core Table Component Styles */
+
+.core-table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--bs-body-color);
+  vertical-align: top;
+  border-color: var(--bs-border-color);
+}
+
+.core-table > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-body-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.core-table thead,
+.core-table tbody,
+.core-table tfoot,
+.core-table tr,
+.core-table td,
+.core-table th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
+.core-table thead th {
+  vertical-align: bottom;
+  border-bottom-color: currentcolor;
+}
+
+.core-table tbody + tbody {
+  border-top: 2px solid currentcolor;
+}
+
+.core-table .table {
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--bs-border-color);
+  --bs-table-striped-color: var(--bs-body-color);
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: var(--bs-body-color);
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: var(--bs-body-color);
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--bs-table-color);
+  vertical-align: top;
+  border-color: var(--bs-table-border-color);
+}
+
+.core-table .table > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.core-table .table thead {
+  vertical-align: bottom;
+}
+
+.core-table .table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid currentcolor;
+}
+
+.core-table .table tbody {
+  vertical-align: inherit;
+}
+
+.core-table .table tbody tr:hover {
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
+}
+
+/* Sorting indicators */
+.core-table__sort-indicator {
+  margin-left: 0.25rem;
+  opacity: 0.5;
+}
+
+.core-table__sort-indicator--active {
+  opacity: 1;
+}
+
+/* Pagination */
+.core-table__pagination {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.core-table__page-info {
+  margin: 0 1rem;
+}
+
+/* Selection */
+.core-table__row--selected {
+  --bs-table-accent-bg: var(--bs-table-active-bg);
+  color: var(--bs-table-active-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .core-table .table {
+    font-size: 0.875rem;
+  }
+
+  .core-table .table > :not(caption) > * > * {
+    padding: 0.25rem;
+  }
+}

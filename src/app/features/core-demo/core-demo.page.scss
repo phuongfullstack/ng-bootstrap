@@ -1,0 +1,38 @@
+.core-demo {
+  min-height: 100vh;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.core-demo__header {
+  margin-bottom: 2rem;
+}
+
+.core-demo__layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.core-demo__sidebar {
+  flex: 0 0 300px;
+  position: sticky;
+  top: 2rem;
+}
+
+.core-demo__stage {
+  flex: 1;
+  min-height: 600px;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .core-demo__layout {
+    flex-direction: column;
+  }
+
+  .core-demo__sidebar {
+    position: static;
+    flex: none;
+  }
+}

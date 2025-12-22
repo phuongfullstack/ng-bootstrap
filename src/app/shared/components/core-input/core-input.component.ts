@@ -26,7 +26,7 @@ let uniqueId = 0;
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './core-input.component.html',
-  styleUrls: ['./core-input.component.css'],
+  styleUrls: ['./core-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreInputComponent extends BaseFormControlComponent implements OnInit, OnDestroy {

@@ -6,7 +6,7 @@ import { CoreToastrComponent } from '@shared/components';
   selector: 'app-root',
   imports: [RouterOutlet, CoreToastrComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('ng-boostrap');

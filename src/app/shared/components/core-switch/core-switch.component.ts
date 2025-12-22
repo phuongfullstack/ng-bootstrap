@@ -21,7 +21,7 @@ let uniqueId = 0;
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, FormsModule],
     templateUrl: './core-switch.component.html',
-    styleUrls: ['./core-switch.component.css'],
+    styleUrls: ['./core-switch.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreSwitchComponent extends BaseFormControlComponent {

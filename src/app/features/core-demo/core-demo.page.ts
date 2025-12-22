@@ -14,7 +14,7 @@ import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-pla
     DemoPlaceholderComponent
   ],
   templateUrl: './core-demo.page.html',
-  styleUrl: './core-demo.page.css',
+  styleUrl: './core-demo.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreDemoPage implements OnInit {

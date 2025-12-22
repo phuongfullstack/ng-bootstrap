@@ -1,0 +1,27 @@
+/* Table Demo Component Styles */
+
+.table-demo {
+  padding: 1.5rem;
+  background-color: var(--bs-body-bg);
+  border-radius: var(--bs-border-radius);
+}
+
+.table-demo h2 {
+  color: var(--bs-heading-color, inherit);
+  margin-bottom: 0.5rem;
+}
+
+.table-demo p {
+  color: var(--bs-body-color);
+  margin-bottom: 1.5rem;
+}
+
+.table-demo section {
+  margin-bottom: 2rem;
+}
+
+.table-demo h3 {
+  color: var(--bs-heading-color, inherit);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
