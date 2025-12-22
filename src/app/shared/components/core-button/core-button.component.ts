@@ -17,7 +17,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './core-button.component.html',
-  styleUrls: ['./core-button.component.css'],
+  styleUrls: ['./core-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreButtonComponent {

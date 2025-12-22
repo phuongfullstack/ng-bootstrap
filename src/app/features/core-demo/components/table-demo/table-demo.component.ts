@@ -14,7 +14,7 @@ import { TABLE_DEMO_USERS, type UserRow } from './table-demo.data';
   standalone: true,
   imports: [CommonModule, CoreTableComponent],
   templateUrl: './table-demo.component.html',
-  styleUrl: './table-demo.component.css',
+  styleUrl: './table-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableDemoComponent {

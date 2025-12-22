@@ -8,7 +8,7 @@ import { CoreAutocompleteComponent, type AutoCompleteOption } from '@shared/comp
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CoreAutocompleteComponent],
   templateUrl: './autocomplete-demo.component.html',
-  styleUrl: './autocomplete-demo.component.css',
+  styleUrl: './autocomplete-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutocompleteDemoComponent {

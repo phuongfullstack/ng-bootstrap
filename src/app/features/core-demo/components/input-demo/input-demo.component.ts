@@ -27,7 +27,7 @@ interface DemoEventLogEntry {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CoreInputComponent],
   templateUrl: './input-demo.component.html',
-  styleUrl: './input-demo.component.css',
+  styleUrl: './input-demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputDemoComponent {

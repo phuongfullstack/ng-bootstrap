@@ -31,7 +31,7 @@ export interface RadioOption {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './core-radio.component.html',
-  styleUrls: ['./core-radio.component.css'],
+  styleUrls: ['./core-radio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreRadioComponent extends BaseFormControlComponent {

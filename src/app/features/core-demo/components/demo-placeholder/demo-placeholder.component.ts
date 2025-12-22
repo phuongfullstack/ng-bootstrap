@@ -6,7 +6,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './demo-placeholder.component.html',
-  styleUrl: './demo-placeholder.component.css',
+  styleUrl: './demo-placeholder.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DemoPlaceholderComponent {

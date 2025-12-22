@@ -13,7 +13,7 @@ import {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './core-toastr.component.html',
-  styleUrl: './core-toastr.component.css'
+  styleUrl: './core-toastr.component.scss'
 })
 export class CoreToastrComponent {
   private readonly positionSignal = signal<CoreToastPosition>('top-right');

@@ -18,7 +18,7 @@ interface SwitchEventLogEntry {
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, FormsModule, CoreSwitchComponent],
     templateUrl: './switch-demo.component.html',
-    styleUrl: './switch-demo.component.css'
+    styleUrl: './switch-demo.component.scss'
 })
 export class SwitchDemoComponent {
     protected readonly eventTypeLabel: Record<SwitchEventType, string> = {

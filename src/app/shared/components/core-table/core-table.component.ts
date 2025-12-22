@@ -24,7 +24,7 @@ import {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './core-table.component.html',
-  styleUrls: ['./core-table.component.css'],
+  styleUrls: ['./core-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreTableComponent<T = unknown> {

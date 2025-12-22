@@ -28,7 +28,7 @@ export interface DropdownOption {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './core-dropdown.component.html',
-  styleUrls: ['./core-dropdown.component.css'],
+  styleUrls: ['./core-dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreDropdownComponent
