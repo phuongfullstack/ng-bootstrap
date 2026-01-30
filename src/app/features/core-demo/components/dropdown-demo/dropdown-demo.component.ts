@@ -71,19 +71,19 @@ export class DropdownDemoComponent {
   }
 
   onCountryChange(value: any): void {
-    console.log('Country changed:', value);
+    // Handle country change
   }
 
   onCityChange(value: any): void {
-    console.log('City changed:', value);
+    // Handle city change
   }
 
   onSkillsChange(value: any): void {
-    console.log('Skills selected:', value);
+    // Handle skills selection
   }
 
   onSizeChange(value: any): void {
-    console.log('Size changed:', value);
+    // Handle size change
     if (value === 's' || value === 'xs') {
       this.currentSize = 'sm';
     } else if (value === 'l' || value === 'xl') {
@@ -94,11 +94,11 @@ export class DropdownDemoComponent {
   }
 
   onFocus(event: FocusEvent, fieldName: string): void {
-    console.log(`${fieldName} focused`, event);
+    // Handle field focus
   }
 
   onBlur(event: FocusEvent, fieldName: string): void {
-    console.log(`${fieldName} blurred`, event);
+    // Handle field blur
   }
 
   resetForm(): void {

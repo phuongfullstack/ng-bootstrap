@@ -11,7 +11,7 @@
 
       <div class="modal-body">
         <ng-content select="[modal-body]" *ngIf="hasProjectedContent"></ng-content>
-        <div *ngIf="!hasProjectedContent && data?.contentHtml" [innerHTML]="data.contentHtml"></div>
+        <div *ngIf="!hasProjectedContent && sanitizedContent" [innerHTML]="sanitizedContent"></div>
         <ng-template #dynamicContent></ng-template>
       </div>
 

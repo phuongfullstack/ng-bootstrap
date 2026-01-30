@@ -27,13 +27,15 @@ export class ModalDemoComponent implements OnInit {
         {
           label: 'OK',
           style: 'primary',
-          handler: () => console.log('Alert acknowledged')
+          handler: () => {
+            // Alert acknowledged
+          }
         }
       ]
       ,
       data: { contentHtml: '<p>Đây là thông báo quan trọng.</p>' }
     }).subscribe(result => {
-      console.log('Alert modal closed with result:', result);
+      // Handle alert modal result
     });
   }
 
@@ -52,14 +54,16 @@ export class ModalDemoComponent implements OnInit {
         {
           label: 'Xác nhận',
           style: 'primary',
-          handler: () => console.log('Confirmed!'),
+          handler: () => {
+            // Handle confirmation
+          },
           closeOnClick: true
         }
       ]
       ,
       data: { contentHtml: '<p>Bạn có chắc chắn muốn thực hiện hành động này?</p>' }
     }).subscribe(result => {
-      console.log('Confirm modal closed with result:', result);
+      // Handle confirm modal result
     });
   }
 
@@ -89,7 +93,7 @@ export class ModalDemoComponent implements OnInit {
         }
       ]
     }).subscribe(result => {
-      console.log('Form modal closed with result:', result);
+      // Handle form modal result with submitted data
     });
   }
 
@@ -119,7 +123,7 @@ export class ModalDemoComponent implements OnInit {
         }
       ]
     }).subscribe(result => {
-      console.log('Custom modal closed with result:', result);
+      // Handle custom modal result
     });
   }
 }

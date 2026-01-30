@@ -51,13 +51,17 @@ export class ToastrDemoComponent {
           id: 'undo',
           label: 'Hoàn tác',
           variant: 'primary',
-          handler: () => console.log('Undo action triggered')
+          handler: () => {
+            // Handle undo action
+          }
         },
         {
           id: 'view',
           label: 'Chi tiết',
           variant: 'link',
-          handler: () => console.log('View details clicked'),
+          handler: () => {
+            // Handle view details action
+          },
           dismissOnClick: false
         }
       ]

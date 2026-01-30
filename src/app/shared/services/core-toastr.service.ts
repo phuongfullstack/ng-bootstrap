@@ -3,11 +3,11 @@ import {
   CoreToastCreate,
   CoreToastInstance,
   CoreToastRemovalReason,
-  CoreToastVariant
+  CoreToastVariant,
+  TOAST_DEFAULTS
 } from '@shared/components/core-toastr/core-toastr.types';
 
-const DEFAULT_DURATION = 4000;
-const DEFAULT_VARIANT: CoreToastVariant = 'default';
+const MIN_MAX_QUEUE = 1;
 type CoreToastExtras = Omit<CoreToastCreate, 'message'>;
 
 @Injectable({
@@ -15,7 +15,7 @@ type CoreToastExtras = Omit<CoreToastCreate, 'message'>;
 })
 export class CoreToastrService {
   private idCounter = 0;
-  private readonly maxQueue = signal(6);
+  private readonly maxQueue = signal(TOAST_DEFAULTS.MAX_QUEUE);
   private readonly toastsSignal = signal<CoreToastInstance[]>([]);
   private readonly timers = new Map<string, ReturnType<typeof setTimeout>>();
 
@@ -27,10 +27,10 @@ export class CoreToastrService {
       id,
       title: payload.title,
       message: payload.message,
-      variant: payload.variant ?? DEFAULT_VARIANT,
-      autoClose: payload.autoClose ?? true,
-      duration: payload.duration ?? DEFAULT_DURATION,
-      dismissible: payload.dismissible ?? true,
+      variant: payload.variant ?? TOAST_DEFAULTS.VARIANT,
+      autoClose: payload.autoClose ?? TOAST_DEFAULTS.AUTO_CLOSE,
+      duration: payload.duration ?? TOAST_DEFAULTS.DURATION,
+      dismissible: payload.dismissible ?? TOAST_DEFAULTS.DISMISSIBLE,
       actions: payload.actions ?? [],
       data: payload.data,
       createdAt: Date.now()
@@ -93,7 +93,7 @@ export class CoreToastrService {
   }
 
   setMaxQueue(limit: number): void {
-    const safeLimit = Math.max(1, limit);
+    const safeLimit = Math.max(MIN_MAX_QUEUE, limit);
     this.maxQueue.set(safeLimit);
     this.toastsSignal.update(current => current.slice(0, safeLimit));
   }

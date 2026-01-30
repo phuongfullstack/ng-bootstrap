@@ -1,8 +1,17 @@
-<section class="core-toastr" [ngClass]="positionClass()" [style.--core-toastr-gap]="stackGapPx()">
+<section 
+  class="core-toastr" 
+  [ngClass]="positionClass()" 
+  [style.--core-toastr-gap]="stackGapPx()"
+  role="region"
+  aria-label="Notifications"
+  aria-live="polite"
+  aria-atomic="false">
   <article
     class="core-toast"
     *ngFor="let toast of toasts(); trackBy: trackToast"
     [ngClass]="'core-toast--' + toast.variant"
+    role="status"
+    [attr.aria-live]="isAssertiveVariant(toast.variant) ? 'assertive' : 'polite'"
   >
     <div class="core-toast__icon" aria-hidden="true">
       {{ iconFor(toast) }}
@@ -34,7 +43,7 @@
       *ngIf="toast.dismissible"
       class="core-toast__close"
       type="button"
-      aria-label="Đóng thông báo"
+      aria-label="Close notification"
       (click)="dismissToast(toast.id)"
     >
       ×
