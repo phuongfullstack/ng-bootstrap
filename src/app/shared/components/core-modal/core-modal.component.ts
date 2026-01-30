@@ -15,10 +15,11 @@ import {
   ViewContainerRef,
   ComponentRef,
   Type,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  SecurityContext
 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import type { ModalButton, ModalConfig } from './core-modal.types';
 import { MODAL_DEFAULTS } from '@shared/constants';
 
@@ -281,9 +282,9 @@ export class CoreModalComponent implements OnInit, OnDestroy {
     return classes.join(' ');
   }
 
-  get sanitizedContent(): SafeHtml | null {
+  get sanitizedContent(): string | null {
     return this.data?.contentHtml 
-      ? this.sanitizer.sanitize(1, this.data.contentHtml) 
+      ? this.sanitizer.sanitize(SecurityContext.HTML, this.data.contentHtml) 
       : null;
   }
 }

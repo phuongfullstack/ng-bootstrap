@@ -7,25 +7,11 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BootstrapVariant } from '@shared/types/bootstrap-variant.types';
+import { BUTTON_DEFAULTS } from '@shared/constants';
 
 export type ButtonVariant = BootstrapVariant;
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonType = 'button' | 'submit' | 'reset';
-
-// Button component constants
-const BUTTON_DEFAULTS = {
-  TYPE: 'button' as ButtonType,
-  VARIANT: 'primary' as ButtonVariant,
-  SIZE: 'md' as ButtonSize,
-  DISABLED: false,
-  LOADING: false,
-  BLOCK: false,
-  OUTLINE: false,
-  ROUNDED: false,
-  ROUNDED_CIRCLE: false,
-  ICON_POSITION: 'left' as const,
-  DRAGGABLE: false
-} as const;
 
 @Component({
   selector: 'core-button',

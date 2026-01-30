@@ -14,6 +14,20 @@ export const MODAL_SIZES = ['sm', 'md', 'lg', 'xl', 'fullscreen'] as const;
 export type ModalSize = typeof MODAL_SIZES[number];
 
 // Button constants
+export const BUTTON_DEFAULTS = {
+  TYPE: 'button' as const,
+  VARIANT: 'primary' as const,
+  SIZE: 'md' as const,
+  DISABLED: false,
+  LOADING: false,
+  BLOCK: false,
+  OUTLINE: false,
+  ROUNDED: false,
+  ROUNDED_CIRCLE: false,
+  ICON_POSITION: 'left' as const,
+  DRAGGABLE: false
+} as const;
+
 export const BUTTON_VARIANTS = [
   'primary',
   'secondary',
