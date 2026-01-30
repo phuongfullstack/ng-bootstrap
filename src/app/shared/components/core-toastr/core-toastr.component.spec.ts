@@ -5,7 +5,6 @@ import { CoreToastrService } from '@shared/services/core-toastr.service';
 import {
   CoreToastAction,
   CoreToastInstance,
-  CoreToastPosition,
   CoreToastVariant
 } from './core-toastr.types';
 import { vi } from 'vitest';

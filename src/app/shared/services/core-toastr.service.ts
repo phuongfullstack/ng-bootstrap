@@ -3,7 +3,6 @@ import {
   CoreToastCreate,
   CoreToastInstance,
   CoreToastRemovalReason,
-  CoreToastVariant,
   TOAST_DEFAULTS
 } from '@shared/components/core-toastr/core-toastr.types';
 
@@ -81,7 +80,7 @@ export class CoreToastrService {
     });
   }
 
-  dismiss(id: string, reason: CoreToastRemovalReason = 'manual'): void {
+  dismiss(id: string, _reason: CoreToastRemovalReason = 'manual'): void {
     this.toastsSignal.update(current => current.filter(toast => toast.id !== id));
     this.clearTimer(id);
     // Placeholder for analytics hook based on reason if needed later.
