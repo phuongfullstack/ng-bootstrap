@@ -5,8 +5,24 @@ import {
   CoreToastAction,
   CoreToastInstance,
   CoreToastPosition,
-  CoreToastVariant
+  CoreToastVariant,
+  TOAST_DEFAULTS,
+  TOAST_ASSERTIVE_VARIANTS
 } from './core-toastr.types';
+
+// Constants for toast icons
+const TOAST_ICONS: Record<CoreToastVariant, string> = {
+  default: 'ℹ️',
+  success: '✔️',
+  info: 'ⓘ',
+  warning: '⚠️',
+  error: '⨯',
+  danger: '⨯'
+} as const;
+
+const MIN_MAX_VISIBLE = 1;
+const MIN_STACK_GAP = 4;
+const MIN_MAX_QUEUE = 1;
 
 @Component({
   selector: 'core-toastr',
@@ -16,9 +32,9 @@ import {
   styleUrl: './core-toastr.component.scss'
 })
 export class CoreToastrComponent {
-  private readonly positionSignal = signal<CoreToastPosition>('top-right');
-  private readonly maxVisibleSignal = signal(3);
-  private readonly stackGapSignal = signal(16);
+  private readonly positionSignal = signal<CoreToastPosition>(TOAST_DEFAULTS.POSITION);
+  private readonly maxVisibleSignal = signal<number>(TOAST_DEFAULTS.MAX_VISIBLE);
+  private readonly stackGapSignal = signal<number>(TOAST_DEFAULTS.STACK_GAP);
 
   @Input()
   set position(value: CoreToastPosition) {
@@ -29,13 +45,17 @@ export class CoreToastrComponent {
 
   @Input()
   set maxVisible(value: number) {
-    const safeValue = Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 3;
+    const safeValue = Number.isFinite(value) 
+      ? Math.max(MIN_MAX_VISIBLE, Math.floor(value)) 
+      : TOAST_DEFAULTS.MAX_VISIBLE;
     this.maxVisibleSignal.set(safeValue);
   }
 
   @Input()
   set stackGap(value: number) {
-    const safeValue = Number.isFinite(value) ? Math.max(4, Math.floor(value)) : 16;
+    const safeValue = Number.isFinite(value) 
+      ? Math.max(MIN_STACK_GAP, Math.floor(value)) 
+      : TOAST_DEFAULTS.STACK_GAP;
     this.stackGapSignal.set(safeValue);
   }
 
@@ -44,7 +64,7 @@ export class CoreToastrComponent {
     if (!Number.isFinite(value)) {
       return;
     }
-    const safeValue = Math.max(1, Math.floor(value));
+    const safeValue = Math.max(MIN_MAX_QUEUE, Math.floor(value));
     this.toastrService.setMaxQueue(safeValue);
   }
 
@@ -54,14 +74,7 @@ export class CoreToastrComponent {
 
   protected readonly stackGapPx = computed(() => `${this.stackGapSignal()}px`);
   protected readonly positionClass = computed(() => `core-toastr--${this.positionSignal()}`);
-
-  private readonly iconMap: Record<CoreToastVariant, string> = {
-    default: 'ℹ️',
-    success: '✔️',
-    info: 'ⓘ',
-    warning: '⚠️',
-    error: '⨯'
-  };
+  protected readonly assertiveVariants = TOAST_ASSERTIVE_VARIANTS;
 
   constructor(private readonly toastrService: CoreToastrService) {}
 
@@ -81,7 +94,11 @@ export class CoreToastrComponent {
   }
 
   protected iconFor(toast: CoreToastInstance): string {
-    return this.iconMap[toast.variant] ?? this.iconMap.default;
+    return TOAST_ICONS[toast.variant] ?? TOAST_ICONS.default;
+  }
+
+  protected isAssertiveVariant(variant: CoreToastVariant): boolean {
+    return this.assertiveVariants.includes(variant);
   }
 }
 

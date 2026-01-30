@@ -19,13 +19,13 @@ import { DemoPlaceholderComponent } from './components/demo-placeholder/demo-pla
 })
 export class CoreDemoPage implements OnInit {
   ngOnInit(): void {
-    console.log(this.demos);
+    // Demo components initialized
   }
   protected readonly demos = CORE_DEMO_COMPONENTS;
   protected activeComponentId = this.demos[0]?.id ?? '';
   protected readonly placeholderComponent = DemoPlaceholderComponent;
   protected readonly defaultPlaceholderMessage =
-    'Component đang được phát triển. Vui lòng quay lại sau.';
+    'Component is under development. Please check back later.';
 
   protected get activeDemo(): DemoComponentMeta | null {
     return (

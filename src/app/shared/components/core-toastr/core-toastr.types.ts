@@ -1,5 +1,20 @@
-export type CoreToastVariant = 'default' | 'success' | 'info' | 'warning' | 'error';
+export type CoreToastVariant = 'default' | 'success' | 'info' | 'warning' | 'error' | 'danger';
 export type CoreToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+// Constants for toast configuration
+export const TOAST_DEFAULTS = {
+  VARIANT: 'default' as CoreToastVariant,
+  AUTO_CLOSE: true,
+  DURATION: 5000,
+  DISMISSIBLE: true,
+  POSITION: 'top-right' as CoreToastPosition,
+  MAX_VISIBLE: 3,
+  STACK_GAP: 16,
+  MAX_QUEUE: 8
+} as const;
+
+export const TOAST_ASSERTIVE_VARIANTS: CoreToastVariant[] = ['error', 'danger'];
+export const TOAST_POLITE_VARIANTS: CoreToastVariant[] = ['default', 'success', 'info', 'warning'];
 
 export interface CoreToastAction {
   id: string;

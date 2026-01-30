@@ -82,23 +82,23 @@ export class AutocompleteDemoComponent {
   }
 
   onCountrySearch(query: string): void {
-    console.log('Searching for country:', query);
+    // Handle country search
   }
 
   onCountrySelected(option: AutoCompleteOption): void {
-    console.log('Country selected:', option);
+    // Handle country selection
   }
 
   onCitySearch(query: string): void {
-    console.log('Searching for city:', query);
+    // Handle city search
   }
 
   onLanguageSelected(option: AutoCompleteOption): void {
-    console.log('Language selected:', option);
+    // Handle language selection
   }
 
   onEmailCleared(): void {
-    console.log('Email field cleared');
+    // Handle email field cleared
   }
 
   resetForm(): void {

@@ -18,7 +18,9 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import type { ModalButton, ModalConfig } from './core-modal.types';
+import { MODAL_DEFAULTS } from '@shared/constants';
 
 // Modal types are defined in `core-modal.types.ts` to keep the component file focused.
 
@@ -32,10 +34,10 @@ import type { ModalButton, ModalConfig } from './core-modal.types';
 })
 export class CoreModalComponent implements OnInit, OnDestroy {
   @Input() title?: string;
-  @Input() size?: 'sm' | 'md' | 'lg' | 'xl' | 'fullscreen' = 'lg';
-  @Input() closable = true;
-  @Input() backdrop: 'static' | true | false = true;
-  @Input() showCloseButton = true;
+  @Input() size?: 'sm' | 'md' | 'lg' | 'xl' | 'fullscreen' = MODAL_DEFAULTS.SIZE;
+  @Input() closable = MODAL_DEFAULTS.CLOSABLE;
+  @Input() backdrop: 'static' | true | false = MODAL_DEFAULTS.BACKDROP;
+  @Input() showCloseButton = MODAL_DEFAULTS.SHOW_CLOSE_BUTTON;
   @Input() buttons: ModalButton[] = [];
   @Input() customClass?: string;
   @Input() data?: any;
@@ -61,6 +63,7 @@ export class CoreModalComponent implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
     @Optional() @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -276,5 +279,11 @@ export class CoreModalComponent implements OnInit, OnDestroy {
       }
     }
     return classes.join(' ');
+  }
+
+  get sanitizedContent(): SafeHtml | null {
+    return this.data?.contentHtml 
+      ? this.sanitizer.sanitize(1, this.data.contentHtml) 
+      : null;
   }
 }
