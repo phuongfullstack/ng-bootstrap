@@ -47,6 +47,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   @Input() loadingText: string = 'Đang tải...';
   @Input() noResultsText: string = 'Không tìm thấy kết quả';
   @Input() caseSensitive: boolean = false;
+  /** Delay in milliseconds before handling blur events (allows time for dropdown item clicks) */
   @Input() blurDelay: number = 200;
 
   @Output() search = new EventEmitter<string>();

@@ -10,7 +10,7 @@ export class RowKeyExtractor {
    */
   static extract<T>(row: T, keyField: string): string | number | undefined {
     const anyRow = row as any;
-    return anyRow && keyField in anyRow ? anyRow[keyField] : undefined;
+    return anyRow != null && keyField in anyRow ? anyRow[keyField] : undefined;
   }
 
   /**

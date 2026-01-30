@@ -1,5 +1,8 @@
 /**
  * Utility for generating unique IDs for components
+ * 
+ * Note: This utility maintains global state across all component instances.
+ * For test isolation, call IdGenerator.reset() in beforeEach/afterEach hooks.
  */
 export class IdGenerator {
   private static counters = new Map<string, number>();
@@ -16,7 +19,8 @@ export class IdGenerator {
   }
 
   /**
-   * Reset the counter for a specific prefix (mainly for testing)
+   * Reset the counter for a specific prefix or all prefixes
+   * @param prefix Optional prefix to reset. If not provided, resets all counters
    */
   static reset(prefix?: string): void {
     if (prefix) {
