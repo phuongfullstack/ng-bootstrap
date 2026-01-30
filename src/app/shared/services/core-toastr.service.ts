@@ -15,7 +15,7 @@ type CoreToastExtras = Omit<CoreToastCreate, 'message'>;
 })
 export class CoreToastrService {
   private idCounter = 0;
-  private readonly maxQueue = signal(TOAST_DEFAULTS.MAX_QUEUE);
+  private readonly maxQueue = signal<number>(TOAST_DEFAULTS.MAX_QUEUE);
   private readonly toastsSignal = signal<CoreToastInstance[]>([]);
   private readonly timers = new Map<string, ReturnType<typeof setTimeout>>();
 
