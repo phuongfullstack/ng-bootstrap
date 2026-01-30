@@ -20,7 +20,7 @@ export class ModalDemoComponent implements OnInit {
   // Demo 1: Simple alert modal
   openAlertModal(): void {
     this.modalService.open({
-      title: 'Thông báo',
+      title: 'Notification',
       size: 'sm',
       closable: true,
       buttons: [
@@ -33,7 +33,7 @@ export class ModalDemoComponent implements OnInit {
         }
       ]
       ,
-      data: { contentHtml: '<p>Đây là thông báo quan trọng.</p>' }
+      data: { contentHtml: '<p>This is an important notification.</p>' }
     }).subscribe(result => {
       // Handle alert modal result
     });
@@ -42,17 +42,17 @@ export class ModalDemoComponent implements OnInit {
   // Demo 2: Confirmation modal
   openConfirmModal(): void {
     this.modalService.open({
-      title: 'Xác nhận',
+      title: 'Confirm',
       size: 'md',
       closable: true,
       buttons: [
         {
-          label: 'Hủy',
+          label: 'Cancel',
           style: 'secondary',
           closeOnClick: true
         },
         {
-          label: 'Xác nhận',
+          label: 'Confirm',
           style: 'primary',
           handler: () => {
             // Handle confirmation
@@ -61,7 +61,7 @@ export class ModalDemoComponent implements OnInit {
         }
       ]
       ,
-      data: { contentHtml: '<p>Bạn có chắc chắn muốn thực hiện hành động này?</p>' }
+      data: { contentHtml: '<p>Are you sure you want to perform this action?</p>' }
     }).subscribe(result => {
       // Handle confirm modal result
     });
@@ -71,18 +71,18 @@ export class ModalDemoComponent implements OnInit {
   openFormModal(): void {
     // Open modal hosting a dynamic form component
     this.modalService.open({
-      title: 'Nhập thông tin',
+      title: 'Enter Information',
       size: 'lg',
       closable: true,
       content: FormModalContentComponent,
       buttons: [
         {
-          label: 'Hủy',
+          label: 'Cancel',
           style: 'secondary',
           closeOnClick: true
         },
         {
-          label: 'Lưu',
+          label: 'Save',
           style: 'success',
           // handler receives modal instance and dynamic component instance
           handler: (modal, dyn) => {

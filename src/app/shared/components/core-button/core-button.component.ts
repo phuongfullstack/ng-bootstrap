@@ -12,6 +12,21 @@ export type ButtonVariant = BootstrapVariant;
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
+// Button component constants
+const BUTTON_DEFAULTS = {
+  TYPE: 'button' as ButtonType,
+  VARIANT: 'primary' as ButtonVariant,
+  SIZE: 'md' as ButtonSize,
+  DISABLED: false,
+  LOADING: false,
+  BLOCK: false,
+  OUTLINE: false,
+  ROUNDED: false,
+  ROUNDED_CIRCLE: false,
+  ICON_POSITION: 'left' as const,
+  DRAGGABLE: false
+} as const;
+
 @Component({
   selector: 'core-button',
   standalone: true,
@@ -21,19 +36,19 @@ export type ButtonType = 'button' | 'submit' | 'reset';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreButtonComponent {
-  @Input() type: ButtonType = 'button';
-  @Input() variant: ButtonVariant = 'primary';
-  @Input() size: ButtonSize = 'md';
-  @Input() disabled = false;
-  @Input() loading = false;
-  @Input() block = false;
-  @Input() outline = false;
-  @Input() rounded = false;
-  @Input() roundedCircle = false;
+  @Input() type: ButtonType = BUTTON_DEFAULTS.TYPE;
+  @Input() variant: ButtonVariant = BUTTON_DEFAULTS.VARIANT;
+  @Input() size: ButtonSize = BUTTON_DEFAULTS.SIZE;
+  @Input() disabled = BUTTON_DEFAULTS.DISABLED;
+  @Input() loading = BUTTON_DEFAULTS.LOADING;
+  @Input() block = BUTTON_DEFAULTS.BLOCK;
+  @Input() outline = BUTTON_DEFAULTS.OUTLINE;
+  @Input() rounded = BUTTON_DEFAULTS.ROUNDED;
+  @Input() roundedCircle = BUTTON_DEFAULTS.ROUNDED_CIRCLE;
   @Input() icon?: string;
-  @Input() iconPosition: 'left' | 'right' = 'left';
+  @Input() iconPosition: 'left' | 'right' = BUTTON_DEFAULTS.ICON_POSITION;
   @Input() customClass?: string;
-  @Input() draggable = false;
+  @Input() draggable = BUTTON_DEFAULTS.DRAGGABLE;
 
   @Output() clicked = new EventEmitter<MouseEvent>();
   @Output() focused = new EventEmitter<FocusEvent>();

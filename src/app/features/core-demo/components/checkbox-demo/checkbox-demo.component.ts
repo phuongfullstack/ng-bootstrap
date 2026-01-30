@@ -40,11 +40,11 @@ export class CheckboxDemoComponent {
   protected eventLog: DemoEventLogEntry[] = [];
 
   protected readonly hobbyOptions: CheckboxOption[] = [
-    { value: 'reading', label: 'Đọc sách' },
-    { value: 'gaming', label: 'Chơi game' },
-    { value: 'sports', label: 'Thể thao' },
-    { value: 'music', label: 'Âm nhạc' },
-    { value: 'travel', label: 'Du lịch' }
+    { value: 'reading', label: 'Reading' },
+    { value: 'gaming', label: 'Gaming' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'music', label: 'Music' },
+    { value: 'travel', label: 'Travel' }
   ];
 
   protected readonly skillOptions: CheckboxOption[] = [

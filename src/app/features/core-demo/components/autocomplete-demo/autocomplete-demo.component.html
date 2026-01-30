@@ -3,7 +3,7 @@
     <div class="col-12">
       <h2 class="mb-4">Core AutoComplete Component Demo</h2>
       <p class="text-muted mb-4">
-        Component autocomplete với debounce, keyboard navigation, highlight match và nhiều tính năng khác.
+        Autocomplete component with debounce, keyboard navigation, highlight match and many other features.
       </p>
     </div>
   </div>
@@ -18,8 +18,8 @@
           </div>
           <div class="card-body">
             <core-autocomplete
-              [label]="'Quốc gia'"
-              [placeholder]="'Nhập tên quốc gia...'"
+              [label]="'Country'"
+              [placeholder]="'Enter country name...'"
               [options]="countryOptions"
               [required]="true"
               [minChars]="1"
@@ -30,7 +30,7 @@
             </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
                 <li>Required validation</li>
                 <li>Debounce 300ms</li>
@@ -50,9 +50,9 @@
           </div>
           <div class="card-body">
             <core-autocomplete
-              [label]="'Thành phố'"
-              [placeholder]="'Gõ tên thành phố...'"
-              [hint]="'Nhập ít nhất 2 ký tự để tìm kiếm'"
+              [label]="'City'"
+              [placeholder]="'Type city name...'"
+              [hint]="'Enter at least 2 characters to search'"
               [options]="cityOptions"
               [minChars]="2"
               [maxResults]="5"
@@ -61,11 +61,11 @@
             </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
-                <li>Min 2 characters để search</li>
-                <li>Giới hạn 5 kết quả</li>
-                <li>Hint text hướng dẫn</li>
+                <li>Min 2 characters to search</li>
+                <li>Limit to 5 results</li>
+                <li>Hint text guidance</li>
               </ul>
             </div>
           </div>
@@ -80,8 +80,8 @@
           </div>
           <div class="card-body">
             <core-autocomplete
-              [label]="'Ngôn ngữ lập trình'"
-              [placeholder]="'Tìm ngôn ngữ...'"
+              [label]="'Programming Language'"
+              [placeholder]="'Search language...'"
               [options]="programmingLanguages"
               [minChars]="1"
               formControlName="language"
@@ -89,11 +89,11 @@
             </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
-                <li>Options được group theo category</li>
-                <li>Search qua nhiều groups</li>
-                <li>Hiển thị group name</li>
+                <li>Options grouped by category</li>
+                <li>Search across multiple groups</li>
+                <li>Display group name</li>
               </ul>
             </div>
           </div>
@@ -104,12 +104,12 @@
       <div class="col-md-6">
         <div class="card mb-4">
           <div class="card-header">
-            <h5 class="mb-0">4. Email với Validation</h5>
+            <h5 class="mb-0">4. Email with Validation</h5>
           </div>
           <div class="card-body">
             <core-autocomplete
               [label]="'Email'"
-              [placeholder]="'Nhập email...'"
+              [placeholder]="'Enter email...'"
               [options]="emailOptions"
               [required]="true"
               [showClearButton]="true"
@@ -118,11 +118,11 @@
             </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
                 <li>Email validation</li>
                 <li>Clear button</li>
-                <li>Suggestions từ danh sách</li>
+                <li>Suggestions from list</li>
               </ul>
             </div>
           </div>
@@ -137,8 +137,8 @@
           </div>
           <div class="card-body">
             <core-autocomplete
-              [label]="'Nhập tự do'"
-              [placeholder]="'Gõ bất kỳ text nào...'"
+              [label]="'Free Text Input'"
+              [placeholder]="'Type any text...'"
               [options]="cityOptions"
               [allowFreeText]="true"
               [showClearButton]="true"
@@ -146,11 +146,11 @@
             </core-autocomplete>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
-                <li>Cho phép nhập text không có trong list</li>
-                <li>Vẫn có suggestions nếu match</li>
-                <li>Giá trị là text đã nhập</li>
+                <li>Allow entering text not in the list</li>
+                <li>Still show suggestions if matched</li>
+                <li>Value is the entered text</li>
               </ul>
             </div>
           </div>
@@ -168,19 +168,19 @@
               <tbody>
                 <tr>
                   <td><kbd>↓</kbd> Arrow Down</td>
-                  <td>Di chuyển xuống</td>
+                  <td>Move down</td>
                 </tr>
                 <tr>
                   <td><kbd>↑</kbd> Arrow Up</td>
-                  <td>Di chuyển lên</td>
+                  <td>Move up</td>
                 </tr>
                 <tr>
                   <td><kbd>Enter</kbd></td>
-                  <td>Chọn item</td>
+                  <td>Select item</td>
                 </tr>
                 <tr>
                   <td><kbd>Esc</kbd></td>
-                  <td>Đóng dropdown</td>
+                  <td>Close dropdown</td>
                 </tr>
                 <tr>
                   <td><kbd>Tab</kbd></td>

@@ -6,20 +6,20 @@
     </div>
     <div class="card-body">
       <form [formGroup]="demoForm" (ngSubmit)="submit()">
-        <core-checkbox label="Tôi đồng ý với điều khoản sử dụng" formControlName="acceptTerms" [required]="true"
-          hint="Bạn phải đồng ý với điều khoản để tiếp tục" (valueChange)="onValueChange('acceptTerms', $event)"
+        <core-checkbox label="I agree to the terms of use" formControlName="acceptTerms" [required]="true"
+          hint="You must agree to the terms to continue" (valueChange)="onValueChange('acceptTerms', $event)"
           (checkedChange)="onCheckedChange('acceptTerms', $event)" (focused)="onFocus('acceptTerms')"
           (blurred)="onBlur('acceptTerms')">
         </core-checkbox>
 
-        <core-checkbox label="Đăng ký nhận bản tin" formControlName="subscribeNewsletter"
-          hint="Nhận thông tin về sản phẩm và khuyến mãi mới nhất"
+        <core-checkbox label="Subscribe to newsletter" formControlName="subscribeNewsletter"
+          hint="Receive information about new products and promotions"
           (valueChange)="onValueChange('subscribeNewsletter', $event)"
           (checkedChange)="onCheckedChange('subscribeNewsletter', $event)" (focused)="onFocus('subscribeNewsletter')"
           (blurred)="onBlur('subscribeNewsletter')">
         </core-checkbox>
 
-        <core-checkbox label="Ghi nhớ đăng nhập" formControlName="rememberMe"
+        <core-checkbox label="Remember login" formControlName="rememberMe"
           (valueChange)="onValueChange('rememberMe', $event)" (checkedChange)="onCheckedChange('rememberMe', $event)"
           (focused)="onFocus('rememberMe')" (blurred)="onBlur('rememberMe')">
         </core-checkbox>
@@ -43,13 +43,13 @@
     </div>
     <div class="card-body">
       <form [formGroup]="groupForm" (ngSubmit)="submitGroup()">
-        <core-checkbox label="Sở thích của bạn" formControlName="hobbies" [options]="hobbyOptions" [required]="true"
-          hint="Chọn ít nhất 2 sở thích" (valueChange)="onValueChange('hobbies', $event)" (focused)="onFocus('hobbies')"
+        <core-checkbox label="Your hobbies" formControlName="hobbies" [options]="hobbyOptions" [required]="true"
+          hint="Select at least 2 hobbies" (valueChange)="onValueChange('hobbies', $event)" (focused)="onFocus('hobbies')"
           (blurred)="onBlur('hobbies')">
         </core-checkbox>
 
-        <core-checkbox label="Kỹ năng lập trình" formControlName="skills" [options]="skillOptions" [required]="true"
-          hint="Chọn các kỹ năng bạn thành thạo" (valueChange)="onValueChange('skills', $event)"
+        <core-checkbox label="Programming skills" formControlName="skills" [options]="skillOptions" [required]="true"
+          hint="Select the skills you are proficient in" (valueChange)="onValueChange('skills', $event)"
           (focused)="onFocus('skills')" (blurred)="onBlur('skills')">
         </core-checkbox>
 

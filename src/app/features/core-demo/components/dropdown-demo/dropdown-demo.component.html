@@ -3,7 +3,7 @@
     <div class="col-12">
       <h2 class="mb-4">Core Dropdown Component Demo</h2>
       <p class="text-muted mb-4">
-        Component dropdown tùy chỉnh với Bootstrap 5.3, hỗ trợ Reactive Forms, validation và nhiều tính năng khác.
+        Custom dropdown component with Bootstrap 5.3, supporting Reactive Forms, validation and many other features.
       </p>
     </div>
   </div>
@@ -18,8 +18,8 @@
           </div>
           <div class="card-body">
             <core-dropdown
-              [label]="'Quốc gia'"
-              [placeholder]="'Chọn quốc gia'"
+              [label]="'Country'"
+              [placeholder]="'Select country'"
               [options]="countryOptions"
               [required]="true"
               formControlName="country"
@@ -29,7 +29,7 @@
             </core-dropdown>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
                 <li>Required validation</li>
                 <li>Dynamic placeholder</li>
@@ -49,19 +49,19 @@
           </div>
           <div class="card-body">
             <core-dropdown
-              [label]="'Thành phố'"
-              [placeholder]="'Chọn thành phố'"
-              [hint]="'Chọn thành phố bạn đang sinh sống'"
+              [label]="'City'"
+              [placeholder]="'Select city'"
+              [hint]="'Select the city you are living in'"
               [options]="cityOptions"
               formControlName="city"
               (selectionChange)="onCityChange($event)">
             </core-dropdown>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
                 <li>Optional field</li>
-                <li>Hint text hỗ trợ</li>
+                <li>Hint text support</li>
                 <li>Selection change event</li>
               </ul>
             </div>
@@ -77,7 +77,7 @@
           </div>
           <div class="card-body">
             <core-dropdown
-              [label]="'Kỹ năng'"
+              [label]="'Skills'"
               [options]="skillOptions"
               [multiple]="true"
               formControlName="skills"
@@ -85,11 +85,11 @@
             </core-dropdown>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
                 <li>Multiple selection</li>
                 <li>Array value binding</li>
-                <li>Ctrl+Click để chọn nhiều</li>
+                <li>Ctrl+Click to select multiple</li>
               </ul>
             </div>
           </div>
@@ -104,18 +104,18 @@
           </div>
           <div class="card-body">
             <core-dropdown
-              [label]="'Trạng thái'"
-              [placeholder]="'Chọn trạng thái'"
+              [label]="'Status'"
+              [placeholder]="'Select status'"
               [options]="statusOptions"
               formControlName="status">
             </core-dropdown>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
-                <li>Disabled options trong list</li>
+                <li>Disabled options in list</li>
                 <li>Pre-selected value</li>
-                <li>Option "Không hoạt động" bị disabled</li>
+                <li>Option "Inactive" is disabled</li>
               </ul>
             </div>
           </div>
@@ -130,7 +130,7 @@
           </div>
           <div class="card-body">
             <core-dropdown
-              [label]="'Chọn kích thước dropdown'"
+              [label]="'Select dropdown size'"
               [options]="sizeOptions"
               [size]="currentSize"
               formControlName="size"
@@ -138,9 +138,9 @@
             </core-dropdown>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
-                <li>Size tự động thay đổi theo giá trị chọn</li>
+                <li>Size automatically changes based on selected value</li>
                 <li>xs, s → sm size</li>
                 <li>m → normal size</li>
                 <li>l, xl → lg size</li>
@@ -158,13 +158,13 @@
           </div>
           <div class="card-body">
             <core-dropdown
-              [label]="'Field bị vô hiệu hóa'"
+              [label]="'Disabled field'"
               [options]="statusOptions"
               formControlName="disabledField">
             </core-dropdown>
             
             <div class="alert alert-info mb-0" role="alert">
-              <strong>Tính năng:</strong>
+              <strong>Features:</strong>
               <ul class="mb-0 ps-3">
                 <li>Disabled state</li>
                 <li>Form control disabled</li>
