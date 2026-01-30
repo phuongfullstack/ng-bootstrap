@@ -136,6 +136,16 @@ export class CoreTableComponent<T = unknown> {
     return this.sortDirection === 'asc' ? 'bi bi-arrow-up-short' : 'bi bi-arrow-down-short';
   }
 
+  protected getColumnAriaSort(column: CoreTableColumn): string | null {
+    if (!this.isColumnSortable(column)) {
+      return null;
+    }
+    if (!this.isSortedColumn(column)) {
+      return 'none';
+    }
+    return this.sortDirection === 'asc' ? 'ascending' : 'descending';
+  }
+
   protected onSort(column: CoreTableColumn): void {
     if (!this.isColumnSortable(column)) {
       return;

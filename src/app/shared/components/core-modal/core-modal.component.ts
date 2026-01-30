@@ -25,6 +25,33 @@ import { MODAL_DEFAULTS } from '@shared/constants';
 
 // Modal types are defined in `core-modal.types.ts` to keep the component file focused.
 
+/**
+ * A customizable modal dialog component with support for dynamic content,
+ * custom buttons, and accessibility features.
+ * 
+ * @example Basic usage
+ * ```typescript
+ * <core-modal #modal title="Confirm Action">
+ *   <p>Are you sure you want to proceed?</p>
+ * </core-modal>
+ * 
+ * // In component
+ * @ViewChild('modal') modal!: CoreModalComponent;
+ * this.modal.open();
+ * ```
+ * 
+ * @example With dynamic content
+ * ```typescript
+ * <core-modal 
+ *   [content]="MyCustomComponent"
+ *   [contentProps]="{ name: 'John' }"
+ *   [buttons]="[
+ *     { label: 'Cancel', variant: 'secondary', action: 'close' },
+ *     { label: 'Confirm', variant: 'primary', action: 'confirm' }
+ *   ]">
+ * </core-modal>
+ * ```
+ */
 @Component({
   selector: 'core-modal',
   standalone: true,
@@ -34,19 +61,43 @@ import { MODAL_DEFAULTS } from '@shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreModalComponent implements OnInit, OnDestroy {
+  /** Modal title displayed in header */
   @Input() title?: string;
+  
+  /** Modal size. Default: 'lg' */
   @Input() size?: 'sm' | 'md' | 'lg' | 'xl' | 'fullscreen' = MODAL_DEFAULTS.SIZE;
-  @Input() closable = MODAL_DEFAULTS.CLOSABLE;
+  
+  /** Whether modal can be closed. Default: true */
+  @Input() closable: boolean = MODAL_DEFAULTS.CLOSABLE;
+  
+  /** Backdrop behavior. 'static' prevents closing on backdrop click. Default: true */
   @Input() backdrop: 'static' | true | false = MODAL_DEFAULTS.BACKDROP;
-  @Input() showCloseButton = MODAL_DEFAULTS.SHOW_CLOSE_BUTTON;
+  
+  /** Whether to show X close button in header. Default: true */
+  @Input() showCloseButton: boolean = MODAL_DEFAULTS.SHOW_CLOSE_BUTTON;
+  
+  /** Array of buttons to display in footer */
   @Input() buttons: ModalButton[] = [];
+  
+  /** Additional CSS classes to apply to modal */
   @Input() customClass?: string;
+  
+  /** Data object available to dynamic content components */
   @Input() data?: any;
+  
+  /** Dynamic component to render as modal content */
   @Input() content?: Type<any>;
+  
+  /** Properties to pass to dynamic content component */
   @Input() contentProps?: Record<string, any>;
 
+  /** Emitted when modal is opened */
   @Output() opened = new EventEmitter<void>();
+  
+  /** Emitted when modal is closed */
   @Output() closed = new EventEmitter<any>();
+  
+  /** Emitted when confirm button is clicked */
   @Output() confirmed = new EventEmitter<any>();
 
   isOpen = false;

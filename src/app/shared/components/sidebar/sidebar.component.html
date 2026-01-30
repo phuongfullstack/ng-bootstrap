@@ -1,6 +1,12 @@
 <nav class="demo-sidebar">
   <div *ngFor="let item of items; trackBy: trackById" class="demo-sidebar__item"
-    [class.demo-sidebar__item--active]="item.id === activeId" (click)="selectItem(item.id)">
+    [class.demo-sidebar__item--active]="item.id === activeId" 
+    (click)="selectItem(item.id)"
+    (keydown.enter)="selectItem(item.id); $event.preventDefault()"
+    (keydown.space)="selectItem(item.id); $event.preventDefault()"
+    tabindex="0"
+    role="button"
+    [attr.aria-pressed]="item.id === activeId">
     <div class="demo-sidebar__title">{{ item.title }}</div>
   </div>
 </nav>

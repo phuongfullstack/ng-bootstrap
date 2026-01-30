@@ -13,6 +13,29 @@ export type ButtonVariant = BootstrapVariant;
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
+/**
+ * A highly customizable button component built on Bootstrap 5.3.
+ * 
+ * @example
+ * ```typescript
+ * <core-button 
+ *   variant="primary" 
+ *   size="md"
+ *   (clicked)="handleClick()">
+ *   Click Me
+ * </core-button>
+ * ```
+ * 
+ * @example With icon
+ * ```typescript
+ * <core-button 
+ *   variant="success" 
+ *   icon="bi-check-circle"
+ *   iconPosition="left">
+ *   Save
+ * </core-button>
+ * ```
+ */
 @Component({
   selector: 'core-button',
   standalone: true,
@@ -22,33 +45,85 @@ export type ButtonType = 'button' | 'submit' | 'reset';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreButtonComponent {
+  /** Button HTML type attribute. Default: 'button' */
   @Input() type: ButtonType = BUTTON_DEFAULTS.TYPE;
+  
+  /** Bootstrap color variant. Default: 'primary' */
   @Input() variant: ButtonVariant = BUTTON_DEFAULTS.VARIANT;
+  
+  /** Button size. Default: 'md' */
   @Input() size: ButtonSize = BUTTON_DEFAULTS.SIZE;
+  
+  /** Whether button is disabled. Default: false */
   @Input() disabled: boolean = BUTTON_DEFAULTS.DISABLED;
+  
+  /** Whether button is in loading state with spinner. Default: false */
   @Input() loading: boolean = BUTTON_DEFAULTS.LOADING;
+  
+  /** Whether button should take full width. Default: false */
   @Input() block: boolean = BUTTON_DEFAULTS.BLOCK;
+  
+  /** Whether to use outline style. Default: false */
   @Input() outline: boolean = BUTTON_DEFAULTS.OUTLINE;
+  
+  /** Whether button should be rounded (pill shape). Default: false */
   @Input() rounded: boolean = BUTTON_DEFAULTS.ROUNDED;
+  
+  /** Whether button should be circular. Default: false */
   @Input() roundedCircle: boolean = BUTTON_DEFAULTS.ROUNDED_CIRCLE;
+  
+  /** Bootstrap icon class (e.g., 'bi-check-circle') */
   @Input() icon?: string;
+  
+  /** Position of icon relative to text. Default: 'left' */
   @Input() iconPosition: 'left' | 'right' = BUTTON_DEFAULTS.ICON_POSITION;
+  
+  /** Additional CSS classes to apply */
   @Input() customClass?: string;
+  
+  /** Whether button is draggable. Default: false */
   @Input() draggable: boolean = BUTTON_DEFAULTS.DRAGGABLE;
 
+  /** Emitted when button is clicked */
   @Output() clicked = new EventEmitter<MouseEvent>();
+  
+  /** Emitted when button receives focus */
   @Output() focused = new EventEmitter<FocusEvent>();
+  
+  /** Emitted when button loses focus */
   @Output() blurred = new EventEmitter<FocusEvent>();
+  
+  /** Emitted when mouse enters button area */
   @Output() mouseEntered = new EventEmitter<MouseEvent>();
+  
+  /** Emitted when mouse leaves button area */
   @Output() mouseLeft = new EventEmitter<MouseEvent>();
+  
+  /** Emitted when button is double-clicked */
   @Output() doubleClicked = new EventEmitter<MouseEvent>();
+  
+  /** Emitted when a key is pressed while button has focus */
   @Output() keyPressed = new EventEmitter<KeyboardEvent>();
+  
+  /** Emitted when drag operation starts */
   @Output() dragStarted = new EventEmitter<DragEvent>();
+  
+  /** Emitted during drag operation */
   @Output() dragged = new EventEmitter<DragEvent>();
+  
+  /** Emitted when drag operation ends */
   @Output() dragEnded = new EventEmitter<DragEvent>();
+  
+  /** Emitted when dragged element enters this button */
   @Output() dragEntered = new EventEmitter<DragEvent>();
+  
+  /** Emitted when dragged element is over this button */
   @Output() dragOvered = new EventEmitter<DragEvent>();
+  
+  /** Emitted when dragged element leaves this button */
   @Output() dragLeft = new EventEmitter<DragEvent>();
+  
+  /** Emitted when element is dropped on this button */
   @Output() dropped = new EventEmitter<DragEvent>();
 
   protected get buttonClasses(): string {

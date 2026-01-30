@@ -21,12 +21,14 @@
             <!-- Placeholder for select-all checkbox if needed -->
           </th>
 
-          <th *ngFor="let column of columns" [ngClass]="getColumnAlignClass(column)" scope="col">
+          <th *ngFor="let column of columns" [ngClass]="getColumnAlignClass(column)" scope="col"
+            [attr.aria-sort]="getColumnAriaSort(column)">
             <div class="d-flex align-items-center gap-1">
               <span>{{ column.header }}</span>
 
               <button *ngIf="isColumnSortable(column)" type="button" class="btn btn-link btn-sm p-0 core-table-sort-btn"
-                (click)="onSort(column)">
+                (click)="onSort(column)"
+                [attr.aria-label]="'Sort by ' + column.header">
                 <i [class]="getSortIcon(column)"></i>
               </button>
             </div>
