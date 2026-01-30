@@ -241,21 +241,61 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
     }
   }
 
+  /**
+   * Scroll the highlighted item into view within the dropdown
+   * Uses DOM queries with proper null checking
+   * @private
+   */
   private scrollToHighlighted(): void {
     setTimeout(() => {
-      const dropdown = this.elementRef.nativeElement.querySelector('.autocomplete-dropdown');
-      const highlighted = dropdown?.querySelector('.autocomplete-item.highlighted');
-      if (dropdown && highlighted) {
-        const dropdownRect = dropdown.getBoundingClientRect();
-        const highlightedRect = highlighted.getBoundingClientRect();
-
-        if (highlightedRect.bottom > dropdownRect.bottom) {
-          highlighted.scrollIntoView({ block: 'end', behavior: 'smooth' });
-        } else if (highlightedRect.top < dropdownRect.top) {
-          highlighted.scrollIntoView({ block: 'start', behavior: 'smooth' });
-        }
+      const dropdown = this.getDropdownElement();
+      if (!dropdown) {
+        return;
       }
+
+      const highlighted = this.getHighlightedItemElement(dropdown);
+      if (!highlighted) {
+        return;
+      }
+
+      this.scrollItemIntoView(dropdown, highlighted);
     });
+  }
+
+  /**
+   * Get the dropdown element from the DOM
+   * @private
+   * @returns The dropdown element or null if not found
+   */
+  private getDropdownElement(): HTMLElement | null {
+    return this.elementRef.nativeElement.querySelector('.autocomplete-dropdown');
+  }
+
+  /**
+   * Get the highlighted item element within the dropdown
+   * @private
+   * @param dropdown The dropdown container element
+   * @returns The highlighted item element or null if not found
+   */
+  private getHighlightedItemElement(dropdown: HTMLElement): HTMLElement | null {
+    return dropdown.querySelector('.autocomplete-item.highlighted');
+  }
+
+  /**
+   * Scroll an item into view if it's outside the visible area
+   * @private
+   * @param container The container element
+   * @param item The item element to scroll into view
+   */
+  private scrollItemIntoView(container: HTMLElement, item: HTMLElement): void {
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+
+    if (itemRect.bottom > containerRect.bottom) {
+      item.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    } else if (itemRect.top < containerRect.top) {
+      item.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
   }
 
   protected clearInput(): void {
