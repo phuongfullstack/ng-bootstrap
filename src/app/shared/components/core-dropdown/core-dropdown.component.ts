@@ -14,8 +14,7 @@ import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { Subscription } from 'rxjs';
-
-let uniqueId = 0;
+import { IdGenerator } from '@shared/utils';
 
 export interface DropdownOption {
   value: any;
@@ -47,7 +46,7 @@ export class CoreDropdownComponent
   @Output() blurred = new EventEmitter<FocusEvent>();
 
   protected isDisabled = false;
-  protected override generatedId = `core-dropdown-${uniqueId++}`;
+  protected override generatedId = IdGenerator.generate('core-dropdown');
 
   private subscriptions: Subscription[] = [];
 

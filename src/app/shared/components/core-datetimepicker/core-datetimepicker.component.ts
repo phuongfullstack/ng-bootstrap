@@ -7,7 +7,6 @@ import {
   HostListener,
   Input,
   OnChanges,
-  OnDestroy,
   Optional,
   Output,
   Self,
@@ -17,6 +16,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { NgControl } from '@angular/forms';
+import { IdGenerator, DateUtils } from '@shared/utils';
 
 type PickerMode = 'date' | 'time' | 'datetime';
 type SelectionMode = 'single' | 'range';
@@ -37,8 +37,6 @@ interface CalendarCell {
   isInRange: boolean;
 }
 
-let uniqueId = 0;
-
 @Component({
   selector: 'core-datetimepicker',
   standalone: true,
@@ -49,7 +47,7 @@ let uniqueId = 0;
 })
 export class CoreDatetimepickerComponent
   extends BaseFormControlComponent
-  implements OnDestroy, OnChanges {
+  implements OnChanges {
   @Input() mode: PickerMode = 'date';
   @Input() selectionMode: SelectionMode = 'single';
   @Input() placeholder = 'Chọn thời gian';
@@ -71,7 +69,7 @@ export class CoreDatetimepickerComponent
 
   @ViewChild('toggleButton') toggleButton?: ElementRef<HTMLButtonElement>;
 
-  protected override generatedId = `core-datetimepicker-${++uniqueId}`;
+  protected override generatedId = IdGenerator.generate('core-datetimepicker');
   protected isPanelOpen = false;
   protected calendarWeeks: CalendarCell[][] = [];
   protected viewDate = new Date();
@@ -260,7 +258,6 @@ export class CoreDatetimepickerComponent
     return day.date.toISOString();
   }
 
-  ngOnDestroy(): void {}
   @HostListener('document:click', ['$event'])
   protected handleDocumentClick(event: Event): void {
     if (
@@ -289,41 +286,52 @@ export class CoreDatetimepickerComponent
     this.disabledDates.forEach(value => {
       const date = new Date(value);
       if (!Number.isNaN(date.getTime())) {
-        this.disabledDateSet.add(this.dateKey(date));
+        this.disabledDateSet.add(DateUtils.dateKey(date));
       }
     });
   }
 
   private handleRangeSelection(clicked: Date): void {
     if (!this.pendingRange.start || this.pendingRange.end) {
-      this.pendingRange = { start: clicked, end: null };
-      this.buildCalendar();
-      this.cdr.markForCheck();
+      this.updatePendingRange({ start: clicked, end: null });
       return;
     }
 
-    if (this.dateKey(clicked) === this.dateKey(this.pendingRange.start)) {
-      this.pendingRange = { start: clicked, end: null };
-      this.buildCalendar();
-      this.cdr.markForCheck();
+    if (DateUtils.isSameDate(clicked, this.pendingRange.start)) {
+      this.updatePendingRange({ start: clicked, end: null });
       return;
     }
 
-    const start = this.pendingRange.start;
-    const end = clicked < start ? start : clicked;
-    const adjustedStart = clicked < start ? clicked : start;
+    this.commitRange(clicked);
+  }
 
-    this.pendingRange = { start: adjustedStart, end };
-    this.value = { ...this.pendingRange };
+  private updatePendingRange(range: DateRangeValue): void {
+    this.pendingRange = range;
+    this.rebuildAndDetect();
+  }
+
+  private commitRange(clicked: Date): void {
+    const [start, end] = this.sortDates(this.pendingRange.start!, clicked);
+    this.value = { start, end };
     this.onChange(this.value);
     this.valueCommitted.emit(this.value);
+    this.closeIfAutoClose();
+    this.pendingRange = { start: null, end: null };
+    this.rebuildAndDetect();
+  }
 
+  private sortDates(date1: Date, date2: Date): [Date, Date] {
+    return date1 < date2 ? [date1, date2] : [date2, date1];
+  }
+
+  private closeIfAutoClose(): void {
     if (this.autoClose && !this.inline) {
       this.isPanelOpen = false;
       this.closed.emit();
     }
+  }
 
-    this.pendingRange = { start: null, end: null };
+  private rebuildAndDetect(): void {
     this.buildCalendar();
     this.cdr.markForCheck();
   }
@@ -376,35 +384,45 @@ export class CoreDatetimepickerComponent
   }
 
   private buildCalendar(): void {
-    const firstDayOfMonth = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), 1);
+    const firstDayOfMonth = DateUtils.getFirstDayOfMonth(this.viewDate);
     const startDay = this.calculateCalendarStart(firstDayOfMonth);
+    const todayKey = DateUtils.dateKey(new Date());
+
+    this.calendarWeeks = this.generateWeeks(startDay, todayKey);
+  }
+
+  private generateWeeks(startDay: Date, todayKey: string): CalendarCell[][] {
     const weeks: CalendarCell[][] = [];
-    const todayKey = this.dateKey(new Date());
-
     for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
-      const week: CalendarCell[] = [];
-      for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
-        const currentDate = new Date(
-          startDay.getFullYear(),
-          startDay.getMonth(),
-          startDay.getDate() + weekIndex * 7 + dayIndex
-        );
-        const cell: CalendarCell = {
-          date: currentDate,
-          label: currentDate.getDate(),
-          isCurrentMonth: currentDate.getMonth() === this.viewDate.getMonth(),
-          isToday: this.dateKey(currentDate) === todayKey,
-          isDisabled: this.isDateDisabled(currentDate),
-          isSelected: this.isDateSelected(currentDate),
-          isRangeEdge: this.isRangeEdge(currentDate),
-          isInRange: this.isInsideRange(currentDate)
-        };
-        week.push(cell);
-      }
-      weeks.push(week);
+      weeks.push(this.generateWeek(startDay, weekIndex, todayKey));
     }
+    return weeks;
+  }
 
-    this.calendarWeeks = weeks;
+  private generateWeek(startDay: Date, weekIndex: number, todayKey: string): CalendarCell[] {
+    const week: CalendarCell[] = [];
+    for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
+      const currentDate = new Date(
+        startDay.getFullYear(),
+        startDay.getMonth(),
+        startDay.getDate() + weekIndex * 7 + dayIndex
+      );
+      week.push(this.createCalendarCell(currentDate, todayKey));
+    }
+    return week;
+  }
+
+  private createCalendarCell(date: Date, todayKey: string): CalendarCell {
+    return {
+      date,
+      label: date.getDate(),
+      isCurrentMonth: date.getMonth() === this.viewDate.getMonth(),
+      isToday: DateUtils.dateKey(date) === todayKey,
+      isDisabled: this.isDateDisabled(date),
+      isSelected: this.isDateSelected(date),
+      isRangeEdge: this.isRangeEdge(date),
+      isInRange: this.isInsideRange(date)
+    };
   }
 
   private calculateCalendarStart(firstDay: Date): Date {
@@ -417,28 +435,40 @@ export class CoreDatetimepickerComponent
     if (this.mode === 'time') {
       return false;
     }
-    if (this.disableWeekends) {
-      const day = date.getDay();
-      if (day === 0 || day === 6) {
-        return true;
-      }
+    return (
+      this.isWeekendDisabled(date) ||
+      this.isBeforeMinDate(date) ||
+      this.isAfterMaxDate(date) ||
+      this.isInDisabledSet(date)
+    );
+  }
+
+  private isWeekendDisabled(date: Date): boolean {
+    return this.disableWeekends && DateUtils.isWeekend(date);
+  }
+
+  private isBeforeMinDate(date: Date): boolean {
+    if (!this.minDate) {
+      return false;
     }
-    if (this.minDate) {
-      const min = new Date(this.minDate);
-      if (date < new Date(min.getFullYear(), min.getMonth(), min.getDate())) {
-        return true;
-      }
+    const min = new Date(this.minDate);
+    const minStripped = DateUtils.stripTime(min);
+    const dateStripped = DateUtils.stripTime(date);
+    return dateStripped < minStripped;
+  }
+
+  private isAfterMaxDate(date: Date): boolean {
+    if (!this.maxDate) {
+      return false;
     }
-    if (this.maxDate) {
-      const max = new Date(this.maxDate);
-      if (date > new Date(max.getFullYear(), max.getMonth(), max.getDate())) {
-        return true;
-      }
-    }
-    if (this.disabledDateSet.has(this.dateKey(date))) {
-      return true;
-    }
-    return false;
+    const max = new Date(this.maxDate);
+    const maxStripped = DateUtils.stripTime(max);
+    const dateStripped = DateUtils.stripTime(date);
+    return dateStripped > maxStripped;
+  }
+
+  private isInDisabledSet(date: Date): boolean {
+    return this.disabledDateSet.has(DateUtils.dateKey(date));
   }
 
   private isDateSelected(date: Date): boolean {
@@ -447,16 +477,15 @@ export class CoreDatetimepickerComponent
       if (!range || !range.start) {
         return false;
       }
-      const key = this.dateKey(date);
-      if (key === this.dateKey(range.start)) {
+      if (DateUtils.isSameDate(date, range.start)) {
         return true;
       }
       if (range.end) {
-        return key === this.dateKey(range.end);
+        return DateUtils.isSameDate(date, range.end);
       }
       return false;
     }
-    return this.value instanceof Date && this.dateKey(this.value) === this.dateKey(date);
+    return this.value instanceof Date && DateUtils.isSameDate(this.value, date);
   }
 
   private isInsideRange(date: Date): boolean {
@@ -473,12 +502,11 @@ export class CoreDatetimepickerComponent
     if (!range || !range.start) {
       return false;
     }
-    const key = this.dateKey(date);
-    if (key === this.dateKey(range.start)) {
+    if (DateUtils.isSameDate(date, range.start)) {
       return true;
     }
     if (range.end) {
-      return key === this.dateKey(range.end);
+      return DateUtils.isSameDate(date, range.end);
     }
     return false;
   }
@@ -495,10 +523,6 @@ export class CoreDatetimepickerComponent
       return valueRange;
     }
     return null;
-  }
-
-  private dateKey(date: Date): string {
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
   }
 
   private initializeTime(): void {

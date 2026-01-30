@@ -11,8 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
-
-let uniqueId = 0;
+import { IdGenerator } from '@shared/utils';
 
 export interface RadioOption {
   value: string | number;
@@ -46,7 +45,7 @@ export class CoreRadioComponent extends BaseFormControlComponent {
   @Output() focused = new EventEmitter<FocusEvent>();
   @Output() blurred = new EventEmitter<FocusEvent>();
 
-  protected override readonly generatedId = `core-radio-${uniqueId++}`;
+  protected override readonly generatedId = IdGenerator.generate('core-radio');
 
   constructor(
     @Optional() @Self() ngControl: NgControl | null = null,

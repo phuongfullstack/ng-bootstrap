@@ -14,8 +14,7 @@ import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { Subscription } from 'rxjs';
-
-let uniqueId = 0;
+import { IdGenerator } from '@shared/utils';
 
 /**
  * Core input component with Bootstrap 5.3 styling
@@ -45,7 +44,7 @@ export class CoreInputComponent extends BaseFormControlComponent implements OnIn
   @Output() focused = new EventEmitter<FocusEvent>();
   @Output() blurred = new EventEmitter<FocusEvent>();
 
-  protected override generatedId = `core-input-${uniqueId++}`;
+  protected override generatedId = IdGenerator.generate('core-input');
   private statusChangesSubscription?: Subscription;
   private valueChangesSubscription?: Subscription;
 

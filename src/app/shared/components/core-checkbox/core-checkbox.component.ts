@@ -14,8 +14,7 @@ import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { Subscription } from 'rxjs';
-
-let uniqueId = 0;
+import { IdGenerator } from '@shared/utils';
 
 export interface CheckboxOption {
   value: string | number;
@@ -45,7 +44,7 @@ export class CoreCheckboxComponent extends BaseFormControlComponent implements O
   @Output() blurred = new EventEmitter<FocusEvent>();
   @Output() indeterminateChange = new EventEmitter<boolean>();
 
-  protected override generatedId = `core-checkbox-${uniqueId++}`;
+  protected override generatedId = IdGenerator.generate('core-checkbox');
 
   private statusChangesSubscription?: Subscription;
   private valueChangesSubscription?: Subscription;

@@ -18,6 +18,7 @@ import {
   CoreTableSortDirection,
   CoreTableSortEvent
 } from './core-table.types';
+import { RowKeyExtractor } from '@shared/utils';
 
 @Component({
   selector: 'core-table',
@@ -105,8 +106,7 @@ export class CoreTableComponent<T = unknown> {
   }
 
   protected trackByRow = (_: number, row: T): string | number | T => {
-    const anyRow = row as any;
-    return anyRow && this.rowKey in anyRow ? anyRow[this.rowKey] : row;
+    return RowKeyExtractor.extractOrDefault(row, this.rowKey);
   };
 
   protected isColumnSortable(column: CoreTableColumn): boolean {
@@ -220,8 +220,7 @@ export class CoreTableComponent<T = unknown> {
   }
 
   protected isRowSelected(row: T): boolean {
-    const anyRow = row as any;
-    const key = anyRow && this.rowKey in anyRow ? anyRow[this.rowKey] : undefined;
+    const key = RowKeyExtractor.extract(row, this.rowKey);
     return key !== undefined && this.selectedKeys.includes(key);
   }
 
@@ -230,8 +229,7 @@ export class CoreTableComponent<T = unknown> {
       return;
     }
 
-    const anyRow = row as any;
-    const key = anyRow && this.rowKey in anyRow ? anyRow[this.rowKey] : undefined;
+    const key = RowKeyExtractor.extract(row, this.rowKey);
     if (key === undefined) {
       return;
     }
@@ -255,8 +253,7 @@ export class CoreTableComponent<T = unknown> {
     });
 
     const selectedRows = this.data.filter(r => {
-      const anySelectedRow = r as any;
-      const rowKey = anySelectedRow && this.rowKey in anySelectedRow ? anySelectedRow[this.rowKey] : undefined;
+      const rowKey = RowKeyExtractor.extract(r, this.rowKey);
       return rowKey !== undefined && nextKeys.includes(rowKey);
     });
     this.selectionChange.emit(selectedRows);
