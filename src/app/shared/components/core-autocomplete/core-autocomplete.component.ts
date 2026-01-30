@@ -17,8 +17,7 @@ import { CommonModule } from '@angular/common';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { Subject, Subscription, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
-
-let uniqueId = 0;
+import { IdGenerator } from '@shared/utils';
 
 export interface AutoCompleteOption {
   value: any;
@@ -48,6 +47,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   @Input() loadingText: string = 'Đang tải...';
   @Input() noResultsText: string = 'Không tìm thấy kết quả';
   @Input() caseSensitive: boolean = false;
+  @Input() blurDelay: number = 200;
 
   @Output() search = new EventEmitter<string>();
   @Output() selected = new EventEmitter<any>();
@@ -56,7 +56,7 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   @Output() focused = new EventEmitter<FocusEvent>();
   @Output() blurred = new EventEmitter<FocusEvent>();
 
-  protected override generatedId = `core-autocomplete-${uniqueId++}`;
+  protected override generatedId = IdGenerator.generate('core-autocomplete');
   protected displayValue: string = '';
   protected isDropdownOpen: boolean = false;
   protected filteredOptions: AutoCompleteOption[] = [];
@@ -190,35 +190,37 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
 
   protected onKeyDown(event: KeyboardEvent): void {
     if (!this.isDropdownOpen) {
-      if (event.key === 'ArrowDown' || event.key === 'Enter') {
-        this.isDropdownOpen = true;
-        if (this.displayValue.length >= this.minChars) {
-          this.performSearch(this.displayValue);
-        }
-        event.preventDefault();
-      }
+      this.handleClosedDropdownKey(event);
       return;
     }
 
-    switch (event.key) {
-      case 'ArrowDown':
-        this.highlightNext();
-        event.preventDefault();
-        break;
-      case 'ArrowUp':
-        this.highlightPrevious();
-        event.preventDefault();
-        break;
-      case 'Enter':
-        if (this.highlightedIndex >= 0 && this.highlightedIndex < this.filteredOptions.length) {
-          this.selectOption(this.filteredOptions[this.highlightedIndex], event);
-        }
-        event.preventDefault();
-        break;
-      case 'Escape':
-        this.closeDropdown();
-        event.preventDefault();
-        break;
+    const handlers: Record<string, () => void> = {
+      'ArrowDown': () => this.highlightNext(),
+      'ArrowUp': () => this.highlightPrevious(),
+      'Enter': () => this.selectHighlighted(event),
+      'Escape': () => this.closeDropdown(),
+    };
+
+    const handler = handlers[event.key];
+    if (handler) {
+      handler();
+      event.preventDefault();
+    }
+  }
+
+  private handleClosedDropdownKey(event: KeyboardEvent): void {
+    if (event.key === 'ArrowDown' || event.key === 'Enter') {
+      this.isDropdownOpen = true;
+      if (this.displayValue.length >= this.minChars) {
+        this.performSearch(this.displayValue);
+      }
+      event.preventDefault();
+    }
+  }
+
+  private selectHighlighted(event: Event): void {
+    if (this.highlightedIndex >= 0 && this.highlightedIndex < this.filteredOptions.length) {
+      this.selectOption(this.filteredOptions[this.highlightedIndex], event);
     }
   }
 
@@ -273,18 +275,27 @@ export class CoreAutocompleteComponent extends BaseFormControlComponent implemen
   }
 
   protected onBlur(event: FocusEvent): void {
-    // Delay to allow click on dropdown items
-    setTimeout(() => {
-      if (!this.allowFreeText && !this.selectedOption && this.displayValue) {
-        this.displayValue = '';
-        this.value = null;
-        this.onChange(null);
-      }
-      this.closeDropdown();
-      this.handleBlur();
-      this.blurred.emit(event);
-      this.cdr.markForCheck();
-    }, 200);
+    this.scheduleBlurHandler(event);
+  }
+
+  private scheduleBlurHandler(event: FocusEvent): void {
+    setTimeout(() => this.handleBlurEnd(event), this.blurDelay);
+  }
+
+  private handleBlurEnd(event: FocusEvent): void {
+    this.clearInvalidFreeText();
+    this.closeDropdown();
+    this.handleBlur();
+    this.blurred.emit(event);
+    this.cdr.markForCheck();
+  }
+
+  private clearInvalidFreeText(): void {
+    if (!this.allowFreeText && !this.selectedOption && this.displayValue) {
+      this.displayValue = '';
+      this.value = null;
+      this.onChange(null);
+    }
   }
 
   private closeDropdown(): void {

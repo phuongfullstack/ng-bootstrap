@@ -13,8 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormControlComponent } from '@shared/components/base/base-form-control.component';
 import { BootstrapVariant } from '@shared/types/bootstrap-variant.types';
-
-let uniqueId = 0;
+import { IdGenerator } from '@shared/utils';
 
 @Component({
     selector: 'core-switch',
@@ -39,7 +38,7 @@ export class CoreSwitchComponent extends BaseFormControlComponent {
     @Output() clicked = new EventEmitter<MouseEvent>();
     @Output() indeterminateChange = new EventEmitter<boolean>();
 
-    protected override generatedId = `core-switch-${uniqueId++}`;
+    protected override generatedId = IdGenerator.generate('core-switch');
 
     constructor(
         @Optional() @Self() ngControl: NgControl | null = null,
