@@ -1,9 +1,10 @@
-import { Directive, Input, OnInit, Optional, Self } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnInit, Optional, Self } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
   NgControl
 } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import {
   ValidationMessageResolver,
   defaultValidationMessages
@@ -12,6 +13,7 @@ import {
 /**
  * Base class for form control components
  * Provides common functionality for reactive forms integration and validation
+ * Follows Single Responsibility Principle and Angular style guide
  */
 @Directive()
 export abstract class BaseFormControlComponent implements OnInit, ControlValueAccessor {
@@ -116,6 +118,10 @@ export abstract class BaseFormControlComponent implements OnInit, ControlValueAc
     this.disabled = isDisabled;
   }
 
+  /**
+   * Handle blur event - marks control as touched
+   * @protected
+   */
   protected handleBlur(): void {
     this.onTouched();
     if (this.control) {
@@ -123,8 +129,45 @@ export abstract class BaseFormControlComponent implements OnInit, ControlValueAc
     }
   }
 
+  /**
+   * Create subscriptions to control status and value changes for change detection
+   * Call this method from ngOnInit in derived classes that need automatic change detection
+   * @param cdr ChangeDetectorRef instance from the derived component
+   * @returns Array of subscriptions to be managed by the derived component
+   * @example
+   * ngOnInit(): void {
+   *   super.ngOnInit();
+   *   this.subscriptions.push(...this.createControlSubscriptions(this.cdr));
+   * }
+   * @protected
+   */
+  protected createControlSubscriptions(cdr: ChangeDetectorRef): Subscription[] {
+    const subscriptions: Subscription[] = [];
+    
+    if (this.control) {
+      subscriptions.push(
+        this.control.statusChanges.subscribe(() => cdr.markForCheck()),
+        this.control.valueChanges.subscribe(() => cdr.markForCheck())
+      );
+    }
+    
+    return subscriptions;
+  }
+
+  /**
+   * Get the default value for this control when reset
+   * @protected
+   * @abstract
+   */
   protected abstract getDefaultValue(): any;
 
+  /**
+   * Build default error message for validation errors
+   * @param errorKey The validation error key
+   * @param errorValue The error value from the validator
+   * @returns The error message string
+   * @private
+   */
   private buildDefaultErrorMessage(
     errorKey: string,
     errorValue: unknown
