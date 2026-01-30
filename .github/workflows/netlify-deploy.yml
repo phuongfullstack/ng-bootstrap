@@ -26,7 +26,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npm run build -- --configuration production
 
       - name: Deploy
         uses: netlify/actions/cli@v1
@@ -34,4 +34,4 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
-          args: deploy --dir=dist/ng-bootstrap --prod
+          args: deploy --dir=dist/ng-boostrap/browser --prod
