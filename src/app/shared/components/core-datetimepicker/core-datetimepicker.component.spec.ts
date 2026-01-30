@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { CoreDatetimepickerComponent } from "./core-datetimepicker.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { DateUtils } from "@shared/utils";
 
 describe('CoreDatetimepickerComponent', () => {
   let component: CoreDatetimepickerComponent;
@@ -295,11 +296,11 @@ describe('CoreDatetimepickerComponent', () => {
     it('should mark today correctly', () => {
       createComponent();
       const today = new Date();
-      const todayKey = component['dateKey'](today);
+      const todayKey = DateUtils.dateKey(today);
       let foundToday = false;
       component['calendarWeeks'].forEach(week => {
         week.forEach(day => {
-          if (component['dateKey'](day.date) === todayKey) {
+          if (DateUtils.dateKey(day.date) === todayKey) {
             expect(day.isToday).toBe(true);
             foundToday = true;
           }
@@ -1213,13 +1214,6 @@ describe('CoreDatetimepickerComponent', () => {
       createComponent();
       const errorMessage = component['getDefaultErrorMessage']();
       expect(errorMessage).toBe('Giá trị không hợp lệ.');
-    });
-  });
-
-  describe('ngOnDestroy', () => {
-    it('should complete without errors', () => {
-      createComponent();
-      expect(() => component.ngOnDestroy()).not.toThrow();
     });
   });
 });
