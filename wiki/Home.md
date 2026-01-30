@@ -6,9 +6,6 @@ Welcome to the **ng-bootstrap** project wiki! This is a comprehensive Angular co
 
 ### Getting Started
 - **[Getting Started](Getting-Started.md)** - Setup, installation, and basic usage
-- **[Architecture](Architecture.md)** - Project structure and design patterns
-- **[Contributing](Contributing.md)** - How to contribute to the project
-- **[FAQ](FAQ.md)** - Frequently asked questions
 
 ### Component Documentation
 - **[Components Overview](Components-Overview.md)** - Complete list of available components
@@ -80,16 +77,31 @@ Display and manage data with our feature-rich table component:
 ### User Notifications
 Show toast messages for user feedback:
 ```typescript
-this.toastrService.success('Profile updated successfully!');
-this.toastrService.error('Failed to save changes. Please try again.');
+// Inject the service
+constructor(private toastr: CoreToastrService) {}
+
+// Use it to show notifications
+this.toastr.success('Profile updated successfully!');
+this.toastr.error('Failed to save changes. Please try again.');
 ```
 
 ### Modal Dialogs
-Create confirmation dialogs, forms, or custom content modals:
+Create confirmation dialogs, forms, or custom content modals using the ModalService:
 ```typescript
-this.modalService.open(MyModalComponent, {
+// Inject the modal service
+constructor(private modalService: ModalService) {}
+
+// Open a modal with configuration
+this.modalService.open({
+  title: 'Confirm Action',
   size: 'lg',
-  centered: true
+  content: MyModalComponent,
+  buttons: [
+    { label: 'Cancel', variant: 'secondary' },
+    { label: 'Confirm', variant: 'primary' }
+  ]
+}).subscribe(result => {
+  console.log('Modal result:', result);
 });
 ```
 
@@ -127,10 +139,9 @@ ng-bootstrap/
 4. Study the demo code in `src/app/features/core-demo/`
 
 ### For Advanced Users
-1. Read [Architecture](Architecture.md) - understand design patterns
-2. Review source code of components
-3. Contribute via [Contributing Guide](Contributing.md)
-4. Create custom components based on existing patterns
+1. Review source code of components in `src/app/shared/components/`
+2. Check the [CONTRIBUTING.md](../CONTRIBUTING.md) guide in the root directory
+3. Create custom components based on existing patterns
 
 ## 🔧 Development Tools
 
@@ -170,7 +181,7 @@ ng-bootstrap/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](Contributing.md) for details on:
+We welcome contributions! Please see the [CONTRIBUTING.md](../CONTRIBUTING.md) file in the root directory for details on:
 - Code style and conventions
 - Development workflow
 - Testing requirements
@@ -185,7 +196,7 @@ We welcome contributions! Please see our [Contributing Guide](Contributing.md) f
 - **Styling Issues**: Ensure Bootstrap is properly imported
 
 ### Support Channels
-1. Check the [FAQ](FAQ.md)
+1. Review component documentation in this wiki
 2. Search existing [GitHub Issues](https://github.com/phuongfullstack/ng-bootstrap/issues)
 3. Review component documentation
 4. Create a new issue with detailed information

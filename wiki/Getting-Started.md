@@ -298,10 +298,10 @@ export class UsersTableComponent {
   ];
 
   columns = [
-    { key: 'id', title: 'ID', sortable: true },
-    { key: 'name', title: 'Name', sortable: true },
-    { key: 'email', title: 'Email' },
-    { key: 'role', title: 'Role' }
+    { field: 'id', header: 'ID', sortable: true },
+    { field: 'name', header: 'Name', sortable: true },
+    { field: 'email', header: 'Email' },
+    { field: 'role', header: 'Role' }
   ];
 }
 ```
@@ -362,10 +362,9 @@ Each demo includes:
 Now that you have the project running, explore:
 
 - **[Components Overview](Components-Overview.md)** - Browse all available components
-- **[Architecture](Architecture.md)** - Understand the project structure
 - **[Button Component](Button-Component.md)** - Start with a simple component example
 - **[Table Component](Table-Component.md)** - Explore advanced features
-- **[Contributing](Contributing.md)** - Learn how to contribute
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Learn how to contribute (in root directory)
 
 ## Troubleshooting
 
@@ -454,8 +453,8 @@ A: Yes, this project uses TypeScript with strict mode enabled.
 ## Support
 
 If you encounter any issues:
-1. Check the [FAQ](FAQ.md)
-2. Review [GitHub Issues](https://github.com/phuongfullstack/ng-bootstrap/issues)
+1. Review the component documentation in this wiki
+2. Search [GitHub Issues](https://github.com/phuongfullstack/ng-bootstrap/issues)
 3. Create a new issue with detailed information about your problem
 
 ---
