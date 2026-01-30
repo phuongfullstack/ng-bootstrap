@@ -25,31 +25,31 @@ export class ToastrDemoComponent {
   constructor(private readonly toastr: CoreToastrService) { }
 
   showSuccess(): void {
-    this.toastr.success('Đã lưu thành công', 'Thành công');
+    this.toastr.success('Saved successfully', 'Success');
   }
 
   showInfo(): void {
-    this.toastr.info('Đây là thông tin', 'Thông báo');
+    this.toastr.info('This is information', 'Notification');
   }
 
   showWarning(): void {
-    this.toastr.warning('Có cảnh báo cần chú ý', 'Cảnh báo', { duration: 6000 });
+    this.toastr.warning('There is a warning that needs attention', 'Warning', { duration: 6000 });
   }
 
   showError(): void {
-    this.toastr.error('Đã xảy ra lỗi nghiêm trọng', 'Lỗi');
+    this.toastr.error('A critical error has occurred', 'Error');
   }
 
   showCustom(): void {
     this.toastr.show({
       title: 'Custom Toast',
-      message: 'Bạn có muốn hoàn tác thao tác vừa rồi?',
+      message: 'Do you want to undo the recent action?',
       variant: 'default',
       autoClose: false,
       actions: [
         {
           id: 'undo',
-          label: 'Hoàn tác',
+          label: 'Undo',
           variant: 'primary',
           handler: () => {
             // Handle undo action
@@ -57,7 +57,7 @@ export class ToastrDemoComponent {
         },
         {
           id: 'view',
-          label: 'Chi tiết',
+          label: 'Details',
           variant: 'link',
           handler: () => {
             // Handle view details action

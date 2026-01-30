@@ -16,34 +16,34 @@ export class AutocompleteDemoComponent {
 
   // Sample data
   readonly countryOptions: AutoCompleteOption[] = [
-    { value: 'vn', label: 'Việt Nam', group: 'Châu Á' },
-    { value: 'us', label: 'Hoa Kỳ', group: 'Bắc Mỹ' },
-    { value: 'jp', label: 'Nhật Bản', group: 'Châu Á' },
-    { value: 'kr', label: 'Hàn Quốc', group: 'Châu Á' },
-    { value: 'cn', label: 'Trung Quốc', group: 'Châu Á' },
-    { value: 'th', label: 'Thái Lan', group: 'Châu Á' },
-    { value: 'sg', label: 'Singapore', group: 'Châu Á' },
-    { value: 'uk', label: 'Vương quốc Anh', group: 'Châu Âu' },
-    { value: 'de', label: 'Đức', group: 'Châu Âu' },
-    { value: 'fr', label: 'Pháp', group: 'Châu Âu' },
-    { value: 'it', label: 'Ý', group: 'Châu Âu' },
-    { value: 'es', label: 'Tây Ban Nha', group: 'Châu Âu' },
-    { value: 'ca', label: 'Canada', group: 'Bắc Mỹ' },
-    { value: 'au', label: 'Úc', group: 'Châu Đại Dương' },
-    { value: 'nz', label: 'New Zealand', group: 'Châu Đại Dương' }
+    { value: 'vn', label: 'Vietnam', group: 'Asia' },
+    { value: 'us', label: 'United States', group: 'North America' },
+    { value: 'jp', label: 'Japan', group: 'Asia' },
+    { value: 'kr', label: 'South Korea', group: 'Asia' },
+    { value: 'cn', label: 'China', group: 'Asia' },
+    { value: 'th', label: 'Thailand', group: 'Asia' },
+    { value: 'sg', label: 'Singapore', group: 'Asia' },
+    { value: 'uk', label: 'United Kingdom', group: 'Europe' },
+    { value: 'de', label: 'Germany', group: 'Europe' },
+    { value: 'fr', label: 'France', group: 'Europe' },
+    { value: 'it', label: 'Italy', group: 'Europe' },
+    { value: 'es', label: 'Spain', group: 'Europe' },
+    { value: 'ca', label: 'Canada', group: 'North America' },
+    { value: 'au', label: 'Australia', group: 'Oceania' },
+    { value: 'nz', label: 'New Zealand', group: 'Oceania' }
   ];
 
   readonly cityOptions: AutoCompleteOption[] = [
-    { value: 'hanoi', label: 'Hà Nội' },
-    { value: 'hcm', label: 'Hồ Chí Minh' },
-    { value: 'danang', label: 'Đà Nẵng' },
-    { value: 'haiphong', label: 'Hải Phòng' },
-    { value: 'cantho', label: 'Cần Thơ' },
+    { value: 'hanoi', label: 'Hanoi' },
+    { value: 'hcm', label: 'Ho Chi Minh' },
+    { value: 'danang', label: 'Da Nang' },
+    { value: 'haiphong', label: 'Hai Phong' },
+    { value: 'cantho', label: 'Can Tho' },
     { value: 'nhatrang', label: 'Nha Trang' },
-    { value: 'dalat', label: 'Đà Lạt' },
-    { value: 'vungtau', label: 'Vũng Tàu' },
-    { value: 'hue', label: 'Huế' },
-    { value: 'hoian', label: 'Hội An' }
+    { value: 'dalat', label: 'Da Lat' },
+    { value: 'vungtau', label: 'Vung Tau' },
+    { value: 'hue', label: 'Hue' },
+    { value: 'hoian', label: 'Hoi An' }
   ];
 
   readonly programmingLanguages: AutoCompleteOption[] = [

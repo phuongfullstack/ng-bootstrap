@@ -1,7 +1,7 @@
 <div class="input-demo">
   <form class="card shadow-sm mb-4" [formGroup]="demoForm" (ngSubmit)="submit()">
     <div class="card-body">
-      <core-input label="Họ và tên" placeholder="Nhập họ tên..." formControlName="fullName" [required]="true"
+      <core-input label="Full Name" placeholder="Enter your full name..." formControlName="fullName" [required]="true"
         [minlength]="3" autocomplete="name" (valueChange)="onValueChange('fullName', $event)"
         (focused)="onFocus('fullName')" (blurred)="onBlur('fullName')"></core-input>
 
@@ -9,8 +9,8 @@
         autocomplete="email" (valueChange)="onValueChange('email', $event)" (focused)="onFocus('email')"
         (blurred)="onBlur('email')"></core-input>
 
-      <core-input label="Tuổi" placeholder="12 - 65" formControlName="age" type="number" [min]="12" [max]="65" [step]="1"
-        hint="Độ tuổi hợp lệ từ 12 đến 65" (valueChange)="onValueChange('age', $event)" (focused)="onFocus('age')"
+      <core-input label="Age" placeholder="12 - 65" formControlName="age" type="number" [min]="12" [max]="65" [step]="1"
+        hint="Valid age range is 12 to 65" (valueChange)="onValueChange('age', $event)" (focused)="onFocus('age')"
         (blurred)="onBlur('age')"></core-input>
     </div>
     <div class="card-footer d-flex justify-content-end gap-2">
@@ -38,7 +38,7 @@
           <h2 class="h6 text-uppercase text-muted">Event Log</h2>
           <div class="event-log flex-grow-1">
             <div *ngIf="!eventLog.length" class="text-muted small">
-              Chưa có sự kiện nào.
+              No events yet.
             </div>
             <ul *ngIf="eventLog.length" class="list-unstyled mb-0 small">
               <li *ngFor="let entry of eventLog">

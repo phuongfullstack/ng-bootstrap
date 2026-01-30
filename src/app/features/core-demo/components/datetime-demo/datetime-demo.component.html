@@ -1,16 +1,16 @@
 <div class="datetime-demo container-fluid">
   <h2 class="mb-3">DateTime Picker Demo</h2>
   <p class="text-muted mb-4">
-    Các ví dụ dưới đây minh hoạ những tuỳ chọn chính của <code>core-datetimepicker</code>:
-    mode, selection, inline, min/max, disabled date và time picker.
+    The examples below demonstrate the main options of <code>core-datetimepicker</code>:
+    mode, selection, inline, min/max, disabled date and time picker.
   </p>
 
   <form [formGroup]="demoForm" class="row g-4">
     <div class="col-md-6">
       <core-datetimepicker
-        label="Ngày cơ bản"
+        label="Basic Date"
         formControlName="basicDate"
-        [placeholder]="'Chọn ngày'"
+        [placeholder]="'Select date'"
         [minDate]="minBoundary"
         [maxDate]="maxBoundary"
       ></core-datetimepicker>
@@ -28,7 +28,7 @@
 
     <div class="col-md-6">
       <core-datetimepicker
-        label="Khoảng thời gian"
+        label="Date Range"
         formControlName="range"
         selectionMode="range"
         [showTodayShortcut]="false"

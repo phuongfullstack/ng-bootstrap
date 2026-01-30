@@ -16,20 +16,20 @@ export class DropdownDemoComponent {
 
   // Options for different dropdowns
   readonly countryOptions: DropdownOption[] = [
-    { value: 'vn', label: 'Việt Nam' },
-    { value: 'us', label: 'Hoa Kỳ' },
-    { value: 'jp', label: 'Nhật Bản' },
-    { value: 'kr', label: 'Hàn Quốc' },
-    { value: 'cn', label: 'Trung Quốc' },
-    { value: 'th', label: 'Thái Lan' }
+    { value: 'vn', label: 'Vietnam' },
+    { value: 'us', label: 'United States' },
+    { value: 'jp', label: 'Japan' },
+    { value: 'kr', label: 'South Korea' },
+    { value: 'cn', label: 'China' },
+    { value: 'th', label: 'Thailand' }
   ];
 
   readonly cityOptions: DropdownOption[] = [
-    { value: 'hanoi', label: 'Hà Nội' },
-    { value: 'hcm', label: 'TP. Hồ Chí Minh' },
-    { value: 'danang', label: 'Đà Nẵng' },
-    { value: 'haiphong', label: 'Hải Phòng' },
-    { value: 'cantho', label: 'Cần Thơ' }
+    { value: 'hanoi', label: 'Hanoi' },
+    { value: 'hcm', label: 'Ho Chi Minh City' },
+    { value: 'danang', label: 'Da Nang' },
+    { value: 'haiphong', label: 'Hai Phong' },
+    { value: 'cantho', label: 'Can Tho' }
   ];
 
   readonly skillOptions: DropdownOption[] = [
@@ -43,10 +43,10 @@ export class DropdownDemoComponent {
   ];
 
   readonly statusOptions: DropdownOption[] = [
-    { value: 'active', label: 'Đang hoạt động' },
-    { value: 'inactive', label: 'Không hoạt động', disabled: true },
-    { value: 'pending', label: 'Chờ xử lý' },
-    { value: 'completed', label: 'Hoàn thành' }
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive', disabled: true },
+    { value: 'pending', label: 'Pending' },
+    { value: 'completed', label: 'Completed' }
   ];
 
   readonly sizeOptions: DropdownOption[] = [
