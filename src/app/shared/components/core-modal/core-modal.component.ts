@@ -68,13 +68,13 @@ export class CoreModalComponent implements OnInit, OnDestroy {
   @Input() size?: 'sm' | 'md' | 'lg' | 'xl' | 'fullscreen' = MODAL_DEFAULTS.SIZE;
   
   /** Whether modal can be closed. Default: true */
-  @Input() closable = MODAL_DEFAULTS.CLOSABLE;
+  @Input() closable: boolean = MODAL_DEFAULTS.CLOSABLE;
   
   /** Backdrop behavior. 'static' prevents closing on backdrop click. Default: true */
   @Input() backdrop: 'static' | true | false = MODAL_DEFAULTS.BACKDROP;
   
   /** Whether to show X close button in header. Default: true */
-  @Input() showCloseButton = MODAL_DEFAULTS.SHOW_CLOSE_BUTTON;
+  @Input() showCloseButton: boolean = MODAL_DEFAULTS.SHOW_CLOSE_BUTTON;
   
   /** Array of buttons to display in footer */
   @Input() buttons: ModalButton[] = [];
