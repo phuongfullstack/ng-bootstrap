@@ -5,14 +5,15 @@ export type CoreToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bott
 export const TOAST_DEFAULTS = {
   VARIANT: 'default' as CoreToastVariant,
   AUTO_CLOSE: true,
-  DURATION: 5000,
+  DURATION: 4000,  // 4 seconds - keep original value for backward compatibility
   DISMISSIBLE: true,
   POSITION: 'top-right' as CoreToastPosition,
   MAX_VISIBLE: 3,
   STACK_GAP: 16,
-  MAX_QUEUE: 8
+  MAX_QUEUE: 6  // Keep original value for backward compatibility
 } as const;
 
+// Variants that require assertive announcement for screen readers
 export const TOAST_ASSERTIVE_VARIANTS: CoreToastVariant[] = ['error', 'danger'];
 export const TOAST_POLITE_VARIANTS: CoreToastVariant[] = ['default', 'success', 'info', 'warning'];
 

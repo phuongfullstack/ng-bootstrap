@@ -3,14 +3,12 @@
   [ngClass]="positionClass()" 
   [style.--core-toastr-gap]="stackGapPx()"
   role="region"
-  aria-label="Notifications"
-  aria-live="polite"
-  aria-atomic="false">
+  aria-label="Notifications">
   <article
     class="core-toast"
     *ngFor="let toast of toasts(); trackBy: trackToast"
     [ngClass]="'core-toast--' + toast.variant"
-    role="status"
+    [attr.role]="isAssertiveVariant(toast.variant) ? 'alert' : 'status'"
     [attr.aria-live]="isAssertiveVariant(toast.variant) ? 'assertive' : 'polite'"
   >
     <div class="core-toast__icon" aria-hidden="true">
