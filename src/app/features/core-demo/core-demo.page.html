@@ -1,11 +1,94 @@
 <section class="core-demo container py-4">
   <header class="core-demo__header mb-4">
-    <div>
-      <p class="text-uppercase fw-semibold text-primary mb-1">Core Library</p>
-      <h1 class="h3 mb-1">UI Component Playground</h1>
-      <p class="text-muted mb-0">
-        Select a component in the sidebar to test properties, validation and events.
-      </p>
+    <div class="welcome-banner p-4 mb-4 bg-light rounded-3 border">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <p class="text-uppercase fw-semibold text-primary mb-2">
+            <i class="bi bi-stars"></i> Core Library
+          </p>
+          <h1 class="h2 mb-3">UI Component Playground</h1>
+          <p class="lead mb-3">
+            Explore 13 production-ready Angular components built with Bootstrap 5.3.
+            Interactive demos with live code examples, validation testing, and event handling.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mb-3">
+            <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-2">
+              <i class="bi bi-check-circle-fill me-1"></i> 13 Components
+            </span>
+            <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+              <i class="bi bi-bootstrap-fill me-1"></i> Bootstrap 5.3
+            </span>
+            <span class="badge bg-info-subtle text-info-emphasis rounded-pill px-3 py-2">
+              <i class="bi bi-universal-access me-1"></i> Accessible
+            </span>
+            <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
+              <i class="bi bi-code-square me-1"></i> TypeScript
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <div class="d-flex flex-column gap-2">
+            <a href="https://github.com/phuongfullstack/ng-bootstrap" target="_blank" 
+               rel="noopener noreferrer" class="btn btn-primary btn-sm">
+              <i class="bi bi-github me-2"></i>View on GitHub
+            </a>
+            <a href="https://getbootstrap.com/docs/5.3/" target="_blank" 
+               rel="noopener noreferrer" class="btn btn-outline-secondary btn-sm">
+              <i class="bi bi-book me-2"></i>Bootstrap Docs
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="quick-features mb-4">
+      <div class="row g-3">
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card p-3 h-100 border rounded bg-white">
+            <div class="text-primary mb-2">
+              <i class="bi bi-palette-fill fs-4"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Form Controls</h6>
+            <small class="text-muted">Input, Dropdown, Checkbox, Radio, Switch & more</small>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card p-3 h-100 border rounded bg-white">
+            <div class="text-success mb-2">
+              <i class="bi bi-calendar3 fs-4"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Date & Time</h6>
+            <small class="text-muted">DateTime picker with validation support</small>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card p-3 h-100 border rounded bg-white">
+            <div class="text-info mb-2">
+              <i class="bi bi-table fs-4"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Data Display</h6>
+            <small class="text-muted">Tables, Progress bars, Toast notifications</small>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card p-3 h-100 border rounded bg-white">
+            <div class="text-warning mb-2">
+              <i class="bi bi-window-stack fs-4"></i>
+            </div>
+            <h6 class="fw-bold mb-1">Modals</h6>
+            <small class="text-muted">Customizable modal dialogs with dynamic content</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions alert alert-info d-flex align-items-center">
+      <i class="bi bi-info-circle-fill me-2 fs-5"></i>
+      <div>
+        <strong>Getting Started:</strong> Select a component from the sidebar to explore its features, 
+        test different configurations, and see live examples. Each demo includes interactive controls 
+        and code snippets.
+      </div>
     </div>
   </header>
 

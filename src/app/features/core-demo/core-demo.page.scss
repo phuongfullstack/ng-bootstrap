@@ -6,6 +6,29 @@
 
 .core-demo__header {
   margin-bottom: 2rem;
+
+  .welcome-banner {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    
+    .lead {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  }
+
+  .feature-card {
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+  }
+
+  .instructions {
+    border-left: 4px solid #0dcaf0; // Using Bootstrap info color directly
+  }
 }
 
 .core-demo__layout {
