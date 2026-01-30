@@ -2,3 +2,4 @@ pre-push:
   commands:
     build:
       run: npm run build
+      fail_text: Build failed. Fix build errors before pushing.
