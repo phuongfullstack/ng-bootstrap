@@ -56,6 +56,43 @@ Visit `http://localhost:4200/` to see the demo application with all components.
 - **🎭 Customizable** - Extensive configuration options and custom styling support
 - **🧪 Well-tested** - Comprehensive unit tests with Vitest
 
+## 💡 Common Use Cases
+
+### Building Forms Quickly
+Our form components integrate seamlessly with Angular Reactive Forms:
+```typescript
+myForm = this.fb.group({
+  username: ['', [Validators.required, Validators.minLength(3)]],
+  email: ['', [Validators.required, Validators.email]],
+  role: ['user'],
+  notifications: [true]
+});
+```
+
+### Creating Data Tables
+Display and manage data with our feature-rich table component:
+- Sortable columns
+- Pagination support
+- Row selection
+- Custom cell templates
+- Responsive layout
+
+### User Notifications
+Show toast messages for user feedback:
+```typescript
+this.toastrService.success('Profile updated successfully!');
+this.toastrService.error('Failed to save changes. Please try again.');
+```
+
+### Modal Dialogs
+Create confirmation dialogs, forms, or custom content modals:
+```typescript
+this.modalService.open(MyModalComponent, {
+  size: 'lg',
+  centered: true
+});
+```
+
 ## 🏗️ Project Structure
 
 ```
@@ -75,6 +112,62 @@ ng-bootstrap/
 └── wiki/                  # Documentation (this wiki)
 ```
 
+## 🎓 Learning Path
+
+### For Beginners
+1. Start with [Getting Started](Getting-Started.md) guide
+2. Explore [Button Component](Button-Component.md) - simplest component
+3. Try [Input Component](Input-Component.md) - learn form integration
+4. Build a simple form combining multiple components
+
+### For Intermediate Users
+1. Review [Components Overview](Components-Overview.md)
+2. Learn [Table Component](Table-Component.md) - most feature-rich
+3. Master [Modal Component](Modal-Component.md) - advanced patterns
+4. Study the demo code in `src/app/features/core-demo/`
+
+### For Advanced Users
+1. Read [Architecture](Architecture.md) - understand design patterns
+2. Review source code of components
+3. Contribute via [Contributing Guide](Contributing.md)
+4. Create custom components based on existing patterns
+
+## 🔧 Development Tools
+
+### Code Quality
+- **ESLint**: Enforces Angular-specific coding standards
+- **Prettier**: Maintains consistent code formatting
+- **Lefthook**: Pre-commit hooks for quality checks
+- **TypeScript Strict Mode**: Catches errors at compile time
+
+### Testing
+- **Vitest**: Fast unit test execution
+- **Coverage Reports**: Track test coverage
+- **Component Testing**: Isolated component tests
+
+## 🌟 Best Practices
+
+### Component Usage
+1. Always import components as standalone
+2. Use proper TypeScript types
+3. Handle errors and loading states
+4. Implement accessibility features
+5. Follow Angular style guide
+
+### Form Development
+1. Use Reactive Forms for complex forms
+2. Implement proper validation
+3. Show clear error messages
+4. Handle form submission states
+5. Provide user feedback
+
+### Performance
+1. Use OnPush change detection
+2. Lazy load components when possible
+3. Minimize template expressions
+4. Use trackBy in *ngFor loops
+5. Unsubscribe from observables
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](Contributing.md) for details on:
@@ -82,6 +175,20 @@ We welcome contributions! Please see our [Contributing Guide](Contributing.md) f
 - Development workflow
 - Testing requirements
 - Pull request process
+
+## ❓ Getting Help
+
+### Common Issues
+- **Build Errors**: Check Node.js version (v18+)
+- **Port Conflicts**: Use `ng serve --port 4300`
+- **Import Errors**: Verify path aliases in tsconfig.json
+- **Styling Issues**: Ensure Bootstrap is properly imported
+
+### Support Channels
+1. Check the [FAQ](FAQ.md)
+2. Search existing [GitHub Issues](https://github.com/phuongfullstack/ng-bootstrap/issues)
+3. Review component documentation
+4. Create a new issue with detailed information
 
 ## 📝 License
 
@@ -91,14 +198,19 @@ This project is open source and available under the MIT License.
 
 - [Angular Documentation](https://angular.dev/)
 - [Bootstrap 5.3 Documentation](https://getbootstrap.com/docs/5.3/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [RxJS Documentation](https://rxjs.dev/)
+- [Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [GitHub Repository](https://github.com/phuongfullstack/ng-bootstrap)
 
-## 📞 Support
+## 📊 Project Statistics
 
-If you have questions or need help:
-1. Check the [FAQ](FAQ.md)
-2. Search existing [GitHub Issues](https://github.com/phuongfullstack/ng-bootstrap/issues)
-3. Create a new issue if your question hasn't been answered
+- **Components**: 13 production-ready components
+- **Bootstrap Version**: 5.3.8
+- **Angular Version**: 21.1.2
+- **TypeScript**: Strict mode enabled
+- **Test Coverage**: Comprehensive unit tests
+- **Browser Support**: Modern browsers (Chrome, Firefox, Safari, Edge)
 
 ---
 
