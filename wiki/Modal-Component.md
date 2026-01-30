@@ -56,6 +56,7 @@ import { ModalService } from '@core/services';
 
 @Component({
   selector: 'app-example',
+  standalone: true,
   template: `<button (click)="openModal()">Open Modal</button>`
 })
 export class ExampleComponent {
@@ -153,7 +154,7 @@ interface ModalConfig {
 |-------|------|-------------|
 | `opened` | `EventEmitter<void>` | Emitted when modal is opened |
 | `closed` | `EventEmitter<any>` | Emitted when modal is closed (passes close result) |
-| `confirmed` | `EventEmitter<any>` | Emitted when modal is confirmed (not currently used in implementation) |
+| `confirmed` | `EventEmitter<any>` | Reserved for future use |
 
 ---
 
@@ -203,6 +204,8 @@ if (modalService.isOpen()) {
 
 ```typescript
 @Component({
+  standalone: true,
+  imports: [CoreModalComponent],
   template: `
     <button (click)="modal.open()">Open Modal</button>
     
@@ -226,6 +229,8 @@ export class BasicModalExample {
 
 ```typescript
 @Component({
+  standalone: true,
+  imports: [CoreModalComponent],
   template: `
     <button (click)="modal.open()">Delete Item</button>
     
@@ -282,6 +287,7 @@ export class ConfirmModalExample {
 @Component({
   selector: 'app-user-form',
   standalone: true,
+  imports: [FormsModule],
   template: `
     <div>
       <label>Name: <input [(ngModel)]="name" /></label>
@@ -296,6 +302,8 @@ export class UserFormComponent {
 
 // Main component
 @Component({
+  standalone: true,
+  imports: [CoreModalComponent],
   template: `
     <button (click)="modal.open()">Add User</button>
     
@@ -364,6 +372,7 @@ export class ServiceModalExample {
 
 ```typescript
 @Component({
+  standalone: true,
   template: `
     <button (click)="openSmall()">Small Modal</button>
     <button (click)="openMedium()">Medium Modal</button>
@@ -500,6 +509,8 @@ export class AsyncModalExample {
 
 ```typescript
 @Component({
+  standalone: true,
+  imports: [CoreModalComponent],
   template: `
     <button (click)="modal.open()">Open Custom Footer Modal</button>
     
@@ -570,6 +581,7 @@ export class PreventCloseExample {
 @Component({
   selector: 'app-login-form',
   standalone: true,
+  imports: [ReactiveFormsModule],
   template: `
     <form [formGroup]="form">
       <div class="mb-3">
@@ -846,6 +858,8 @@ Show loading indicators in buttons during async operations:
 ```typescript
 // Create a loading state in your dynamic component
 @Component({
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div>
       <p *ngIf="!loading">Ready to submit?</p>
@@ -876,8 +890,6 @@ buttons: [
 ## Related Components
 
 - [Button Component](Button-Component.md) - Modal buttons use button styling
-- [Form Components](Form-Components.md) - Often used inside modals
-- [Alert Component](Alert-Component.md) - Alternative for simple notifications
 
 ---
 
