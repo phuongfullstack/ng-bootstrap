@@ -39,16 +39,16 @@ export class CoreButtonComponent {
   @Input() type: ButtonType = BUTTON_DEFAULTS.TYPE;
   @Input() variant: ButtonVariant = BUTTON_DEFAULTS.VARIANT;
   @Input() size: ButtonSize = BUTTON_DEFAULTS.SIZE;
-  @Input() disabled = BUTTON_DEFAULTS.DISABLED;
-  @Input() loading = BUTTON_DEFAULTS.LOADING;
-  @Input() block = BUTTON_DEFAULTS.BLOCK;
-  @Input() outline = BUTTON_DEFAULTS.OUTLINE;
-  @Input() rounded = BUTTON_DEFAULTS.ROUNDED;
-  @Input() roundedCircle = BUTTON_DEFAULTS.ROUNDED_CIRCLE;
+  @Input() disabled: boolean = BUTTON_DEFAULTS.DISABLED;
+  @Input() loading: boolean = BUTTON_DEFAULTS.LOADING;
+  @Input() block: boolean = BUTTON_DEFAULTS.BLOCK;
+  @Input() outline: boolean = BUTTON_DEFAULTS.OUTLINE;
+  @Input() rounded: boolean = BUTTON_DEFAULTS.ROUNDED;
+  @Input() roundedCircle: boolean = BUTTON_DEFAULTS.ROUNDED_CIRCLE;
   @Input() icon?: string;
   @Input() iconPosition: 'left' | 'right' = BUTTON_DEFAULTS.ICON_POSITION;
   @Input() customClass?: string;
-  @Input() draggable = BUTTON_DEFAULTS.DRAGGABLE;
+  @Input() draggable: boolean = BUTTON_DEFAULTS.DRAGGABLE;
 
   @Output() clicked = new EventEmitter<MouseEvent>();
   @Output() focused = new EventEmitter<FocusEvent>();
